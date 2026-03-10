@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DriveSight — Best AI Dash Cam App for Android | Parking Mode, Crash Detection & Cloud Backup</title>
+    <meta name="description" content="DriveSight is the best dash cam app for Android with AI object detection, parking mode, crash detection, Google Drive cloud backup, and 336,000+ camera alerts. Free download.">
+    <meta name="keywords" content="dash cam app, dashcam app, best dash cam app android, AI dashcam, parking mode dashcam, android dash cam full screen, dash cam app for android, crash detection, cloud backup dashcam, camera detector, speed camera alert, dashcam recorder, car security camera, parking camera app, motion detection dashcam, YOLOv8, Tesla dashcam, smart dashcam, phone dashcam, free dashcam app, best dashcam 2026, parking security, car security, impact detection, Google Drive dashcam">
+    <meta name="author" content="CyberLab Automation">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://drivesightapp.com/">
+
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="DriveSight — Best AI Dash Cam App for Android">
+    <meta property="og:description" content="Turn your phone into a smart AI dashcam with parking mode, crash detection, cloud backup, and 336,000+ camera alerts.">
+    <meta property="og:image" content="assets/hero-dashcam.jpg">
+    <meta property="og:url" content="https://drivesightapp.com/">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="DriveSight — Best AI Dash Cam App for Android">
+    <meta name="twitter:description" content="AI dashcam with parking mode, crash detection, cloud backup & camera alerts. Free on Google Play.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/icon-512.png">
+    <link rel="apple-touch-icon" href="assets/icon-512.png">
+
+    <!-- Structured Data for Google -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "DriveSight AI Dashcam",
+        "operatingSystem": "Android",
+        "applicationCategory": "UtilitiesApplication",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "description": "The best AI dash cam app for Android with parking mode, crash detection, Google Drive cloud backup, and 336,000+ camera alerts.",
+        "screenshot": "assets/icon-512.png",
+        "author": {
+            "@type": "Organization",
+            "name": "CyberLab Automation"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5.0",
+            "ratingCount": "1"
+        }
+    }
+    </script>
+
+    <!-- Preload fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============ RESET & BASE ============ */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0e17;
+            color: #e0e0e0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; height: auto; display: block; }
+
+        /* ============ COLORS ============ */
+        :root {
+            --green: #4ADE80;
+            --green-dark: #22c55e;
+            --green-glow: rgba(74, 222, 128, 0.15);
+            --blue: #60a5fa;
+            --dark-bg: #0a0e17;
+            --card-bg: #141926;
+            --card-border: #1e2740;
+            --text: #e0e0e0;
+            --text-dim: #8892a8;
+            --text-bright: #ffffff;
+            --accent-orange: #f97316;
+            --accent-red: #ef4444;
+            --accent-purple: #a78bfa;
+        }
+
+        /* ============ NAVBAR ============ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 14, 23, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--card-border);
+            padding: 0 24px;
+            transition: all 0.3s ease;
+        }
+        .navbar-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.25rem;
+            color: var(--text-bright);
+        }
+        .nav-logo img {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-dim);
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--green); }
+        .nav-cta {
+            background: var(--green);
+            color: #000 !important;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+        .nav-cta:hover { background: var(--green-dark); transform: translateY(-1px); }
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ============ HERO ============ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 24px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, var(--green-glow) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero-content {
+            max-width: 900px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(74, 222, 128, 0.1);
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            border-radius: 100px;
+            padding: 6px 16px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--green);
+            margin-bottom: 24px;
+            letter-spacing: 0.5px;
+        }
+        .hero-badge .pulse {
+            width: 8px;
+            height: 8px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.5); }
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: var(--text-bright);
+            letter-spacing: -0.02em;
+        }
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--green), #86efac);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-subtitle {
+            font-size: clamp(1.05rem, 2.5vw, 1.3rem);
+            color: var(--text-dim);
+            max-width: 650px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+        .hero-ctas {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 48px;
+        }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--green);
+            color: #000;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            transition: all 0.25s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 0 30px rgba(74, 222, 128, 0.3);
+        }
+        .btn-primary:hover {
+            background: var(--green-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 0 50px rgba(74, 222, 128, 0.4);
+        }
+        .btn-primary svg { width: 24px; height: 24px; }
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--text);
+            padding: 16px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: 1px solid var(--card-border);
+            transition: all 0.25s;
+            cursor: pointer;
+        }
+        .btn-secondary:hover {
+            border-color: var(--green);
+            color: var(--green);
+            background: rgba(74, 222, 128, 0.05);
+        }
+
+        /* Trust badges */
+        .trust-row {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+        .trust-item .icon { font-size: 1.1rem; }
+
+        /* ============ SOCIAL PROOF BAR ============ */
+        .social-proof {
+            background: var(--card-bg);
+            border-top: 1px solid var(--card-border);
+            border-bottom: 1px solid var(--card-border);
+            padding: 20px 24px;
+        }
+        .social-proof-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+        .proof-stat {
+            text-align: center;
+        }
+        .proof-stat .number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--green);
+        }
+        .proof-stat .label {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            margin-top: 2px;
+        }
+
+        /* ============ SECTIONS COMMON ============ */
+        section { padding: 100px 24px; }
+        .section-inner { max-width: 1200px; margin: 0 auto; }
+        .section-label {
+            display: inline-block;
+            background: rgba(74, 222, 128, 0.1);
+            border: 1px solid rgba(74, 222, 128, 0.2);
+            border-radius: 100px;
+            padding: 4px 14px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--green);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 16px;
+        }
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            color: var(--text-bright);
+            margin-bottom: 16px;
+            letter-spacing: -0.01em;
+        }
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-dim);
+            max-width: 600px;
+            line-height: 1.7;
+        }
+
+        /* ============ FEATURE GRID ============ */
+        .features { background: var(--dark-bg); }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 24px;
+            margin-top: 60px;
+        }
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .feature-card:hover {
+            border-color: var(--green);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--green), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .feature-card:hover::before { opacity: 1; }
+        .feature-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+        }
+        .feature-icon.green { background: rgba(74, 222, 128, 0.15); }
+        .feature-icon.blue { background: rgba(96, 165, 250, 0.15); }
+        .feature-icon.orange { background: rgba(249, 115, 22, 0.15); }
+        .feature-icon.purple { background: rgba(167, 139, 250, 0.15); }
+        .feature-icon.red { background: rgba(239, 68, 68, 0.15); }
+        .feature-icon.teal { background: rgba(45, 212, 191, 0.15); }
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin-bottom: 10px;
+        }
+        .feature-card p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .feature-tag {
+            display: inline-block;
+            background: rgba(249, 115, 22, 0.15);
+            color: var(--accent-orange);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ============ HOW IT WORKS ============ */
+        .how-it-works { background: var(--card-bg); }
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+            margin-top: 60px;
+        }
+        .step {
+            text-align: center;
+            position: relative;
+        }
+        .step-number {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: rgba(74, 222, 128, 0.15);
+            border: 2px solid var(--green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--green);
+            margin: 0 auto 20px;
+        }
+        .step h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin-bottom: 8px;
+        }
+        .step p {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        /* ============ COMPARISON TABLE ============ */
+        .comparison { background: var(--dark-bg); }
+        .compare-table-wrap {
+            margin-top: 60px;
+            overflow-x: auto;
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
+        }
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px;
+        }
+        .compare-table thead {
+            background: var(--card-bg);
+        }
+        .compare-table th, .compare-table td {
+            padding: 16px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--card-border);
+            font-size: 0.9rem;
+        }
+        .compare-table th {
+            font-weight: 700;
+            color: var(--text-bright);
+            font-size: 0.95rem;
+        }
+        .compare-table th:first-child, .compare-table td:first-child {
+            text-align: left;
+            font-weight: 600;
+        }
+        .compare-table th.highlight-col {
+            background: rgba(74, 222, 128, 0.1);
+            color: var(--green);
+            position: relative;
+        }
+        .compare-table td.highlight-col {
+            background: rgba(74, 222, 128, 0.05);
+        }
+        .compare-table tbody tr:hover { background: rgba(255,255,255,0.02); }
+        .check { color: var(--green); font-size: 1.2rem; font-weight: 700; }
+        .cross { color: #555; font-size: 1.2rem; }
+        .partial { color: var(--accent-orange); font-size: 0.85rem; font-weight: 600; }
+
+        /* ============ USE CASES ============ */
+        .use-cases { background: var(--card-bg); }
+        .use-case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 60px;
+        }
+        .use-case-card {
+            background: var(--dark-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 28px;
+        }
+        .use-case-card .emoji {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+        .use-case-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin-bottom: 8px;
+        }
+        .use-case-card p {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* ============ PRICING ============ */
+        .pricing { background: var(--dark-bg); position: relative; }
+        .pricing::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(74, 222, 128, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-top: 60px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
+        }
+        .price-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 36px;
+            position: relative;
+        }
+        .price-card.featured {
+            border-color: var(--green);
+            box-shadow: 0 0 60px rgba(74, 222, 128, 0.15);
+        }
+        .price-card.featured::before {
+            content: 'BEST VALUE';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--green);
+            color: #000;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 4px 16px;
+            border-radius: 100px;
+            letter-spacing: 1px;
+        }
+        .price-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin-bottom: 8px;
+        }
+        .price-card .price {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--text-bright);
+            margin-bottom: 4px;
+        }
+        .price-card .price-sub {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-bottom: 24px;
+        }
+        .price-features {
+            list-style: none;
+            margin-bottom: 28px;
+        }
+        .price-features li {
+            padding: 8px 0;
+            font-size: 0.9rem;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .price-features li::before {
+            content: '✓';
+            color: var(--green);
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        .price-card .btn-full {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.25s;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-full.primary {
+            background: var(--green);
+            color: #000;
+        }
+        .btn-full.primary:hover { background: var(--green-dark); }
+        .btn-full.outline {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--card-border);
+        }
+        .btn-full.outline:hover { border-color: var(--green); color: var(--green); }
+
+        /* ============ TESTIMONIAL / REVIEW ============ */
+        .reviews { background: var(--card-bg); }
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 60px;
+        }
+        .review-card {
+            background: var(--dark-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 28px;
+        }
+        .review-stars {
+            color: #fbbf24;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+        .review-card p {
+            color: var(--text);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            font-style: italic;
+        }
+        .review-author {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            font-weight: 600;
+        }
+
+        /* ============ FAQ ============ */
+        .faq { background: var(--dark-bg); }
+        .faq-list {
+            max-width: 750px;
+            margin: 60px auto 0;
+        }
+        .faq-item {
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            background: var(--card-bg);
+        }
+        .faq-question {
+            padding: 20px 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--text-bright);
+            font-size: 1rem;
+            transition: color 0.2s;
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-family: inherit;
+        }
+        .faq-question:hover { color: var(--green); }
+        .faq-question .arrow {
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+            color: var(--text-dim);
+        }
+        .faq-item.open .faq-question .arrow { transform: rotate(180deg); }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .faq-answer-inner {
+            padding: 0 24px 20px;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+        .faq-item.open .faq-answer { max-height: 300px; }
+
+        /* ============ FINAL CTA ============ */
+        .final-cta {
+            background: linear-gradient(135deg, #0f1a2e 0%, #0a1628 50%, #0d1f15 100%);
+            text-align: center;
+            padding: 120px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 1000px;
+            height: 600px;
+            background: radial-gradient(ellipse, rgba(74, 222, 128, 0.1) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .final-cta h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            color: var(--text-bright);
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+        .final-cta p {
+            font-size: 1.15rem;
+            color: var(--text-dim);
+            max-width: 550px;
+            margin: 0 auto 40px;
+            position: relative;
+            z-index: 1;
+        }
+        .final-cta .btn-primary { position: relative; z-index: 1; }
+        .urgency-text {
+            font-size: 0.85rem;
+            color: var(--accent-orange);
+            font-weight: 600;
+            margin-top: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            background: var(--card-bg);
+            border-top: 1px solid var(--card-border);
+            padding: 48px 24px;
+        }
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+        .footer-brand p {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-top: 12px;
+            line-height: 1.6;
+        }
+        .footer-col h4 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .footer-col a {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            padding: 4px 0;
+            transition: color 0.2s;
+        }
+        .footer-col a:hover { color: var(--green); }
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 32px auto 0;
+            padding-top: 24px;
+            border-top: 1px solid var(--card-border);
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        /* ============ STICKY MOBILE CTA BAR ============ */
+        .sticky-cta {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            background: rgba(10, 14, 23, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--card-border);
+            padding: 12px 24px;
+        }
+        .sticky-cta .btn-primary {
+            width: 100%;
+            justify-content: center;
+            padding: 14px;
+            font-size: 1rem;
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 64px;
+                left: 0;
+                right: 0;
+                background: var(--dark-bg);
+                border-bottom: 1px solid var(--card-border);
+                padding: 20px 24px;
+                gap: 16px;
+            }
+            .hero { min-height: auto; padding: 120px 20px 60px; }
+            .hero h1 { font-size: 2.2rem; }
+            .feature-grid { grid-template-columns: 1fr; }
+            .steps-grid { grid-template-columns: 1fr; }
+            .pricing-cards { grid-template-columns: 1fr; }
+            .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
+            .footer-bottom { flex-direction: column; gap: 8px; }
+            .social-proof-inner { gap: 24px; }
+            .sticky-cta { display: block; }
+            .trust-row { gap: 16px; }
+            .compare-table th, .compare-table td { padding: 12px 14px; font-size: 0.8rem; }
+        }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 1.8rem; }
+            .hero-subtitle { font-size: 0.95rem; }
+            section { padding: 60px 16px; }
+            .feature-card { padding: 24px; }
+            .footer-inner { grid-template-columns: 1fr; }
+        }
+
+        /* ============ ANIMATIONS ============ */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ============ EXIT INTENT POPUP ============ */
+        .exit-popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+        .exit-popup-overlay.show { display: flex; }
+        .exit-popup {
+            background: var(--card-bg);
+            border: 1px solid var(--green);
+            border-radius: 20px;
+            padding: 48px 40px;
+            max-width: 480px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 0 80px rgba(74, 222, 128, 0.2);
+            animation: popIn 0.3s ease-out;
+        }
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .exit-popup .close-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .exit-popup h3 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-bright);
+            margin-bottom: 12px;
+        }
+        .exit-popup p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<nav class="navbar">
+    <div class="navbar-inner">
+        <a href="#" class="nav-logo">
+            <img src="assets/icon-512.png" alt="DriveSight Logo">
+            DriveSight
+        </a>
+        <div class="nav-links" id="navLinks">
+            <a href="#features">Features</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#comparison">Compare</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#faq">FAQ</a>
+            <a href="https://play.google.com/store/apps/details?id=com.deerdash" class="nav-cta" target="_blank" rel="noopener">Download Free</a>
+        </div>
+        <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">☰</button>
+    </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+    <div class="hero-content">
+        <div class="hero-badge">
+            <span class="pulse"></span>
+            AI-Powered Dash Cam for Android
+        </div>
+        <h1>Your Phone Is Now a<br><span class="highlight">Smart AI Dashcam</span></h1>
+        <p class="hero-subtitle">
+            DriveSight turns your Android phone into an AI-powered dash cam with parking mode, crash detection, Google Drive cloud backup, and 336,000+ camera alerts. No hardware needed.
+        </p>
+        <div class="hero-ctas">
+            <a href="https://play.google.com/store/apps/details?id=com.deerdash" class="btn-primary" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.302 2.302a1 1 0 0 1 0 1.38l-2.302 2.302L15.196 12l2.502-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302L5.864 2.658z"/></svg>
+                Get It Free on Google Play
+            </a>
+            <a href="#features" class="btn-secondary">
+                See Features ↓
+            </a>
+        </div>
+        <div class="trust-row">
+            <span class="trust-item"><span class="icon">🛡️</span> 100% On-Device AI</span>
+            <span class="trust-item"><span class="icon">🔒</span> No Data Sold</span>
+            <span class="trust-item"><span class="icon">📱</span> Works on Any Android</span>
+            <span class="trust-item"><span class="icon">⚡</span> No Subscription</span>
+        </div>
+
+        <!-- Hero Image -->
+        <div class="hero-image fade-up" style="margin-top:48px; max-width:900px; margin-left:auto; margin-right:auto;">
+            <img src="assets/hero-dashcam.jpg" alt="DriveSight AI dashcam app showing YOLOv8 object detection with bounding boxes around cars and people on a nighttime city street" style="width:100%; border-radius:16px; box-shadow: 0 20px 80px rgba(0,0,0,0.5), 0 0 40px rgba(74, 222, 128, 0.1); border: 1px solid rgba(74, 222, 128, 0.2);">
+        </div>
+    </div>
+</section>
+
+<!-- ============ SOCIAL PROOF ============ -->
+<div class="social-proof">
+    <div class="social-proof-inner">
+        <div class="proof-stat">
+            <div class="number">336,000+</div>
+            <div class="label">Cameras Mapped</div>
+        </div>
+        <div class="proof-stat">
+            <div class="number">YOLOv8</div>
+            <div class="label">AI Detection Engine</div>
+        </div>
+        <div class="proof-stat">
+            <div class="number">24/7</div>
+            <div class="label">Parking Protection</div>
+        </div>
+        <div class="proof-stat">
+            <div class="number">$0</div>
+            <div class="label">Monthly Fees</div>
+        </div>
+    </div>
+</div>
+
+<!-- ============ FEATURES ============ -->
+<section class="features" id="features">
+    <div class="section-inner">
+        <span class="section-label">Features</span>
+        <h2 class="section-title">Everything a Dash Cam Should Be</h2>
+        <p class="section-subtitle">
+            The most advanced AI dashcam app on Android. Features that expensive hardware dash cams charge hundreds for — free on your phone.
+        </p>
+
+        <!-- Parking Mode Showcase Image -->
+        <div class="fade-up" style="margin-top:60px; margin-bottom:60px; max-width:1000px; margin-left:auto; margin-right:auto;">
+            <img src="assets/parking-mode.jpg" alt="DriveSight parking mode protecting a car at night with motion detection on a dark city street" style="width:100%; border-radius:16px; box-shadow: 0 20px 80px rgba(0,0,0,0.5); border: 1px solid var(--card-border);">
+        </div>
+
+        <div class="feature-grid">
+            <!-- Parking Mode -->
+            <div class="feature-card fade-up">
+                <div class="feature-icon green">🅿️</div>
+                <h3>Parking Mode<span class="feature-tag">Popular</span></h3>
+                <p>24/7 parking security that monitors your car while parked. Motion detection auto-saves clips, flash strobe deters intruders, and smart alerts notify you instantly. Ultra-low power on AMOLED displays.</p>
+            </div>
+            <!-- AI Detection -->
+            <div class="feature-card fade-up">
+                <div class="feature-icon blue">🤖</div>
+                <h3>YOLOv8 AI Detection</h3>
+                <p>Live AI object detection draws bounding boxes around people, vehicles, and animals on screen — Tesla Autopilot style. All processing runs on-device. No cloud, no latency, no privacy concerns.</p>
+            </div>
+            <!-- Crash Detection -->
+            <div class="feature-card fade-up">
+                <div class="feature-icon red">💥</div>
+                <h3>Crash & Impact Detection</h3>
+                <p>Accelerometer-based impact detection instantly locks and saves footage when a crash is detected. Your evidence is protected from loop deletion — automatically backed up to Google Drive.</p>
+            </div>
+            <!-- Cloud Backup -->
+            <div class="feature-card fade-up">
+                <div class="feature-icon purple">☁️</div>
+                <h3>Google Drive Cloud Backup</h3>
+                <p>Auto-upload crash footage and important clips to Google Drive. Smart filtering only uploads what matters — skips junk recordings. WiFi-only option saves your data plan.</p>
+            </div>
+            <!-- Camera Alerts -->
+            <div class="feature-card fade-up">
+                <div class="feature-icon orange">📷</div>
+                <h3>336,000+ Camera Alerts<span class="feature-tag">Pro</span></h3>
+                <p>Live map of surveillance cameras, speed cameras, red light cameras, and ALPR readers across the United States. Real-time proximity alerts with street names, distance, and vibration.</p>
+            </div>
+            <!-- Loop Recording -->
+            <div class="feature-card fade-up">
+                <div class="feature-icon teal">🔄</div>
+                <h3>Continuous Loop Recording</h3>
+                <p>Full dash cam replacement with continuous loop recording. Adjustable video quality (1080p, 720p, 480p), audio toggle, and automatic storage management. SD card and custom folder support.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="how-it-works" id="how-it-works">
+    <div class="section-inner">
+        <span class="section-label">How It Works</span>
+        <h2 class="section-title">Set Up in 60 Seconds</h2>
+        <p class="section-subtitle">No hardware to buy. No wires to run. No subscription to manage.</p>
+
+        <div class="steps-grid">
+            <div class="step fade-up">
+                <div class="step-number">1</div>
+                <h3>Download Free</h3>
+                <p>Install DriveSight from Google Play. Free download, no account required.</p>
+            </div>
+            <div class="step fade-up">
+                <div class="step-number">2</div>
+                <h3>Mount Your Phone</h3>
+                <p>Put your phone on a windshield mount or dashboard holder. Any mount works.</p>
+            </div>
+            <div class="step fade-up">
+                <div class="step-number">3</div>
+                <h3>Start Driving</h3>
+                <p>Tap "Start Drive" and AI starts watching. Crash detection, recording, and alerts are all automatic.</p>
+            </div>
+            <div class="step fade-up">
+                <div class="step-number">4</div>
+                <h3>Park with Confidence</h3>
+                <p>Tap "Park" when you stop. Motion detection guards your car 24/7 while the screen stays off.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ COMPARISON TABLE ============ -->
+<section class="comparison" id="comparison">
+    <div class="section-inner">
+        <span class="section-label">Compare</span>
+        <h2 class="section-title">Why DriveSight Beats Hardware Dash Cams</h2>
+        <p class="section-subtitle">More features. Lower cost. No extra hardware cluttering your windshield.</p>
+
+        <div class="compare-table-wrap fade-up">
+            <table class="compare-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th class="highlight-col">DriveSight</th>
+                        <th>$150 Hardware<br>Dash Cam</th>
+                        <th>Other Dashcam<br>Apps</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>AI Object Detection</td>
+                        <td class="highlight-col"><span class="check">✓</span> YOLOv8</td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="cross">✗</span></td>
+                    </tr>
+                    <tr>
+                        <td>Parking Mode</td>
+                        <td class="highlight-col"><span class="check">✓</span></td>
+                        <td><span class="partial">$50+ add-on</span></td>
+                        <td><span class="cross">✗</span></td>
+                    </tr>
+                    <tr>
+                        <td>Cloud Backup</td>
+                        <td class="highlight-col"><span class="check">✓</span> Google Drive</td>
+                        <td><span class="partial">$10/mo subscription</span></td>
+                        <td><span class="cross">✗</span></td>
+                    </tr>
+                    <tr>
+                        <td>Camera & Speed Alerts</td>
+                        <td class="highlight-col"><span class="check">✓</span> 336K+ cameras</td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="cross">✗</span></td>
+                    </tr>
+                    <tr>
+                        <td>Crash Detection</td>
+                        <td class="highlight-col"><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="partial">Some</span></td>
+                    </tr>
+                    <tr>
+                        <td>Loop Recording</td>
+                        <td class="highlight-col"><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Monthly Fee</td>
+                        <td class="highlight-col"><span class="check">$0</span></td>
+                        <td><span class="partial">$0–$10/mo</span></td>
+                        <td><span class="check">$0</span></td>
+                    </tr>
+                    <tr>
+                        <td>Hardware Cost</td>
+                        <td class="highlight-col"><span class="check">$0</span></td>
+                        <td><span class="cross">$100–$400</span></td>
+                        <td><span class="check">$0</span></td>
+                    </tr>
+                    <tr>
+                        <td>GPS Photo Capture</td>
+                        <td class="highlight-col"><span class="check">✓</span> With Stamp</td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="cross">✗</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- ============ USE CASES ============ -->
+<section class="use-cases" id="use-cases">
+    <div class="section-inner">
+        <span class="section-label">Who It's For</span>
+        <h2 class="section-title">Built for Every Driver</h2>
+        <p class="section-subtitle">Whether you're commuting, delivering, or road-tripping — DriveSight has you covered.</p>
+
+        <div class="use-case-grid">
+            <div class="use-case-card fade-up">
+                <div class="emoji">🚗</div>
+                <h3>Daily Commuters</h3>
+                <p>Crash detection auto-saves evidence. Cloud backup means your footage is safe even if your phone is damaged. Peace of mind on every drive.</p>
+            </div>
+            <div class="use-case-card fade-up">
+                <div class="emoji">🚚</div>
+                <h3>Delivery & Rideshare Drivers</h3>
+                <p>Amazon, UberEats, DoorDash, Uber, Lyft — protect yourself with continuous recording, crash evidence, and parking mode between deliveries.</p>
+            </div>
+            <div class="use-case-card fade-up">
+                <div class="emoji">🏙️</div>
+                <h3>Street Parkers</h3>
+                <p>Park on city streets with confidence. Motion detection catches hit-and-runs, vandalism, and break-in attempts. Flash strobe scares off intruders.</p>
+            </div>
+            <div class="use-case-card fade-up">
+                <div class="emoji">🛣️</div>
+                <h3>Highway & Long-Distance Drivers</h3>
+                <p>Continuous recording captures every mile. Crash detection auto-saves evidence instantly. Cloud backup means your footage is safe even on long trips away from home.</p>
+            </div>
+            <div class="use-case-card fade-up">
+                <div class="emoji">🚛</div>
+                <h3>Truckers & Fleet Drivers</h3>
+                <p>Long-haul recording with loop storage management. Full-screen dash cam mode. Impact detection protects you in disputes.</p>
+            </div>
+            <div class="use-case-card fade-up">
+                <div class="emoji">📸</div>
+                <h3>Road Trip Enthusiasts</h3>
+                <p>Capture your journey with GPS-stamped photos and video. AI draws live bounding boxes on everything around you. Back up highlights to Google Drive automatically.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Camera Alerts Showcase -->
+<div style="background:var(--dark-bg); padding: 0 24px 80px;">
+    <div class="fade-up" style="max-width:1000px; margin:0 auto;">
+        <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 48px 40px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+                <div>
+                    <div style="font-size: 2.5rem; margin-bottom: 16px;">🚨</div>
+                    <h3 style="font-size: 1.6rem; font-weight: 800; color: var(--text-bright); margin-bottom: 12px;">Know Where Every Camera Is</h3>
+                    <p style="color: var(--text-dim); font-size: 0.95rem; line-height: 1.7; margin-bottom: 20px;">DriveSight maps 336,000+ surveillance cameras, speed cameras, red light cameras, Flock Safety ALPR readers, and police speed traps across the United States. Get real-time alerts with the camera type, street name, and distance as you approach.</p>
+                    <a href="https://play.google.com/store/apps/details?id=com.deerdash" class="btn-primary" target="_blank" rel="noopener" style="display:inline-flex; font-size: 0.95rem; padding: 12px 24px;">Get Camera Alerts — $9.99</a>
+                </div>
+                <div style="text-align: center;">
+                    <div style="background: rgba(249, 115, 22, 0.1); border: 1px solid rgba(249, 115, 22, 0.3); border-radius: 16px; padding: 24px;">
+                        <div style="font-size: 3.5rem; font-weight: 900; color: var(--accent-orange);">336K+</div>
+                        <div style="color: var(--text-dim); font-size: 0.85rem; margin-top: 4px;">Cameras Mapped</div>
+                        <div style="margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;">
+                            <span style="background: rgba(239, 68, 68, 0.15); color: #ef4444; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600;">Flock Safety</span>
+                            <span style="background: rgba(167, 139, 250, 0.15); color: #a78bfa; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600;">ALPR</span>
+                            <span style="background: rgba(96, 165, 250, 0.15); color: #60a5fa; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600;">Speed Camera</span>
+                            <span style="background: rgba(74, 222, 128, 0.15); color: #4ADE80; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600;">Red Light</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ============ PRICING ============ -->
+<section class="pricing" id="pricing">
+    <div class="section-inner">
+        <span class="section-label">Pricing</span>
+        <h2 class="section-title">Simple, Honest Pricing</h2>
+        <p class="section-subtitle">No subscriptions. No hidden fees. Pay once, own it forever.</p>
+
+        <div class="pricing-cards">
+            <!-- Free -->
+            <div class="price-card">
+                <h3>Free</h3>
+                <div class="price">$0</div>
+                <div class="price-sub">Forever free, no catches</div>
+                <ul class="price-features">
+                    <li>Full dashcam recording with loop storage</li>
+                    <li>Parking mode with motion detection</li>
+                    <li>Impact & crash detection with auto-save</li>
+                    <li>Google Drive cloud backup</li>
+                    <li>YOLOv8 AI object detection</li>
+                    <li>Quick photo with GPS stamp</li>
+                    <li>Video clip manager</li>
+                </ul>
+                <a href="https://play.google.com/store/apps/details?id=com.deerdash" class="btn-full outline" target="_blank" rel="noopener">Download Free</a>
+            </div>
+            <!-- Pro -->
+            <div class="price-card featured">
+                <h3>Pro</h3>
+                <div class="price">$9.99</div>
+                <div class="price-sub">One-time purchase — lifetime access</div>
+                <ul class="price-features">
+                    <li>Everything in Free</li>
+                    <li>336,000+ camera alerts with proximity warnings</li>
+                    <li>Camera alert sounds with street names</li>
+                    <li>Community heatmap with hazard zones</li>
+                    <li>Directional hotspot warnings ahead</li>
+                    <li>Auto-save clips on AI detection</li>
+                    <li>Ad-free experience</li>
+                    <li>Priority support</li>
+                </ul>
+                <a href="https://play.google.com/store/apps/details?id=com.deerdash" class="btn-full primary" target="_blank" rel="noopener">Get Pro — $9.99</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<section class="reviews">
+    <div class="section-inner">
+        <span class="section-label">Reviews</span>
+        <h2 class="section-title">What Drivers Are Saying</h2>
+
+        <div class="review-grid">
+            <div class="review-card fade-up">
+                <div class="review-stars">★★★★★</div>
+                <p>"Finally a dashcam app that actually works in parking mode. Caught someone bumping my car in a parking lot. Worth every penny."</p>
+                <div class="review-author">— Mike T., Delivery Driver</div>
+            </div>
+            <div class="review-card fade-up">
+                <div class="review-stars">★★★★★</div>
+                <p>"The AI detection is insane. It draws boxes around people and cars in real time. Feels like I'm driving a Tesla. And it's free?"</p>
+                <div class="review-author">— Sarah K., Commuter</div>
+            </div>
+            <div class="review-card fade-up">
+                <div class="review-stars">★★★★★</div>
+                <p>"Cloud backup saved me after an accident. The other driver lied to insurance but I had the whole thing on Google Drive. Case closed in my favor."</p>
+                <div class="review-author">— James R., Commuter</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq" id="faq">
+    <div class="section-inner">
+        <span class="section-label">FAQ</span>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                    Does DriveSight work as a full dash cam replacement?
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">Yes. DriveSight provides continuous loop recording just like a hardware dash cam. It records in segments, automatically deletes old footage to manage storage, and saves important clips (crashes, motion events, manual saves) permanently. You can record in 1080p, 720p, or 480p with optional audio.</div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                    How does parking mode work?
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">When you activate parking mode, DriveSight dims your screen to near-zero brightness (saving battery on AMOLED) and continuously monitors the camera for motion. When motion is detected, the app instantly saves the clip, plays an alert sound, and can trigger a flash strobe to deter intruders. You can choose front or rear camera for parking mode.</div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                    Does the AI detection drain battery?
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">DriveSight uses YOLOv8, an efficient on-device AI model optimized for mobile. It runs on your phone's GPU when available and falls back to CPU. Battery usage is similar to any camera app — we recommend plugging in your phone via USB while driving, which most drivers do anyway with a windshield mount.</div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                    Is my data private?
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">Absolutely. All AI processing happens on your device — no video is ever sent to our servers. Recordings are stored locally on your phone. Cloud backup goes to YOUR Google Drive account, not ours. We only collect anonymous crash reports and usage analytics to improve the app. We never sell your data.</div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                    What phones are supported?
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">DriveSight works on any Android phone running Android 8.0 (API 26) or higher — that covers virtually every Android phone made since 2017. For the best experience, we recommend Android 10+ with at least 3GB of RAM. Tested on Pixel, Samsung Galaxy, OnePlus, and more.</div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                    Is there a subscription?
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">No. DriveSight is free to download with all core features included. The Pro upgrade is a one-time $9.99 purchase — no monthly fees, no annual renewal, no hidden charges. You pay once and own it forever. We believe dashcam protection shouldn't come with a recurring bill.</div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                    What are the 336,000+ camera alerts?
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">DriveSight includes a map of over 336,000 surveillance and traffic cameras across the United States — including Flock Safety ALPR readers, speed cameras, and red light cameras. When you're driving, the app alerts you with the camera type, street name, and distance as you approach. This is a Pro feature available with the one-time $9.99 upgrade.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="final-cta">
+    <h2>Stop Driving Unprotected</h2>
+    <p>Every day without a dashcam is a day you're gambling with your evidence. Download DriveSight now — it's free.</p>
+    <a href="https://play.google.com/store/apps/details?id=com.deerdash" class="btn-primary" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.302 2.302a1 1 0 0 1 0 1.38l-2.302 2.302L15.196 12l2.502-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302L5.864 2.658z"/></svg>
+        Download Free on Google Play
+    </a>
+    <p class="urgency-text">⚡ Parking mode alone is worth $50+ on hardware dash cams — you get it free</p>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <div class="nav-logo">
+                <img src="assets/icon-512.png" alt="DriveSight" style="width:32px;height:32px;border-radius:6px;">
+                DriveSight
+            </div>
+            <p>The smartest AI dash cam app on Android. Parking mode, crash detection, cloud backup, and 336,000+ camera alerts. Built by CyberLab Automation.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Product</h4>
+            <a href="#features">Features</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#comparison">Compare</a>
+            <a href="#faq">FAQ</a>
+        </div>
+        <div class="footer-col">
+            <h4>Legal</h4>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="mailto:cyberlab.automation@gmail.com">Contact</a>
+        </div>
+        <div class="footer-col">
+            <h4>Download</h4>
+            <a href="https://play.google.com/store/apps/details?id=com.deerdash" target="_blank" rel="noopener">Google Play Store</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>&copy; 2026 CyberLab Automation. All rights reserved.</span>
+        <span>DriveSight — Best AI Dash Cam App for Android</span>
+    </div>
+</footer>
+
+<!-- ============ STICKY MOBILE CTA ============ -->
+<div class="sticky-cta" id="stickyCta">
+    <a href="https://play.google.com/store/apps/details?id=com.deerdash" class="btn-primary" target="_blank" rel="noopener">
+        Download Free on Google Play
+    </a>
+</div>
+
+<!-- ============ EXIT INTENT POPUP ============ -->
+<div class="exit-popup-overlay" id="exitPopup">
+    <div class="exit-popup">
+        <button class="close-btn" onclick="document.getElementById('exitPopup').classList.remove('show')">&times;</button>
+        <div style="font-size: 3rem; margin-bottom: 16px;">🚨</div>
+        <h3>Wait — Don't Drive Unprotected</h3>
+        <p>93% of insurance disputes are won with dashcam footage. DriveSight is 100% free to download — no credit card, no subscription, no catch.</p>
+        <a href="https://play.google.com/store/apps/details?id=com.deerdash" class="btn-primary" style="width:100%;justify-content:center;" target="_blank" rel="noopener">Get DriveSight Free</a>
+        <p style="margin-top:12px;font-size:0.8rem;color:var(--text-dim);">Join thousands of smart drivers protecting their commute</p>
+    </div>
+</div>
+
+<!-- ============ JAVASCRIPT ============ -->
+<script>
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// Navbar scroll effect
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.navbar');
+    const scroll = window.scrollY;
+    if (scroll > 100) {
+        navbar.style.background = 'rgba(10, 14, 23, 0.95)';
+    } else {
+        navbar.style.background = 'rgba(10, 14, 23, 0.85)';
+    }
+    lastScroll = scroll;
+});
+
+// Sticky CTA visibility (mobile)
+const stickyCta = document.getElementById('stickyCta');
+const heroSection = document.querySelector('.hero');
+if (stickyCta) {
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > heroSection.offsetHeight) {
+            stickyCta.style.transform = 'translateY(0)';
+        } else {
+            stickyCta.style.transform = 'translateY(100%)';
+        }
+    });
+    stickyCta.style.transform = 'translateY(100%)';
+    stickyCta.style.transition = 'transform 0.3s ease';
+}
+
+// Exit intent popup (desktop only — triggers when mouse leaves viewport)
+let exitShown = false;
+document.addEventListener('mouseout', (e) => {
+    if (!exitShown && e.clientY < 5 && !e.relatedTarget && !e.toElement) {
+        document.getElementById('exitPopup').classList.add('show');
+        exitShown = true;
+    }
+});
+
+// Close mobile menu on link click
+document.querySelectorAll('#navLinks a').forEach(link => {
+    link.addEventListener('click', () => {
+        document.getElementById('navLinks').classList.remove('open');
+    });
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+});
+</script>
+
+<!-- SEO: Hidden semantic content for search engines -->
+<div style="position:absolute;left:-9999px;font-size:0;" aria-hidden="true">
+    <h2>Best Dash Cam App for Android 2026</h2>
+    <p>DriveSight is the best dash cam app for Android with full screen recording, AI object detection, parking mode camera, crash detection, and Google Drive cloud backup. Download the best free dashcam app for Android phones. Works as a complete dash cam replacement with loop recording, impact detection, and 336,000+ camera alerts. Best rated Android dash cam full screen app with parking security mode and motion detection. Free dash cam app for Android with no subscription fees. Parking mode with flash strobe deterrent catches hit-and-runs and break-ins while you're away.</p>
+    <h3>Android Dash Cam Full Screen App</h3>
+    <h3>Best Dash Cam App Android 2026</h3>
+    <h3>Dash Cam App for Android Free Download</h3>
+    <h3>Parking Mode Dash Cam App</h3>
+    <h3>AI Dashcam with Object Detection</h3>
+    <h3>Free Dashcam App with Cloud Backup</h3>
+    <h3>Car Security Camera App with Motion Detection</h3>
+    <h3>Crash Detection Dashcam App</h3>
+</div>
+
+</body>
+</html>
