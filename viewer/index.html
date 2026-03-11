@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DriveSight Remote Viewer</title>
+    <link rel="icon" type="image/png" href="../assets/icon-512.png">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #0a0a0a;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        /* Status bar at top */
+        .status-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+            z-index: 10;
+        }
+
+        .status-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #666;
+            transition: background 0.3s;
+        }
+        .status-dot.connecting { background: #f59e0b; animation: pulse 1.5s infinite; }
+        .status-dot.connected { background: #22c55e; }
+        .status-dot.failed { background: #ef4444; }
+
+        .status-text {
+            font-size: 14px;
+            color: #999;
+            transition: color 0.3s;
+        }
+        .status-text.connected { color: #22c55e; }
+        .status-text.failed { color: #ef4444; }
+
+        .logo-text {
+            font-size: 13px;
+            color: #555;
+            font-weight: 600;
+        }
+
+        /* Video container */
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #000;
+        }
+
+        /* Center overlay (connecting / error messages) */
+        .center-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 5;
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 3px solid #333;
+            border-top: 3px solid #f59e0b;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 16px;
+        }
+
+        .overlay-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .overlay-subtitle {
+            font-size: 14px;
+            color: #888;
+            max-width: 300px;
+            line-height: 1.5;
+        }
+
+        .retry-btn {
+            margin-top: 16px;
+            padding: 10px 24px;
+            background: #f59e0b;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .retry-btn:hover { background: #d97706; }
+
+        /* Motion alert banner */
+        .motion-alert {
+            position: fixed;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ef4444;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 20;
+            animation: slideDown 0.3s ease-out, fadeOut 0.5s ease-in 4.5s forwards;
+            box-shadow: 0 4px 20px rgba(239,68,68,0.4);
+        }
+
+        .motion-alert-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Bottom bar */
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 16px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            z-index: 10;
+        }
+
+        .fullscreen-btn {
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            color: #ccc;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .fullscreen-btn:hover { background: rgba(255,255,255,0.2); }
+
+        .hidden { display: none !important; }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+        @keyframes slideDown { from { top: 40px; opacity: 0; } to { top: 60px; opacity: 1; } }
+        @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
+
+        /* Landscape optimization */
+        @media (orientation: landscape) {
+            .status-bar { padding: 8px 16px; }
+            .bottom-bar { padding: 8px 16px; }
+        }
+
+        /* Error screen */
+        .error-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Status bar -->
+    <div class="status-bar">
+        <div class="status-left">
+            <div class="status-dot" id="statusDot"></div>
+            <span class="status-text" id="statusText">Initializing...</span>
+        </div>
+        <span class="logo-text">DriveSight</span>
+    </div>
+
+    <!-- Video -->
+    <div class="video-container">
+        <video id="remoteVideo" autoplay playsinline muted></video>
+
+        <!-- Center overlay for states -->
+        <div class="center-overlay" id="centerOverlay">
+            <div class="spinner" id="spinner"></div>
+            <div class="overlay-title" id="overlayTitle">Connecting to Dashcam...</div>
+            <div class="overlay-subtitle" id="overlaySubtitle">Establishing secure connection</div>
+            <button class="retry-btn hidden" id="retryBtn" onclick="retryConnection()">Retry Connection</button>
+        </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="bottom-bar">
+        <button class="fullscreen-btn" onclick="toggleFullscreen()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/>
+            </svg>
+            Fullscreen
+        </button>
+    </div>
+
+    <!-- Motion alert (injected dynamically) -->
+    <div id="alertContainer"></div>
+
+    <!-- Firebase JS SDK (v9 compat for simplicity) -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+    <script>
+        // ─── Firebase Config ───────────────────────────────────────────
+        const firebaseConfig = {
+            apiKey: "AIzaSyBn6SRgwVvcNkP9sUoHep_iShLFC-pJSIk",
+            authDomain: "deer-dash.firebaseapp.com",
+            projectId: "deer-dash",
+            storageBucket: "deer-dash.firebasestorage.app",
+            messagingSenderId: "834190963152"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // ─── Parse URL params ──────────────────────────────────────────
+        const params = new URLSearchParams(window.location.search);
+        const sessionId = params.get('s');
+        const sessionSecret = params.get('k');
+
+        // ─── DOM refs ──────────────────────────────────────────────────
+        const video = document.getElementById('remoteVideo');
+        const statusDot = document.getElementById('statusDot');
+        const statusText = document.getElementById('statusText');
+        const centerOverlay = document.getElementById('centerOverlay');
+        const spinner = document.getElementById('spinner');
+        const overlayTitle = document.getElementById('overlayTitle');
+        const overlaySubtitle = document.getElementById('overlaySubtitle');
+        const retryBtn = document.getElementById('retryBtn');
+        const alertContainer = document.getElementById('alertContainer');
+
+        // ─── State ─────────────────────────────────────────────────────
+        let peerConnection = null;
+        let unsubAnswer = null;
+        let unsubCandidates = null;
+        let unsubMotion = null;
+        let lastMotionTimestamp = 0;
+
+        // ─── STUN config (same as Android app) ────────────────────────
+        const rtcConfig = {
+            iceServers: [
+                { urls: 'stun:stun.l.google.com:19302' },
+                { urls: 'stun:stun1.l.google.com:19302' }
+            ],
+            sdpSemantics: 'unified-plan'
+        };
+
+        // ─── UI helpers ────────────────────────────────────────────────
+        function setStatus(state, text) {
+            statusDot.className = 'status-dot ' + state;
+            statusText.textContent = text;
+            statusText.className = 'status-text ' + state;
+        }
+
+        function showOverlay(title, subtitle, showSpinner, showRetry) {
+            centerOverlay.classList.remove('hidden');
+            overlayTitle.textContent = title;
+            overlaySubtitle.textContent = subtitle;
+            spinner.classList.toggle('hidden', !showSpinner);
+            retryBtn.classList.toggle('hidden', !showRetry);
+        }
+
+        function hideOverlay() {
+            centerOverlay.classList.add('hidden');
+        }
+
+        function showMotionAlert() {
+            const alert = document.createElement('div');
+            alert.className = 'motion-alert';
+            alert.innerHTML = `
+                <svg class="motion-alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                    <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+                Motion Detected!
+            `;
+            alertContainer.innerHTML = '';
+            alertContainer.appendChild(alert);
+
+            // Also trigger browser notification if permitted
+            if (Notification.permission === 'granted') {
+                new Notification('DriveSight', {
+                    body: 'Motion detected on your dashcam!',
+                    icon: '../assets/icon-512.png',
+                    tag: 'motion-alert',
+                    renotify: true
+                });
+            }
+
+            // Remove after 5s
+            setTimeout(() => { alert.remove(); }, 5000);
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        // ─── Request notification permission ───────────────────────────
+        function requestNotificationPermission() {
+            if ('Notification' in window && Notification.permission === 'default') {
+                Notification.requestPermission();
+            }
+        }
+
+        // ─── Main connection logic ─────────────────────────────────────
+        async function connect() {
+            if (!sessionId || !sessionSecret) {
+                showOverlay('Invalid Link', 'This viewer link is missing session parameters. Please scan the QR code from the DriveSight app again.', false, false);
+                setStatus('failed', 'Invalid link');
+                return;
+            }
+
+            setStatus('connecting', 'Connecting...');
+            showOverlay('Connecting to Dashcam...', 'Establishing secure peer-to-peer connection', true, false);
+
+            try {
+                // 1. Read session document
+                const sessionDoc = await db.collection('webrtc_sessions').doc(sessionId).get();
+
+                if (!sessionDoc.exists) {
+                    showOverlay('Session Not Found', 'This session has expired or was ended by the dashcam. Please scan a new QR code from the DriveSight app.', false, true);
+                    setStatus('failed', 'Session not found');
+                    return;
+                }
+
+                const sessionData = sessionDoc.data();
+
+                // 2. Verify secret
+                if (sessionData.sessionSecret !== sessionSecret) {
+                    showOverlay('Access Denied', 'The session secret does not match. Please scan the QR code again.', false, false);
+                    setStatus('failed', 'Access denied');
+                    return;
+                }
+
+                // 3. Check for SDP offer
+                const sdpOffer = sessionData.dashcamOffer;
+                if (!sdpOffer) {
+                    showOverlay('Waiting for Dashcam...', 'The dashcam has not published its offer yet. Please make sure the DriveSight app is running with Remote Viewer enabled.', true, true);
+                    setStatus('connecting', 'Waiting for dashcam...');
+
+                    // Listen for the offer to appear
+                    unsubAnswer = db.collection('webrtc_sessions').doc(sessionId)
+                        .onSnapshot((snap) => {
+                            const data = snap.data();
+                            if (data && data.dashcamOffer) {
+                                if (unsubAnswer) unsubAnswer();
+                                unsubAnswer = null;
+                                startWebRtc(data.dashcamOffer);
+                            }
+                        });
+                    return;
+                }
+
+                // 4. Start WebRTC handshake
+                await startWebRtc(sdpOffer);
+
+            } catch (err) {
+                console.error('Connection error:', err);
+                showOverlay('Connection Error', 'Failed to connect to Firestore. Check your internet connection and try again.', false, true);
+                setStatus('failed', 'Connection error');
+            }
+        }
+
+        async function startWebRtc(sdpOffer) {
+            setStatus('connecting', 'Connecting...');
+            showOverlay('Connecting to Dashcam...', 'Setting up peer-to-peer video stream', true, false);
+
+            // Request notification permission while connecting
+            requestNotificationPermission();
+
+            // Create PeerConnection
+            peerConnection = new RTCPeerConnection(rtcConfig);
+
+            // Handle incoming tracks (video from dashcam)
+            peerConnection.ontrack = (event) => {
+                console.log('Got remote track:', event.track.kind);
+                if (event.streams && event.streams[0]) {
+                    video.srcObject = event.streams[0];
+                } else {
+                    const stream = new MediaStream();
+                    stream.addTrack(event.track);
+                    video.srcObject = stream;
+                }
+            };
+
+            // Handle ICE candidates — send to Firestore
+            peerConnection.onicecandidate = async (event) => {
+                if (event.candidate) {
+                    try {
+                        await db.collection('webrtc_sessions').doc(sessionId)
+                            .collection('viewerCandidates')
+                            .add({
+                                candidate: event.candidate.candidate,
+                                sdpMid: event.candidate.sdpMid,
+                                sdpMLineIndex: event.candidate.sdpMLineIndex,
+                                timestamp: Date.now()
+                            });
+                    } catch (err) {
+                        console.error('Failed to add ICE candidate:', err);
+                    }
+                }
+            };
+
+            // Handle connection state changes
+            peerConnection.onconnectionstatechange = () => {
+                const state = peerConnection.connectionState;
+                console.log('Connection state:', state);
+
+                switch (state) {
+                    case 'connected':
+                        setStatus('connected', 'Connected');
+                        hideOverlay();
+                        // Update session status
+                        db.collection('webrtc_sessions').doc(sessionId)
+                            .update({ status: 'connected' }).catch(() => {});
+                        break;
+                    case 'disconnected':
+                        setStatus('connecting', 'Reconnecting...');
+                        showOverlay('Reconnecting...', 'The connection was lost. Trying to reconnect automatically.', true, true);
+                        break;
+                    case 'failed':
+                        setStatus('failed', 'Connection failed');
+                        showOverlay('Connection Failed', 'Could not establish a direct connection. This may happen if both devices are behind strict firewalls (symmetric NAT). Try switching to a different network.', false, true);
+                        break;
+                    case 'closed':
+                        setStatus('failed', 'Disconnected');
+                        showOverlay('Disconnected', 'The dashcam ended the session.', false, true);
+                        break;
+                }
+            };
+
+            // Set remote description (dashcam's offer)
+            const offer = new RTCSessionDescription({
+                type: 'offer',
+                sdp: sdpOffer
+            });
+            await peerConnection.setRemoteDescription(offer);
+
+            // Create answer
+            const answer = await peerConnection.createAnswer();
+            await peerConnection.setLocalDescription(answer);
+
+            // Write answer to Firestore
+            await db.collection('webrtc_sessions').doc(sessionId)
+                .update({ viewerAnswer: answer.sdp });
+
+            console.log('Answer written to Firestore');
+
+            // Listen for dashcam's ICE candidates
+            unsubCandidates = db.collection('webrtc_sessions').doc(sessionId)
+                .collection('dashcamCandidates')
+                .onSnapshot((snapshot) => {
+                    snapshot.docChanges().forEach((change) => {
+                        if (change.type === 'added') {
+                            const data = change.doc.data();
+                            const candidate = new RTCIceCandidate({
+                                candidate: data.candidate,
+                                sdpMid: data.sdpMid,
+                                sdpMLineIndex: data.sdpMLineIndex
+                            });
+                            peerConnection.addIceCandidate(candidate).catch((err) => {
+                                console.error('Failed to add remote ICE candidate:', err);
+                            });
+                        }
+                    });
+                });
+
+            // Listen for motion alerts
+            unsubMotion = db.collection('webrtc_sessions').doc(sessionId)
+                .onSnapshot((snap) => {
+                    const data = snap.data();
+                    if (data && data.motionAlert && data.motionAlert.timestamp) {
+                        const ts = data.motionAlert.timestamp;
+                        if (ts > lastMotionTimestamp) {
+                            lastMotionTimestamp = ts;
+                            showMotionAlert();
+                        }
+                    }
+                });
+        }
+
+        function retryConnection() {
+            cleanup();
+            connect();
+        }
+
+        function cleanup() {
+            if (unsubAnswer) { unsubAnswer(); unsubAnswer = null; }
+            if (unsubCandidates) { unsubCandidates(); unsubCandidates = null; }
+            if (unsubMotion) { unsubMotion(); unsubMotion = null; }
+            if (peerConnection) {
+                peerConnection.close();
+                peerConnection = null;
+            }
+            video.srcObject = null;
+        }
+
+        // ─── Cleanup on page unload ────────────────────────────────────
+        window.addEventListener('beforeunload', () => {
+            if (sessionId) {
+                // Best effort — update status before leaving
+                db.collection('webrtc_sessions').doc(sessionId)
+                    .update({ status: 'ended' }).catch(() => {});
+            }
+            cleanup();
+        });
+
+        // ─── Keep screen awake (prevents phone from sleeping) ──────────
+        let wakeLock = null;
+        async function requestWakeLock() {
+            try {
+                if ('wakeLock' in navigator) {
+                    wakeLock = await navigator.wakeLock.request('screen');
+                    wakeLock.addEventListener('release', () => {
+                        console.log('Wake lock released');
+                    });
+                }
+            } catch (err) {
+                console.log('Wake lock not available:', err);
+            }
+        }
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') {
+                requestWakeLock();
+            }
+        });
+
+        // ─── Start ─────────────────────────────────────────────────────
+        requestWakeLock();
+        connect();
+    </script>
+</body>
+</html>
