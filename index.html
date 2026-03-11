@@ -26,30 +26,183 @@
     <link rel="icon" type="image/png" href="assets/icon-512.png">
     <link rel="apple-touch-icon" href="assets/icon-512.png">
 
-    <!-- Structured Data for Google -->
+    <!-- Structured Data: App -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "name": "DriveSight AI Dashcam",
-        "operatingSystem": "Android",
+        "alternateName": "DriveSight",
+        "operatingSystem": "Android 8.0+",
         "applicationCategory": "UtilitiesApplication",
-        "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
-        },
-        "description": "Turn any old Android phone into a dedicated AI dash cam with parking mode, crash detection, Google Drive cloud backup, and 336,000+ camera alerts.",
-        "screenshot": "assets/icon-512.png",
+        "applicationSubCategory": "Dash Cam App",
+        "offers": [
+            {
+                "@type": "Offer",
+                "name": "Free",
+                "price": "0",
+                "priceCurrency": "USD",
+                "description": "Full dashcam recording, parking mode, crash detection, speedometer, trip tracking, cloud backup"
+            },
+            {
+                "@type": "Offer",
+                "name": "Pro",
+                "price": "9.99",
+                "priceCurrency": "USD",
+                "description": "One-time purchase. Unlocks AI detection, 336,000+ camera alerts, ad-free experience, and all premium features"
+            }
+        ],
+        "description": "Turn any old Android phone into a dedicated AI dash cam. DriveSight is a free dashcam app with parking mode, crash detection, Google Drive cloud backup, loop recording, and 336,000+ police and camera alerts. Use a spare phone as a dedicated dashcam that stays in your car.",
+        "screenshot": "assets/real-police-hidden.jpg",
+        "image": "assets/icon-512.png",
+        "url": "https://drivesightapp.com",
+        "installUrl": "https://play.google.com/store/apps/details?id=com.deerdash",
+        "featureList": "Loop recording, Parking mode with motion detection, Crash and impact detection, Google Drive cloud backup, 336,000+ camera alerts, Police speed trap alerts, AI object detection, Speedometer, Trip tracking, GPS photo capture, Flash strobe deterrent, Dual camera recording",
         "author": {
             "@type": "Organization",
-            "name": "CyberLab Automation"
+            "name": "CyberLab Automation",
+            "url": "https://drivesightapp.com"
         },
         "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "5.0",
-            "ratingCount": "1"
+            "ratingCount": "1",
+            "bestRating": "5",
+            "worstRating": "1"
         }
+    }
+    </script>
+
+    <!-- Structured Data: FAQ (Google Rich Snippets) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Can I use an old phone as a dedicated dashcam?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes — this is actually the recommended setup. Grab any old Android phone (Android 8.0+, made after 2017), install DriveSight, mount it on your windshield with a car charger, and leave it in the car. It works as a dedicated dashcam with parking mode running 24/7 — so you don't need to tie up your everyday phone. A $10 windshield mount and any spare phone is all you need."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Does DriveSight work as a full dash cam replacement?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. DriveSight provides continuous loop recording just like a hardware dash cam. It records in segments, automatically deletes old footage to manage storage, and saves important clips (crashes, motion events, manual saves) permanently. You can record in 1080p, 720p, or 480p with optional audio."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How does parking mode work?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "When you activate parking mode, DriveSight dims your screen to near-zero brightness (saving battery on AMOLED) and continuously monitors the camera for motion. When motion is detected, the app instantly saves the clip, plays an alert sound, and can trigger a flash strobe to deter intruders. You can choose front or rear camera for parking mode."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do the camera and police alerts work?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "DriveSight uses a GPS database of 336,000+ camera locations across the US. As you drive, it constantly checks your position against the database and alerts you with sound, vibration, the camera type, street name, and distance when you're approaching one. Alerts include Flock Safety ALPR readers, speed cameras, red light cameras, and reported police speed traps. The database is built into the app and works without an internet connection."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is my data private?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Absolutely. All AI processing happens on your device — no video is ever sent to our servers. Recordings are stored locally on your phone. Cloud backup goes to your Google Drive account, not ours. We only collect anonymous crash reports and usage analytics to improve the app. We never sell your data."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What phones are supported?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "DriveSight works on any Android phone running Android 8.0 or higher — that covers virtually every Android phone made since 2017. For the best experience, we recommend Android 10+ with at least 3GB of RAM. Tested on Pixel, Samsung Galaxy, OnePlus, and more."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is there a subscription?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No. DriveSight is free to download with all core features included. The Pro upgrade is a one-time $9.99 purchase — no monthly fees, no annual renewal, no hidden charges. You pay once and own it forever."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What are the 336,000+ camera alerts?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "DriveSight includes a map of over 336,000 surveillance and traffic cameras across the United States — including Flock Safety ALPR readers, speed cameras, and red light cameras. When you're driving, the app alerts you with the camera type, street name, and distance as you approach. This is a Pro feature available with the one-time $9.99 upgrade."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What is the best dashcam app for Android?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "DriveSight is a top-rated dashcam app for Android that turns any old phone into a dedicated AI-powered dash cam. It includes features typically found only in expensive hardware dashcams — parking mode with motion detection, crash detection with auto-save, Google Drive cloud backup, 336,000+ camera and police alerts, loop recording, and AI object detection. It's free to download with a one-time $9.99 Pro upgrade."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is a dashcam app better than a hardware dashcam?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "For most people, yes. A spare Android phone with DriveSight gives you everything a $200+ hardware dashcam does — loop recording, parking mode, crash detection — plus features hardware cams don't have, like Google Drive cloud backup, 336,000+ camera alerts, police speed trap warnings, and AI object detection. The only advantage of dedicated hardware is better heat tolerance in extreme climates."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <!-- Structured Data: HowTo -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "How to Turn an Old Android Phone Into a Dashcam",
+        "description": "Turn any spare Android phone into a dedicated AI-powered dashcam with parking mode, crash detection, and cloud backup using the free DriveSight app.",
+        "totalTime": "PT1M",
+        "supply": [
+            {"@type": "HowToSupply", "name": "Old Android phone (Android 8.0+)"},
+            {"@type": "HowToSupply", "name": "Windshield phone mount ($5-15)"},
+            {"@type": "HowToSupply", "name": "Car charger cable"}
+        ],
+        "step": [
+            {
+                "@type": "HowToStep",
+                "position": 1,
+                "name": "Install DriveSight",
+                "text": "Download DriveSight for free from the Google Play Store on your old Android phone. No account required.",
+                "url": "https://play.google.com/store/apps/details?id=com.deerdash"
+            },
+            {
+                "@type": "HowToStep",
+                "position": 2,
+                "name": "Mount the phone",
+                "text": "Attach your spare phone to a windshield mount or dashboard holder. Plug in a car charger so it stays powered."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 3,
+                "name": "Start recording",
+                "text": "Open DriveSight and tap Start Drive. The app begins continuous loop recording with crash detection and camera alerts."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 4,
+                "name": "Enable parking mode",
+                "text": "When parked, tap Park to activate parking mode. The screen dims and motion detection guards your car 24/7."
+            }
+        ]
     }
     </script>
 
@@ -1519,6 +1672,24 @@
             </div>
             <div class="faq-item">
                 <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                    What is the best dashcam app for Android?
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">DriveSight is a top-rated dashcam app for Android that turns any old phone into a dedicated AI-powered dash cam. It includes features typically found only in expensive hardware dashcams — parking mode with motion detection, crash detection with auto-save, Google Drive cloud backup, 336,000+ camera and police alerts, loop recording, and AI object detection. It's free to download with a one-time $9.99 Pro upgrade — no subscriptions.</div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                    Is DriveSight better than a hardware dashcam?
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">For most people, yes. A spare Android phone with DriveSight gives you everything a $200+ hardware dashcam does — loop recording, parking mode, crash detection — plus features hardware cams don't have, like Google Drive cloud backup, 336,000+ camera alerts, police speed trap warnings, and AI object detection. The only advantage of dedicated hardware is better heat tolerance in extreme climates. If you have an old phone, DriveSight costs nothing to try.</div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
                     What are the 336,000+ camera alerts?
                     <span class="arrow">▼</span>
                 </button>
@@ -1557,6 +1728,7 @@
             <a href="#pricing">Pricing</a>
             <a href="#comparison">Compare</a>
             <a href="#faq">FAQ</a>
+            <a href="/turn-old-phone-into-dashcam">Old Phone Setup Guide</a>
         </div>
         <div class="footer-col">
             <h4>Legal</h4>
