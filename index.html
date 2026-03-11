@@ -868,6 +868,7 @@
             .sticky-cta { display: block; }
             .trust-row { gap: 16px; }
             .compare-table th, .compare-table td { padding: 12px 14px; font-size: 0.8rem; }
+            .hero-image div[style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
         }
         @media (max-width: 480px) {
             .hero h1 { font-size: 1.8rem; }
@@ -941,6 +942,66 @@
             margin-bottom: 24px;
             line-height: 1.6;
         }
+        /* Screenshot Gallery */
+        .screenshot-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        .screenshot-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .screenshot-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+        }
+        .screenshot-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        .screenshot-card .caption {
+            padding: 14px 16px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-bright);
+            text-align: center;
+        }
+        .real-screenshot {
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+        }
+        @media (max-width: 768px) {
+            .screenshot-gallery {
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+                padding: 0 16px;
+                overflow-x: auto;
+            }
+            .screenshot-card img {
+                height: 160px;
+            }
+            .camera-alerts-grid {
+                grid-template-columns: 1fr !important;
+            }
+            .camera-alerts-img {
+                order: -1;
+            }
+        }
+        @media (max-width: 480px) {
+            .screenshot-gallery {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -991,53 +1052,16 @@
             <span class="trust-item"><span class="icon">⚡</span> No Subscription</span>
         </div>
 
-        <!-- Hero Graphic — Police & Camera Alert Dashboard -->
+        <!-- Hero Graphic — Real App Screenshot + AI Render -->
         <div class="hero-image fade-up" style="margin-top:48px; max-width:900px; margin-left:auto; margin-right:auto;">
-            <div style="background: linear-gradient(135deg, #0d1117 0%, #161b28 100%); border-radius:16px; box-shadow: 0 20px 80px rgba(0,0,0,0.5), 0 0 40px rgba(249,115,22,0.1); border: 1px solid rgba(249,115,22,0.2); padding: 40px 32px; position: relative; overflow: hidden;">
-                <!-- Simulated phone dashcam UI -->
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
-                    <div style="display:flex; align-items:center; gap:8px;">
-                        <span style="color:var(--green); font-weight:800; font-size:1.1rem;">DriveSight</span>
-                        <span style="background:rgba(239,68,68,0.2); color:#ef4444; padding:2px 8px; border-radius:4px; font-size:0.7rem; font-weight:700; animation: pulse-badge 2s infinite;">● REC</span>
-                    </div>
-                    <div style="color:var(--text-dim); font-size:0.85rem;">67 MPH · I-95 North</div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:24px; align-items:center;">
+                <div>
+                    <img src="assets/real-flock-alert.jpg" alt="DriveSight FLOCK Camera Ahead alert with AI detection bounding boxes while driving at 39 mph on Rib Mountain Drive" class="real-screenshot" style="width:100%; display:block;">
+                    <div style="text-align:center; margin-top:8px; font-size:0.75rem; color:var(--text-dim);">Real screenshot — FLOCK camera alert</div>
                 </div>
-                <!-- Alert popup -->
-                <div style="background:linear-gradient(135deg, rgba(249,115,22,0.15), rgba(239,68,68,0.15)); border:2px solid rgba(249,115,22,0.5); border-radius:16px; padding:28px 32px; margin-bottom:20px; position:relative;">
-                    <div style="display:flex; align-items:center; gap:16px;">
-                        <div style="width:56px; height:56px; background:rgba(249,115,22,0.2); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:28px; flex-shrink:0;">🚨</div>
-                        <div style="flex:1;">
-                            <div style="font-size:0.75rem; color:#f97316; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">⚠️ Speed Camera Ahead</div>
-                            <div style="font-size:1.3rem; font-weight:800; color:var(--text-bright);">Flock Safety ALPR · Oak St & 5th Ave</div>
-                            <div style="font-size:0.9rem; color:var(--text-dim); margin-top:4px;">0.3 miles ahead · Right side</div>
-                        </div>
-                        <div style="text-align:center; flex-shrink:0;">
-                            <div style="font-size:2rem; font-weight:900; color:#f97316;">0.3</div>
-                            <div style="font-size:0.7rem; color:var(--text-dim);">MILES</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Bottom stats bar -->
-                <div style="display:flex; justify-content:space-between; align-items:center; padding:0 8px;">
-                    <div style="display:flex; gap:24px;">
-                        <div style="text-align:center;">
-                            <div style="font-size:1.5rem; font-weight:800; color:var(--green);">67</div>
-                            <div style="font-size:0.65rem; color:var(--text-dim);">MPH</div>
-                        </div>
-                        <div style="text-align:center;">
-                            <div style="font-size:1.5rem; font-weight:800; color:var(--accent-orange);">3</div>
-                            <div style="font-size:0.65rem; color:var(--text-dim);">ALERTS NEARBY</div>
-                        </div>
-                        <div style="text-align:center;">
-                            <div style="font-size:1.5rem; font-weight:800; color:var(--blue);">24:31</div>
-                            <div style="font-size:0.65rem; color:var(--text-dim);">TRIP TIME</div>
-                        </div>
-                    </div>
-                    <div style="display:flex; gap:8px;">
-                        <span style="background:rgba(239,68,68,0.15); color:#ef4444; padding:3px 8px; border-radius:6px; font-size:0.65rem; font-weight:600;">Flock</span>
-                        <span style="background:rgba(96,165,250,0.15); color:#60a5fa; padding:3px 8px; border-radius:6px; font-size:0.65rem; font-weight:600;">Speed Cam</span>
-                        <span style="background:rgba(74,222,128,0.15); color:#4ADE80; padding:3px 8px; border-radius:6px; font-size:0.65rem; font-weight:600;">Red Light</span>
-                    </div>
+                <div>
+                    <img src="assets/hero-dashcam.jpg" alt="DriveSight AI dashcam mounted on car windshield showing object detection" class="real-screenshot" style="width:100%; display:block;">
+                    <div style="text-align:center; margin-top:8px; font-size:0.75rem; color:var(--text-dim);">AI object detection at night</div>
                 </div>
             </div>
         </div>
@@ -1077,7 +1101,7 @@
 
         <!-- Parking Mode Showcase Image -->
         <div class="fade-up" style="margin-top:60px; margin-bottom:60px; max-width:1000px; margin-left:auto; margin-right:auto;">
-            <img src="assets/parking-mode.jpg" alt="DriveSight parking mode protecting a car at night with motion detection on a dark city street" style="width:100%; border-radius:16px; box-shadow: 0 20px 80px rgba(0,0,0,0.5); border: 1px solid var(--card-border);">
+            <img src="assets/real-flock-alert-2.jpg" alt="DriveSight nighttime FLOCK Camera Ahead alert on Grand Avenue with AI detection bounding boxes" class="real-screenshot" style="width:100%;">
         </div>
 
         <div class="feature-grid">
@@ -1117,6 +1141,37 @@
                 <h3>Continuous Loop Recording</h3>
                 <p>Full dash cam replacement with continuous loop recording. Adjustable video quality (1080p, 720p, 480p), audio toggle, and automatic storage management. SD card and custom folder support.</p>
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ APP IN ACTION GALLERY ============ -->
+<section style="background: var(--dark-bg); padding: 80px 0;">
+    <div class="section-inner">
+        <span class="section-label">Real Screenshots</span>
+        <h2 class="section-title">The App in Action</h2>
+        <p class="section-subtitle">Real screenshots from DriveSight running on the road. No mockups, no AI-generated images — this is the actual app.</p>
+    </div>
+    <div class="screenshot-gallery fade-up" style="margin-top:40px;">
+        <div class="screenshot-card">
+            <img src="assets/real-flock-alert.jpg" alt="DriveSight FLOCK Camera Ahead alert with AI detection bounding boxes at 39 mph" loading="lazy">
+            <div class="caption">Camera Alert with AI Detection</div>
+        </div>
+        <div class="screenshot-card">
+            <img src="assets/real-wildlife-hotspot.jpg" alt="DriveSight Wildlife Hotspot Ahead warning at night at 14 mph" loading="lazy">
+            <div class="caption">Wildlife Hotspot Warning</div>
+        </div>
+        <div class="screenshot-card">
+            <img src="assets/real-ai-detection-2.jpg" alt="DriveSight AI detection with Vehicle Braking and Pedestrian bounding boxes in parking lot" loading="lazy">
+            <div class="caption">Vehicle &amp; Pedestrian Detection</div>
+        </div>
+        <div class="screenshot-card">
+            <img src="assets/real-police-map.jpg" alt="DriveSight Police Reports map tab showing police dots across LA area" loading="lazy">
+            <div class="caption">Live Police Reports Map</div>
+        </div>
+        <div class="screenshot-card">
+            <img src="assets/real-camera-map.jpg" alt="DriveSight Camera and Flock map showing 336000+ ALPR camera locations" loading="lazy">
+            <div class="caption">336,000+ Cameras Mapped</div>
         </div>
     </div>
 </section>
@@ -1277,24 +1332,15 @@
 <div style="background:var(--dark-bg); padding: 0 24px 80px;">
     <div class="fade-up" style="max-width:1000px; margin:0 auto;">
         <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 48px 40px;">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+            <div class="camera-alerts-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
                 <div>
                     <div style="font-size: 2.5rem; margin-bottom: 16px;">🚨</div>
                     <h3 style="font-size: 1.6rem; font-weight: 800; color: var(--text-bright); margin-bottom: 12px;">Know Where Every Camera Is</h3>
                     <p style="color: var(--text-dim); font-size: 0.95rem; line-height: 1.7; margin-bottom: 20px;">DriveSight maps 336,000+ surveillance cameras, speed cameras, red light cameras, Flock Safety ALPR readers, and police speed traps across the United States. Get real-time alerts with the camera type, street name, and distance as you approach.</p>
                     <a href="https://play.google.com/store/apps/details?id=com.deerdash" class="btn-primary" target="_blank" rel="noopener" style="display:inline-flex; font-size: 0.95rem; padding: 12px 24px;">Get Camera Alerts — $9.99</a>
                 </div>
-                <div style="text-align: center;">
-                    <div style="background: rgba(249, 115, 22, 0.1); border: 1px solid rgba(249, 115, 22, 0.3); border-radius: 16px; padding: 24px;">
-                        <div style="font-size: 3.5rem; font-weight: 900; color: var(--accent-orange);">336K+</div>
-                        <div style="color: var(--text-dim); font-size: 0.85rem; margin-top: 4px;">Cameras Mapped</div>
-                        <div style="margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;">
-                            <span style="background: rgba(239, 68, 68, 0.15); color: #ef4444; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600;">Flock Safety</span>
-                            <span style="background: rgba(167, 139, 250, 0.15); color: #a78bfa; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600;">ALPR</span>
-                            <span style="background: rgba(96, 165, 250, 0.15); color: #60a5fa; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600;">Speed Camera</span>
-                            <span style="background: rgba(74, 222, 128, 0.15); color: #4ADE80; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600;">Red Light</span>
-                        </div>
-                    </div>
+                <div class="camera-alerts-img" style="text-align: center;">
+                    <img src="assets/real-flock-alert.jpg" alt="DriveSight FLOCK Camera Ahead alert with AI detection bounding boxes while driving" class="real-screenshot" style="width:100%; max-width:360px;">
                 </div>
             </div>
         </div>
