@@ -207,6 +207,10 @@
             0%, 100% { opacity: 1; transform: scale(1); }
             50% { opacity: 0.5; transform: scale(1.5); }
         }
+        @keyframes pulse-badge {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
         .hero h1 {
             font-size: clamp(2.5rem, 6vw, 4.5rem);
             font-weight: 900;
@@ -987,9 +991,55 @@
             <span class="trust-item"><span class="icon">⚡</span> No Subscription</span>
         </div>
 
-        <!-- Hero Image -->
+        <!-- Hero Graphic — Police & Camera Alert Dashboard -->
         <div class="hero-image fade-up" style="margin-top:48px; max-width:900px; margin-left:auto; margin-right:auto;">
-            <img src="assets/hero-dashcam.jpg" alt="DriveSight AI dashcam app showing YOLOv8 object detection with bounding boxes around cars and people on a nighttime city street" style="width:100%; border-radius:16px; box-shadow: 0 20px 80px rgba(0,0,0,0.5), 0 0 40px rgba(74, 222, 128, 0.1); border: 1px solid rgba(74, 222, 128, 0.2);">
+            <div style="background: linear-gradient(135deg, #0d1117 0%, #161b28 100%); border-radius:16px; box-shadow: 0 20px 80px rgba(0,0,0,0.5), 0 0 40px rgba(249,115,22,0.1); border: 1px solid rgba(249,115,22,0.2); padding: 40px 32px; position: relative; overflow: hidden;">
+                <!-- Simulated phone dashcam UI -->
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <span style="color:var(--green); font-weight:800; font-size:1.1rem;">DriveSight</span>
+                        <span style="background:rgba(239,68,68,0.2); color:#ef4444; padding:2px 8px; border-radius:4px; font-size:0.7rem; font-weight:700; animation: pulse-badge 2s infinite;">● REC</span>
+                    </div>
+                    <div style="color:var(--text-dim); font-size:0.85rem;">67 MPH · I-95 North</div>
+                </div>
+                <!-- Alert popup -->
+                <div style="background:linear-gradient(135deg, rgba(249,115,22,0.15), rgba(239,68,68,0.15)); border:2px solid rgba(249,115,22,0.5); border-radius:16px; padding:28px 32px; margin-bottom:20px; position:relative;">
+                    <div style="display:flex; align-items:center; gap:16px;">
+                        <div style="width:56px; height:56px; background:rgba(249,115,22,0.2); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:28px; flex-shrink:0;">🚨</div>
+                        <div style="flex:1;">
+                            <div style="font-size:0.75rem; color:#f97316; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">⚠️ Speed Camera Ahead</div>
+                            <div style="font-size:1.3rem; font-weight:800; color:var(--text-bright);">Flock Safety ALPR · Oak St & 5th Ave</div>
+                            <div style="font-size:0.9rem; color:var(--text-dim); margin-top:4px;">0.3 miles ahead · Right side</div>
+                        </div>
+                        <div style="text-align:center; flex-shrink:0;">
+                            <div style="font-size:2rem; font-weight:900; color:#f97316;">0.3</div>
+                            <div style="font-size:0.7rem; color:var(--text-dim);">MILES</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Bottom stats bar -->
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:0 8px;">
+                    <div style="display:flex; gap:24px;">
+                        <div style="text-align:center;">
+                            <div style="font-size:1.5rem; font-weight:800; color:var(--green);">67</div>
+                            <div style="font-size:0.65rem; color:var(--text-dim);">MPH</div>
+                        </div>
+                        <div style="text-align:center;">
+                            <div style="font-size:1.5rem; font-weight:800; color:var(--accent-orange);">3</div>
+                            <div style="font-size:0.65rem; color:var(--text-dim);">ALERTS NEARBY</div>
+                        </div>
+                        <div style="text-align:center;">
+                            <div style="font-size:1.5rem; font-weight:800; color:var(--blue);">24:31</div>
+                            <div style="font-size:0.65rem; color:var(--text-dim);">TRIP TIME</div>
+                        </div>
+                    </div>
+                    <div style="display:flex; gap:8px;">
+                        <span style="background:rgba(239,68,68,0.15); color:#ef4444; padding:3px 8px; border-radius:6px; font-size:0.65rem; font-weight:600;">Flock</span>
+                        <span style="background:rgba(96,165,250,0.15); color:#60a5fa; padding:3px 8px; border-radius:6px; font-size:0.65rem; font-weight:600;">Speed Cam</span>
+                        <span style="background:rgba(74,222,128,0.15); color:#4ADE80; padding:3px 8px; border-radius:6px; font-size:0.65rem; font-weight:600;">Red Light</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -1002,8 +1052,8 @@
             <div class="label">Cameras Mapped</div>
         </div>
         <div class="proof-stat">
-            <div class="number">YOLOv8</div>
-            <div class="label">AI Detection Engine</div>
+            <div class="number">Real-Time</div>
+            <div class="label">Police & Camera Alerts</div>
         </div>
         <div class="proof-stat">
             <div class="number">24/7</div>
@@ -1037,11 +1087,11 @@
                 <h3>Parking Mode<span class="feature-tag">Popular</span></h3>
                 <p>24/7 parking security that monitors your car while parked. Motion detection auto-saves clips, flash strobe deters intruders, and smart alerts notify you instantly. Ultra-low power on AMOLED displays.</p>
             </div>
-            <!-- AI Detection -->
+            <!-- Camera Alerts — LEAD FEATURE -->
             <div class="feature-card fade-up">
-                <div class="feature-icon blue">🤖</div>
-                <h3>YOLOv8 AI Detection</h3>
-                <p>Live AI object detection draws bounding boxes around people, vehicles, and animals on screen — Tesla Autopilot style. All processing runs on-device. No cloud, no latency, no privacy concerns.</p>
+                <div class="feature-icon orange">🚨</div>
+                <h3>336,000+ Camera Alerts<span class="feature-tag">Popular</span></h3>
+                <p>Live alerts for speed cameras, red light cameras, Flock Safety ALPR readers, and police speed traps across the US. Real-time proximity warnings with street names, distance, and vibration so you're never caught off guard.</p>
             </div>
             <!-- Crash Detection -->
             <div class="feature-card fade-up">
@@ -1055,11 +1105,11 @@
                 <h3>Google Drive Cloud Backup</h3>
                 <p>Auto-upload crash footage and important clips to Google Drive. Smart filtering only uploads what matters — skips junk recordings. WiFi-only option saves your data plan.</p>
             </div>
-            <!-- Camera Alerts -->
+            <!-- AI Detection -->
             <div class="feature-card fade-up">
-                <div class="feature-icon orange">📷</div>
-                <h3>336,000+ Camera Alerts<span class="feature-tag">Pro</span></h3>
-                <p>Live map of surveillance cameras, speed cameras, red light cameras, and ALPR readers across the United States. Real-time proximity alerts with street names, distance, and vibration.</p>
+                <div class="feature-icon blue">🤖</div>
+                <h3>AI Object Detection<span class="feature-tag">Pro</span></h3>
+                <p>On-device AI draws bounding boxes around vehicles and people on screen. Auto-saves clips when objects are detected. Runs entirely on your phone — no cloud, no privacy concerns.</p>
             </div>
             <!-- Loop Recording -->
             <div class="feature-card fade-up">
@@ -1122,8 +1172,8 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>AI Object Detection</td>
-                        <td class="highlight-col"><span class="check">✓</span> YOLOv8</td>
+                        <td>Police &amp; Camera Alerts</td>
+                        <td class="highlight-col"><span class="check">✓</span> 336K+ cameras</td>
                         <td><span class="cross">✗</span></td>
                         <td><span class="cross">✗</span></td>
                     </tr>
@@ -1217,7 +1267,7 @@
             <div class="use-case-card fade-up">
                 <div class="emoji">📸</div>
                 <h3>Road Trip Enthusiasts</h3>
-                <p>Capture your journey with GPS-stamped photos and video. AI draws live bounding boxes on everything around you. Back up highlights to Google Drive automatically.</p>
+                <p>Capture your journey with GPS-stamped photos and video. Camera alerts keep you aware of speed traps and cameras. Back up highlights to Google Drive automatically.</p>
             </div>
         </div>
     </div>
@@ -1269,7 +1319,7 @@
                     <li>Parking mode with motion detection</li>
                     <li>Impact & crash detection with auto-save</li>
                     <li>Google Drive cloud backup</li>
-                    <li>YOLOv8 AI object detection</li>
+                    <li>Speedometer with GPS tracking</li>
                     <li>Quick photo with GPS stamp</li>
                     <li>Video clip manager</li>
                 </ul>
@@ -1282,11 +1332,11 @@
                 <div class="price-sub">One-time purchase — lifetime access</div>
                 <ul class="price-features">
                     <li>Everything in Free</li>
-                    <li>336,000+ camera alerts with proximity warnings</li>
-                    <li>Camera alert sounds with street names</li>
-                    <li>Community heatmap with hazard zones</li>
-                    <li>Directional hotspot warnings ahead</li>
+                    <li>336,000+ camera &amp; police alerts</li>
+                    <li>Alert sounds with street names &amp; distance</li>
+                    <li>AI object detection with bounding boxes</li>
                     <li>Auto-save clips on AI detection</li>
+                    <li>Community heatmap with hazard zones</li>
                     <li>Ad-free experience</li>
                     <li>Priority support</li>
                 </ul>
@@ -1310,7 +1360,7 @@
             </div>
             <div class="review-card fade-up">
                 <div class="review-stars">★★★★★</div>
-                <p>"The AI detection is insane. It draws boxes around people and cars in real time. Feels like I'm driving a Tesla. And it's free?"</p>
+                <p>"The camera alerts are a game changer. It warned me about 3 speed cameras on my commute I never knew about. Already saved me from a ticket."</p>
                 <div class="review-author">— Sarah K., Commuter</div>
             </div>
             <div class="review-card fade-up">
@@ -1349,11 +1399,11 @@
             </div>
             <div class="faq-item">
                 <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
-                    Does the AI detection drain battery?
+                    How do the camera and police alerts work?
                     <span class="arrow">▼</span>
                 </button>
                 <div class="faq-answer">
-                    <div class="faq-answer-inner">DriveSight uses YOLOv8, an efficient on-device AI model optimized for mobile. It runs on your phone's GPU when available and falls back to CPU. Battery usage is similar to any camera app — we recommend plugging in your phone via USB while driving, which most drivers do anyway with a windshield mount.</div>
+                    <div class="faq-answer-inner">DriveSight uses a GPS database of 336,000+ camera locations across the US. As you drive, it constantly checks your position against the database and alerts you with sound, vibration, the camera type, street name, and distance when you're approaching one. Alerts include Flock Safety ALPR readers, speed cameras, red light cameras, and reported police speed traps. The database is built into the app — works without an internet connection.</div>
                 </div>
             </div>
             <div class="faq-item">
@@ -1535,7 +1585,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     <h3>Best Dash Cam App Android 2026</h3>
     <h3>Dash Cam App for Android Free Download</h3>
     <h3>Parking Mode Dash Cam App</h3>
-    <h3>AI Dashcam with Object Detection</h3>
+    <h3>Speed Camera Alert App with Dash Cam</h3>
     <h3>Free Dashcam App with Cloud Backup</h3>
     <h3>Car Security Camera App with Motion Detection</h3>
     <h3>Crash Detection Dashcam App</h3>
