@@ -945,9 +945,9 @@
         /* Screenshot Gallery */
         .screenshot-gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 24px;
-            max-width: 1200px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            max-width: 1300px;
             margin: 0 auto;
             padding: 0 24px;
         }
@@ -980,12 +980,16 @@
             border: 1px solid var(--card-border);
             box-shadow: 0 10px 40px rgba(0,0,0,0.4);
         }
+        @media (max-width: 1024px) {
+            .screenshot-gallery {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
         @media (max-width: 768px) {
             .screenshot-gallery {
                 grid-template-columns: 1fr 1fr;
                 gap: 16px;
                 padding: 0 16px;
-                overflow-x: auto;
             }
             .screenshot-card img {
                 height: 160px;
@@ -1056,12 +1060,12 @@
         <div class="hero-image fade-up" style="margin-top:48px; max-width:900px; margin-left:auto; margin-right:auto;">
             <div style="display:grid; grid-template-columns: 1fr 1fr; gap:24px; align-items:center;">
                 <div>
-                    <img src="assets/real-flock-alert.jpg" alt="DriveSight FLOCK Camera Ahead alert with AI detection bounding boxes while driving at 39 mph on Rib Mountain Drive" class="real-screenshot" style="width:100%; display:block;">
-                    <div style="text-align:center; margin-top:8px; font-size:0.75rem; color:var(--text-dim);">Real screenshot — FLOCK camera alert</div>
+                    <img src="assets/real-police-hidden.jpg" alt="DriveSight Police Hidden Ahead alert at 69 mph on Korean War Veterans Memorial Highway with 25 confirmed reports" class="real-screenshot" style="width:100%; display:block;">
+                    <div style="text-align:center; margin-top:8px; font-size:0.75rem; color:var(--text-dim);">Real screenshot — Police alert at 69 mph</div>
                 </div>
                 <div>
-                    <img src="assets/hero-dashcam.jpg" alt="DriveSight AI dashcam mounted on car windshield showing object detection" class="real-screenshot" style="width:100%; display:block;">
-                    <div style="text-align:center; margin-top:8px; font-size:0.75rem; color:var(--text-dim);">AI object detection at night</div>
+                    <img src="assets/real-windshield-mount.jpg" alt="DriveSight app running on phone mounted on car windshield showing dashcam recording at 25 mph" class="real-screenshot" style="width:100%; display:block;">
+                    <div style="text-align:center; margin-top:8px; font-size:0.75rem; color:var(--text-dim);">Phone mounted as dashcam — real use</div>
                 </div>
             </div>
         </div>
@@ -1099,9 +1103,10 @@
             The most advanced AI dashcam app on Android. Features that expensive hardware dash cams charge hundreds for — free on your phone.
         </p>
 
-        <!-- Parking Mode Showcase Image -->
+        <!-- Feature Showcase Image -->
         <div class="fade-up" style="margin-top:60px; margin-bottom:60px; max-width:1000px; margin-left:auto; margin-right:auto;">
-            <img src="assets/real-flock-alert-2.jpg" alt="DriveSight nighttime FLOCK Camera Ahead alert on Grand Avenue with AI detection bounding boxes" class="real-screenshot" style="width:100%;">
+            <img src="assets/real-foggy-night.jpg" alt="DriveSight dashcam recording at night in foggy conditions with Vehicle Braking AI detection on Westwood Center Boulevard at 17 mph" class="real-screenshot" style="width:100%;">
+            <div style="text-align:center; margin-top:10px; font-size:0.8rem; color:var(--text-dim);">AI detection working in real conditions — foggy night driving</div>
         </div>
 
         <div class="feature-grid">
@@ -1154,6 +1159,14 @@
     </div>
     <div class="screenshot-gallery fade-up" style="margin-top:40px;">
         <div class="screenshot-card">
+            <img src="assets/real-police-hidden.jpg" alt="DriveSight Police Hidden Ahead alert at 69 mph with 25 confirmed reports" loading="lazy">
+            <div class="caption">Police Hidden Ahead — 69 mph</div>
+        </div>
+        <div class="screenshot-card">
+            <img src="assets/real-foggy-night.jpg" alt="DriveSight recording at night in fog with Vehicle Braking AI detection on Westwood Center Boulevard" loading="lazy">
+            <div class="caption">Night Driving with AI Detection</div>
+        </div>
+        <div class="screenshot-card">
             <img src="assets/real-flock-alert.jpg" alt="DriveSight FLOCK Camera Ahead alert with AI detection bounding boxes at 39 mph" loading="lazy">
             <div class="caption">Camera Alert with AI Detection</div>
         </div>
@@ -1162,12 +1175,16 @@
             <div class="caption">Wildlife Hotspot Warning</div>
         </div>
         <div class="screenshot-card">
+            <img src="assets/real-foggy-flock.jpg" alt="DriveSight FLOCK Camera Ahead alert at 41 mph in foggy conditions on North 16th Ave" loading="lazy">
+            <div class="caption">FLOCK Alert — Foggy Night</div>
+        </div>
+        <div class="screenshot-card">
             <img src="assets/real-ai-detection-2.jpg" alt="DriveSight AI detection with Vehicle Braking and Pedestrian bounding boxes in parking lot" loading="lazy">
             <div class="caption">Vehicle &amp; Pedestrian Detection</div>
         </div>
         <div class="screenshot-card">
-            <img src="assets/real-police-map.jpg" alt="DriveSight Police Reports map tab showing police dots across LA area" loading="lazy">
-            <div class="caption">Live Police Reports Map</div>
+            <img src="assets/real-chicago-police-map.jpg" alt="DriveSight Police Reports map showing 41 police reports across Chicago area" loading="lazy">
+            <div class="caption">41 Police Reports — Chicago</div>
         </div>
         <div class="screenshot-card">
             <img src="assets/real-camera-map.jpg" alt="DriveSight Camera and Flock map showing 336000+ ALPR camera locations" loading="lazy">
@@ -1340,7 +1357,8 @@
                     <a href="https://play.google.com/store/apps/details?id=com.deerdash" class="btn-primary" target="_blank" rel="noopener" style="display:inline-flex; font-size: 0.95rem; padding: 12px 24px;">Get Camera Alerts — $9.99</a>
                 </div>
                 <div class="camera-alerts-img" style="text-align: center;">
-                    <img src="assets/real-flock-alert.jpg" alt="DriveSight FLOCK Camera Ahead alert with AI detection bounding boxes while driving" class="real-screenshot" style="width:100%; max-width:360px;">
+                    <img src="assets/real-police-hidden.jpg" alt="DriveSight Police Hidden Ahead alert at 69 mph with 25 confirmed Waze reports" class="real-screenshot" style="width:100%; max-width:500px;">
+                    <div style="margin-top:10px; font-size:0.75rem; color:var(--text-dim);">Real screenshot — Police alert on the highway</div>
                 </div>
             </div>
         </div>
