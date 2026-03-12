@@ -286,15 +286,8 @@
             iceServers: [
                 { urls: 'stun:stun.l.google.com:19302' },
                 { urls: 'stun:stun1.l.google.com:19302' },
-                {
-                    urls: [
-                        'turn:staticauth.openrelay.metered.ca:80',
-                        'turn:staticauth.openrelay.metered.ca:443',
-                        'turns:staticauth.openrelay.metered.ca:443?transport=tcp'
-                    ],
-                    username: 'openrelayproject',
-                    credential: 'openrelayprojectsecret'
-                }
+                { urls: 'stun:stun2.l.google.com:19302' },
+                { urls: 'stun:stun3.l.google.com:19302' }
             ],
             sdpSemantics: 'unified-plan'
         };
