@@ -834,6 +834,45 @@
             .gear-card-inner { padding: 24px 20px; }
         }
 
+        /* Helium Mobile Callout */
+        .helium-callout {
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .helium-inner {
+            background: linear-gradient(135deg, #141926, #1a2540);
+            border: 1px solid #2563eb33;
+            border-radius: 20px;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 32px;
+            align-items: center;
+        }
+        .helium-img img {
+            width: 280px;
+            border-radius: 16px;
+            transition: transform 0.3s ease;
+        }
+        .helium-img img:hover {
+            transform: scale(1.03);
+        }
+        @media (max-width: 700px) {
+            .helium-inner {
+                grid-template-columns: 1fr;
+                padding: 28px 20px;
+                text-align: center;
+            }
+            .helium-img { order: -1; }
+            .helium-img img {
+                width: 240px;
+                margin: 0 auto;
+            }
+            .helium-inner .gear-features li { justify-content: center; }
+            .helium-inner .btn-primary { margin: 0 auto; }
+        }
+
         /* ============ PRICING ============ */
         .pricing { background: var(--dark-bg); position: relative; }
         .pricing::before {
@@ -1890,6 +1929,29 @@
         </div>
 
         <p style="text-align:center; color:var(--text-dim); font-size:0.8rem; margin-top:24px; font-style:italic;">As an Amazon Associate, we earn from qualifying purchases. This doesn't affect the price you pay.</p>
+
+        <!-- Helium Mobile Free Plan -->
+        <div class="helium-callout fade-up" style="margin-top:48px;">
+            <div class="helium-inner">
+                <div class="helium-text">
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+                        <span style="font-size:1.8rem;">📶</span>
+                        <h3 style="font-size:1.3rem; font-weight:800; color:var(--text-bright); margin:0;">Free Mobile Data for Your Dashcam Phone</h3>
+                    </div>
+                    <p style="color:var(--text-dim); font-size:0.95rem; line-height:1.7; margin-bottom:16px;">Using a spare phone as a dedicated dashcam? It doesn't need a $50/month phone plan. <strong style="color:var(--text-bright);">Helium Mobile</strong> offers a completely free phone plan — no catches, no bills. Get enough data for Google Drive cloud backup, live police alerts, and remote camera viewing without paying a dime.</p>
+                    <ul class="gear-features" style="margin-bottom:20px;">
+                        <li><span class="check">&#10003;</span> Free forever — no credit card required</li>
+                        <li><span class="check">&#10003;</span> Enough data for cloud backup &amp; live alerts</li>
+                        <li><span class="check">&#10003;</span> Perfect for a dedicated dashcam phone that stays in the car</li>
+                    </ul>
+                    <a href="https://hellohelium.com" class="btn-primary" target="_blank" rel="noopener" style="display:inline-flex; font-size:0.95rem; padding:12px 28px; background:linear-gradient(135deg, #3b82f6, #60a5fa);">Get Free Phone Plan</a>
+                    <p style="color:var(--text-dim); font-size:0.85rem; margin-top:12px;">Use code <strong style="color:var(--text-bright); font-family:monospace; letter-spacing:2px;">ZCNV8MG</strong> at signup for a bonus</p>
+                </div>
+                <div class="helium-img">
+                    <img src="assets/helium-mobile-free.jpg" alt="Helium Mobile free phone plan with QR code - no catches no bills" loading="lazy">
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 

@@ -376,6 +376,12 @@
                 </svg>
                 <span id="camLabel">Rear</span>
             </button>
+            <button class="fullscreen-btn" id="flashBtn" onclick="toggleFlashlight()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                </svg>
+                <span id="flashLabel">Flash</span>
+            </button>
             <button class="fullscreen-btn" onclick="toggleFullscreen()">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/>
@@ -881,6 +887,21 @@
             db.collection('webrtc_sessions').doc(sessionId)
                 .update({ cameraMode: currentCameraMode })
                 .catch(err => console.error('Failed to set camera mode:', err));
+        }
+
+        // ─── Flashlight toggle ──────────────────────────────────────────
+        let flashlightOn = false;
+        const flashBtn = document.getElementById('flashBtn');
+        const flashLabel = document.getElementById('flashLabel');
+
+        function toggleFlashlight() {
+            if (!sessionId) return;
+            flashlightOn = !flashlightOn;
+            flashLabel.textContent = flashlightOn ? 'Flash ON' : 'Flash';
+            flashBtn.style.background = flashlightOn ? '#f59e0b' : '';
+            db.collection('webrtc_sessions').doc(sessionId)
+                .update({ flashlight: flashlightOn })
+                .catch(err => console.error('Failed to toggle flashlight:', err));
         }
 
         // ─── Push-to-talk ───────────────────────────────────────────────
