@@ -304,8 +304,9 @@
 
         // ─── Parse URL params ──────────────────────────────────────────
         const params = new URLSearchParams(window.location.search);
-        const sessionId = params.get('s');
-        const sessionSecret = params.get('k');
+        let sessionId = params.get('s');
+        let sessionSecret = params.get('k');
+        const deviceId = params.get('d') || localStorage.getItem('drivesight_device_id');
 
         // ─── DOM refs ──────────────────────────────────────────────────
         const video = document.getElementById('remoteVideo');
@@ -401,6 +402,30 @@
 
         // ─── Main connection logic ─────────────────────────────────────
         async function connect() {
+            // Auto-connect via device ID: look up active session
+            if (!sessionId && deviceId) {
+                setStatus('connecting', 'Finding dashcam...');
+                showOverlay('Finding Dashcam...', 'Looking up active session', true, false);
+                try {
+                    const deviceDoc = await db.collection('devices').doc(deviceId).get();
+                    if (!deviceDoc.exists) {
+                        showOverlay('Dashcam Offline', 'Remote Viewer is not enabled on the dashcam. Open DriveSight and enable Remote Viewer in Settings.', false, true);
+                        setStatus('failed', 'Dashcam offline');
+                        return;
+                    }
+                    const deviceData = deviceDoc.data();
+                    sessionId = deviceData.sessionId;
+                    sessionSecret = deviceData.sessionSecret;
+                    // Save device ID for future one-tap access
+                    localStorage.setItem('drivesight_device_id', deviceId);
+                } catch (err) {
+                    console.error('Device lookup error:', err);
+                    showOverlay('Connection Error', 'Failed to look up dashcam. Check your internet connection.', false, true);
+                    setStatus('failed', 'Lookup failed');
+                    return;
+                }
+            }
+
             if (!sessionId || !sessionSecret) {
                 showOverlay('Invalid Link', 'This viewer link is missing session parameters. Please scan the QR code from the DriveSight app again.', false, false);
                 setStatus('failed', 'Invalid link');
@@ -601,6 +626,11 @@
 
         function retryConnection() {
             cleanup();
+            // Reset session params so device lookup runs again
+            if (deviceId) {
+                sessionId = null;
+                sessionSecret = null;
+            }
             connect();
         }
 
