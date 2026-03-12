@@ -441,6 +441,7 @@
         let unsubAnswer = null;
         let unsubCandidates = null;
         let unsubMotion = null;
+        let unsubDevice = null;
         let lastMotionTimestamp = 0;
         let localMicStream = null;
         let micSender = null;
@@ -537,6 +538,7 @@
         function unpair() {
             if (confirm('Unpair from this dashcam? You will need to enter the code again.')) {
                 localStorage.removeItem('drivesight_device_id');
+                if (unsubDevice) { unsubDevice(); unsubDevice = null; }
                 cleanup();
                 location.reload();
             }
@@ -641,32 +643,57 @@
 
         // ─── Connection logic ──────────────────────────────────────────
         async function connectToSession() {
-            // Look up device to get current session
-            setStatus('connecting', 'Finding dashcam...');
-            showOverlay('Finding Dashcam...', 'Looking up active session', true, false);
+            setStatus('connecting', 'Waiting for dashcam...');
+            showOverlay('Waiting for Dashcam...', 'Open DriveSight and switch to the Drive screen with Remote Viewer enabled', true, false);
 
-            try {
-                const deviceDoc = await db.collection('devices').doc(deviceId).get();
-                if (!deviceDoc.exists) {
-                    showOverlay('Dashcam Offline', 'Remote Viewer is not enabled on the dashcam. Open DriveSight and enable Remote Viewer in Settings.', false, true);
-                    setStatus('failed', 'Dashcam offline');
-                    return;
-                }
-                const deviceData = deviceDoc.data();
-                sessionId = deviceData.sessionId;
-                sessionSecret = deviceData.sessionSecret;
-            } catch (err) {
-                console.error('Device lookup error:', err);
-                showOverlay('Connection Error', 'Failed to look up dashcam. Check your internet connection.', false, true);
-                setStatus('failed', 'Lookup failed');
-                return;
-            }
+            // Stop any previous device listener
+            if (unsubDevice) { unsubDevice(); unsubDevice = null; }
 
-            if (!sessionId || !sessionSecret) {
-                showOverlay('Dashcam Offline', 'No active session found. Make sure Remote Viewer is enabled in the DriveSight app.', false, true);
-                setStatus('failed', 'No session');
-                return;
-            }
+            // ── Live-listen on the device doc so we auto-connect when dashcam comes online ──
+            unsubDevice = db.collection('devices').doc(deviceId)
+                .onSnapshot(async (deviceSnap) => {
+                    // Ignore if we're already connected or mid-handshake
+                    if (peerConnection && (peerConnection.connectionState === 'connected' ||
+                        peerConnection.connectionState === 'connecting')) return;
+
+                    if (!deviceSnap.exists) {
+                        setStatus('connecting', 'Waiting for dashcam...');
+                        showOverlay('Waiting for Dashcam...', 'Open DriveSight and switch to the Drive screen with Remote Viewer enabled', true, false);
+                        return;
+                    }
+
+                    const deviceData = deviceSnap.data();
+                    const newSessionId = deviceData.sessionId;
+                    const newSecret = deviceData.sessionSecret;
+
+                    if (!newSessionId || !newSecret) {
+                        setStatus('connecting', 'Waiting for dashcam...');
+                        showOverlay('Waiting for Dashcam...', 'Enable Remote Viewer in DriveSight Settings, then switch to Drive screen', true, false);
+                        return;
+                    }
+
+                    // If session changed (dashcam restarted), clean up old connection
+                    if (newSessionId !== sessionId && peerConnection) {
+                        console.log('Session changed — reconnecting');
+                        cleanup();
+                    }
+
+                    sessionId = newSessionId;
+                    sessionSecret = newSecret;
+
+                    // Now try to connect to the WebRTC session
+                    await tryConnectSession();
+
+                }, (err) => {
+                    console.error('Device listener error:', err);
+                    showOverlay('Connection Error', 'Failed to reach server. Check your internet.', false, true);
+                    setStatus('failed', 'Connection error');
+                });
+        }
+
+        async function tryConnectSession() {
+            // Already in a WebRTC session — skip
+            if (peerConnection && peerConnection.connectionState === 'connected') return;
 
             setStatus('connecting', 'Connecting...');
             showOverlay('Connecting to Dashcam...', 'Establishing secure peer-to-peer connection', true, false);
@@ -675,8 +702,9 @@
                 const sessionDoc = await db.collection('webrtc_sessions').doc(sessionId).get();
 
                 if (!sessionDoc.exists) {
-                    showOverlay('Session Expired', 'The dashcam session has expired. Make sure Remote Viewer is still enabled.', false, true);
-                    setStatus('failed', 'Session expired');
+                    // Session doc not created yet — wait for device listener to fire again
+                    setStatus('connecting', 'Waiting for session...');
+                    showOverlay('Waiting for Dashcam...', 'Dashcam is starting up...', true, false);
                     return;
                 }
 
@@ -690,8 +718,9 @@
 
                 const sdpOffer = sessionData.dashcamOffer;
                 if (!sdpOffer) {
-                    showOverlay('Waiting for Dashcam...', 'The dashcam has not published its offer yet.', true, true);
-                    setStatus('connecting', 'Waiting for dashcam...');
+                    // Offer not ready yet — listen for it
+                    showOverlay('Waiting for Dashcam...', 'Waiting for dashcam to start streaming...', true, false);
+                    setStatus('connecting', 'Waiting for stream...');
 
                     unsubAnswer = db.collection('webrtc_sessions').doc(sessionId)
                         .onSnapshot((snap) => {
@@ -709,7 +738,7 @@
 
             } catch (err) {
                 console.error('Connection error:', err);
-                showOverlay('Connection Error', 'Failed to connect. Check your internet connection and try again.', false, true);
+                showOverlay('Connection Error', 'Failed to connect. Check your internet and try again.', false, true);
                 setStatus('failed', 'Connection error');
             }
         }
@@ -855,6 +884,8 @@
             if (unsubAnswer) { unsubAnswer(); unsubAnswer = null; }
             if (unsubCandidates) { unsubCandidates(); unsubCandidates = null; }
             if (unsubMotion) { unsubMotion(); unsubMotion = null; }
+            // NOTE: don't kill unsubDevice here — we want it to keep watching
+            // so it auto-reconnects when dashcam comes back online
             if (localMicStream) {
                 localMicStream.getTracks().forEach(t => t.stop());
                 localMicStream = null;
@@ -954,6 +985,7 @@
                 db.collection('webrtc_sessions').doc(sessionId)
                     .update({ status: 'ended', flashlight: false }).catch(() => {});
             }
+            if (unsubDevice) { unsubDevice(); unsubDevice = null; }
             cleanup();
         });
 
