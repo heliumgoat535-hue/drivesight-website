@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>DriveSight Remote Viewer</title>
     <link rel="icon" type="image/png" href="../assets/icon-512.png">
+    <link rel="manifest" href="manifest.json">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -21,6 +22,94 @@
             -webkit-user-select: none;
             user-select: none;
         }
+
+        /* ─── Pairing Screen ──────────────────────────────────────── */
+        .pair-screen {
+            text-align: center;
+            padding: 24px;
+            max-width: 360px;
+        }
+
+        .pair-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 16px;
+            border-radius: 20px;
+        }
+
+        .pair-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .pair-subtitle {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        .code-input-row {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .code-char {
+            width: 44px;
+            height: 56px;
+            background: #1a1a1a;
+            border: 2px solid #333;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+            outline: none;
+            transition: border-color 0.2s;
+            caret-color: #f59e0b;
+        }
+
+        .code-char:focus {
+            border-color: #f59e0b;
+        }
+
+        .connect-btn {
+            width: 100%;
+            padding: 14px;
+            background: #2D7D46;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .connect-btn:hover { background: #236B38; }
+        .connect-btn:disabled { background: #333; color: #666; cursor: not-allowed; }
+
+        .pair-hint {
+            margin-top: 16px;
+            font-size: 12px;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .pair-error {
+            margin-top: 12px;
+            font-size: 13px;
+            color: #ef4444;
+            min-height: 20px;
+        }
+
+        /* ─── Viewer Screen ──────────────────────────────────────── */
+        .viewer-screen { display: none; width: 100%; height: 100%; }
+        .viewer-screen.active { display: flex; flex-direction: column; }
+        .pair-screen.hidden { display: none; }
 
         /* Status bar at top */
         .status-bar {
@@ -151,10 +240,7 @@
             box-shadow: 0 4px 20px rgba(239,68,68,0.4);
         }
 
-        .motion-alert-icon {
-            width: 20px;
-            height: 20px;
-        }
+        .motion-alert-icon { width: 20px; height: 20px; }
 
         /* Bottom bar */
         .bottom-bar {
@@ -168,23 +254,10 @@
             padding: 12px 16px;
             background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
             z-index: 10;
+            gap: 12px;
         }
 
-        .fullscreen-btn {
-            padding: 8px 16px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 8px;
-            color: #ccc;
-            font-size: 13px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .fullscreen-btn:hover { background: rgba(255,255,255,0.2); }
-
-        .talk-btn {
+        .fullscreen-btn, .talk-btn {
             padding: 8px 16px;
             background: rgba(255,255,255,0.1);
             border: 1px solid rgba(255,255,255,0.2);
@@ -199,13 +272,8 @@
             user-select: none;
             touch-action: none;
         }
-        .talk-btn:hover { background: rgba(255,255,255,0.2); }
-        .talk-btn.active {
-            background: #ef4444;
-            border-color: #ef4444;
-            color: #fff;
-        }
-        .talk-btn.active svg { stroke: #fff; }
+        .fullscreen-btn:hover, .talk-btn:hover { background: rgba(255,255,255,0.2); }
+        .talk-btn.active { background: #ef4444; border-color: #ef4444; color: #fff; }
 
         .hidden { display: none !important; }
 
@@ -214,80 +282,118 @@
         @keyframes slideDown { from { top: 40px; opacity: 0; } to { top: 60px; opacity: 1; } }
         @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
 
-        /* Landscape optimization */
         @media (orientation: landscape) {
             .status-bar { padding: 8px 16px; }
             .bottom-bar { padding: 8px 16px; }
         }
 
-        /* Error screen */
-        .error-icon {
-            font-size: 48px;
-            margin-bottom: 12px;
+        .error-icon { font-size: 48px; margin-bottom: 12px; }
+
+        /* Unpair link */
+        .unpair-link {
+            position: fixed;
+            bottom: 8px;
+            right: 12px;
+            font-size: 11px;
+            color: #444;
+            cursor: pointer;
+            z-index: 11;
         }
+        .unpair-link:hover { color: #888; }
     </style>
 </head>
 <body>
 
-    <!-- Status bar -->
-    <div class="status-bar">
-        <div class="status-left">
-            <div class="status-dot" id="statusDot"></div>
-            <span class="status-text" id="statusText">Initializing...</span>
+    <!-- ═══ PAIRING SCREEN ═══ -->
+    <div class="pair-screen" id="pairScreen">
+        <img class="pair-logo" src="../assets/icon-512.png" alt="DriveSight" onerror="this.style.display='none'">
+        <div class="pair-title">DriveSight Viewer</div>
+        <div class="pair-subtitle">Enter the 6-character code shown in your DriveSight app under Settings → Remote Viewer</div>
+
+        <div class="code-input-row" id="codeRow">
+            <input class="code-char" type="text" maxlength="1" inputmode="text" autocapitalize="characters" autocomplete="off" data-idx="0">
+            <input class="code-char" type="text" maxlength="1" inputmode="text" autocapitalize="characters" autocomplete="off" data-idx="1">
+            <input class="code-char" type="text" maxlength="1" inputmode="text" autocapitalize="characters" autocomplete="off" data-idx="2">
+            <input class="code-char" type="text" maxlength="1" inputmode="text" autocapitalize="characters" autocomplete="off" data-idx="3">
+            <input class="code-char" type="text" maxlength="1" inputmode="text" autocapitalize="characters" autocomplete="off" data-idx="4">
+            <input class="code-char" type="text" maxlength="1" inputmode="text" autocapitalize="characters" autocomplete="off" data-idx="5">
         </div>
-        <span class="logo-text">DriveSight</span>
+
+        <button class="connect-btn" id="connectBtn" onclick="pairAndConnect()" disabled>Connect</button>
+
+        <div class="pair-error" id="pairError"></div>
+
+        <div class="pair-hint">
+            You only need to do this once.<br>
+            After pairing, this page auto-connects every time.
+        </div>
     </div>
 
-    <!-- Video -->
-    <div class="video-container">
-        <video id="remoteVideo" autoplay playsinline></video>
-
-        <!-- Center overlay for states -->
-        <div class="center-overlay" id="centerOverlay">
-            <div class="spinner" id="spinner"></div>
-            <div class="overlay-title" id="overlayTitle">Connecting to Dashcam...</div>
-            <div class="overlay-subtitle" id="overlaySubtitle">Establishing secure connection</div>
-            <button class="retry-btn hidden" id="retryBtn" onclick="retryConnection()">Retry Connection</button>
+    <!-- ═══ VIEWER SCREEN ═══ -->
+    <div class="viewer-screen" id="viewerScreen">
+        <!-- Status bar -->
+        <div class="status-bar">
+            <div class="status-left">
+                <div class="status-dot" id="statusDot"></div>
+                <span class="status-text" id="statusText">Initializing...</span>
+            </div>
+            <span class="logo-text">DriveSight</span>
         </div>
-    </div>
 
-    <!-- Bottom bar -->
-    <div class="bottom-bar" style="gap: 12px;">
-        <button class="talk-btn" id="talkBtn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/>
-                <path d="M19 10v2a7 7 0 01-14 0v-2"/>
-                <line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
-            </svg>
-            <span id="talkLabel">Hold to Talk</span>
-        </button>
-        <button class="fullscreen-btn" onclick="rotateVideo()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/>
-            </svg>
-            <span id="rotateLabel">0°</span>
-        </button>
-        <button class="fullscreen-btn" id="camBtn" onclick="cycleCameraMode()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/>
-                <circle cx="12" cy="13" r="4"/>
-            </svg>
-            <span id="camLabel">Rear</span>
-        </button>
-        <button class="fullscreen-btn" onclick="toggleFullscreen()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/>
-            </svg>
-            Fullscreen
-        </button>
+        <!-- Video -->
+        <div class="video-container">
+            <video id="remoteVideo" autoplay playsinline></video>
+
+            <!-- Center overlay for states -->
+            <div class="center-overlay" id="centerOverlay">
+                <div class="spinner" id="spinner"></div>
+                <div class="overlay-title" id="overlayTitle">Connecting to Dashcam...</div>
+                <div class="overlay-subtitle" id="overlaySubtitle">Establishing secure connection</div>
+                <button class="retry-btn hidden" id="retryBtn" onclick="retryConnection()">Retry Connection</button>
+            </div>
+        </div>
+
+        <!-- Bottom bar -->
+        <div class="bottom-bar">
+            <button class="talk-btn" id="talkBtn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/>
+                    <path d="M19 10v2a7 7 0 01-14 0v-2"/>
+                    <line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
+                </svg>
+                <span id="talkLabel">Hold to Talk</span>
+            </button>
+            <button class="fullscreen-btn" onclick="rotateVideo()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/>
+                </svg>
+                <span id="rotateLabel">0°</span>
+            </button>
+            <button class="fullscreen-btn" id="camBtn" onclick="cycleCameraMode()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/>
+                    <circle cx="12" cy="13" r="4"/>
+                </svg>
+                <span id="camLabel">Rear</span>
+            </button>
+            <button class="fullscreen-btn" onclick="toggleFullscreen()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/>
+                </svg>
+                Fullscreen
+            </button>
+        </div>
+
+        <div class="unpair-link" onclick="unpair()">Unpair</div>
     </div>
 
     <!-- Motion alert (injected dynamically) -->
     <div id="alertContainer"></div>
 
-    <!-- Firebase JS SDK (v9 compat for simplicity) -->
+    <!-- Firebase JS SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging-compat.js"></script>
 
     <script>
         // ─── Firebase Config ───────────────────────────────────────────
@@ -296,7 +402,8 @@
             authDomain: "deer-dash.firebaseapp.com",
             projectId: "deer-dash",
             storageBucket: "deer-dash.firebasestorage.app",
-            messagingSenderId: "834190963152"
+            messagingSenderId: "834190963152",
+            appId: "1:834190963152:web:viewer"
         };
 
         firebase.initializeApp(firebaseConfig);
@@ -304,11 +411,15 @@
 
         // ─── Parse URL params ──────────────────────────────────────────
         const params = new URLSearchParams(window.location.search);
-        let sessionId = params.get('s');
-        let sessionSecret = params.get('k');
-        const deviceId = params.get('d') || localStorage.getItem('drivesight_device_id');
+        let deviceId = params.get('d') || localStorage.getItem('drivesight_device_id');
+        let sessionId = null;
+        let sessionSecret = null;
 
         // ─── DOM refs ──────────────────────────────────────────────────
+        const pairScreen = document.getElementById('pairScreen');
+        const viewerScreen = document.getElementById('viewerScreen');
+        const connectBtn = document.getElementById('connectBtn');
+        const pairError = document.getElementById('pairError');
         const video = document.getElementById('remoteVideo');
         const statusDot = document.getElementById('statusDot');
         const statusText = document.getElementById('statusText');
@@ -328,7 +439,7 @@
         let localMicStream = null;
         let micSender = null;
 
-        // ─── ICE config (STUN + TURN for NAT traversal) ───────────────
+        // ─── ICE config ────────────────────────────────────────────────
         const rtcConfig = {
             iceServers: [
                 { urls: 'stun:stun.l.google.com:19302' },
@@ -338,6 +449,92 @@
             ],
             sdpSemantics: 'unified-plan'
         };
+
+        // ─── Code Input Handling ───────────────────────────────────────
+        const codeInputs = document.querySelectorAll('.code-char');
+
+        codeInputs.forEach((input, idx) => {
+            input.addEventListener('input', (e) => {
+                const val = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+                e.target.value = val;
+                if (val && idx < 5) codeInputs[idx + 1].focus();
+                updateConnectBtn();
+            });
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !e.target.value && idx > 0) {
+                    codeInputs[idx - 1].focus();
+                }
+                if (e.key === 'Enter') {
+                    pairAndConnect();
+                }
+            });
+            // Handle paste
+            input.addEventListener('paste', (e) => {
+                e.preventDefault();
+                const text = (e.clipboardData.getData('text') || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+                for (let i = 0; i < 6 && i < text.length; i++) {
+                    codeInputs[i].value = text[i];
+                }
+                if (text.length >= 6) codeInputs[5].focus();
+                updateConnectBtn();
+            });
+        });
+
+        function updateConnectBtn() {
+            const code = getCode();
+            connectBtn.disabled = code.length < 6;
+        }
+
+        function getCode() {
+            return Array.from(codeInputs).map(i => i.value).join('');
+        }
+
+        // ─── Pairing ──────────────────────────────────────────────────
+        async function pairAndConnect() {
+            const code = getCode();
+            if (code.length < 6) return;
+
+            connectBtn.disabled = true;
+            connectBtn.textContent = 'Connecting...';
+            pairError.textContent = '';
+
+            try {
+                const deviceDoc = await db.collection('devices').doc(code).get();
+                if (!deviceDoc.exists) {
+                    pairError.textContent = 'Device not found. Check the code and make sure Remote Viewer is enabled.';
+                    connectBtn.disabled = false;
+                    connectBtn.textContent = 'Connect';
+                    return;
+                }
+
+                // Save and connect
+                deviceId = code;
+                localStorage.setItem('drivesight_device_id', code);
+                const data = deviceDoc.data();
+                sessionId = data.sessionId;
+                sessionSecret = data.sessionSecret;
+
+                showViewer();
+                await connectToSession();
+            } catch (err) {
+                pairError.textContent = 'Connection failed. Check your internet.';
+                connectBtn.disabled = false;
+                connectBtn.textContent = 'Connect';
+            }
+        }
+
+        function showViewer() {
+            pairScreen.classList.add('hidden');
+            viewerScreen.classList.add('active');
+        }
+
+        function unpair() {
+            if (confirm('Unpair from this dashcam? You will need to enter the code again.')) {
+                localStorage.removeItem('drivesight_device_id');
+                cleanup();
+                location.reload();
+            }
+        }
 
         // ─── UI helpers ────────────────────────────────────────────────
         function setStatus(state, text) {
@@ -371,7 +568,6 @@
             alertContainer.innerHTML = '';
             alertContainer.appendChild(alert);
 
-            // Also trigger browser notification if permitted
             if (Notification.permission === 'granted') {
                 new Notification('DriveSight', {
                     body: 'Motion detected on your dashcam!',
@@ -381,7 +577,6 @@
                 });
             }
 
-            // Remove after 5s
             setTimeout(() => { alert.remove(); }, 5000);
         }
 
@@ -393,6 +588,44 @@
             }
         }
 
+        // ─── FCM Web Push ──────────────────────────────────────────────
+        async function setupPushNotifications() {
+            try {
+                if (!('Notification' in window) || !('serviceWorker' in navigator)) return;
+
+                const permission = await Notification.requestPermission();
+                if (permission !== 'granted') return;
+
+                const messaging = firebase.messaging();
+                const token = await messaging.getToken({
+                    vapidKey: null // Will use default FCM if no VAPID key
+                }).catch(() => null);
+
+                if (token && deviceId) {
+                    // Save FCM token to device document for Cloud Function to use
+                    await db.collection('devices').doc(deviceId).update({
+                        viewerFcmToken: token
+                    }).catch(() => {
+                        // If update fails (field doesn't exist yet), use set with merge
+                        return db.collection('devices').doc(deviceId).set({
+                            viewerFcmToken: token
+                        }, { merge: true });
+                    });
+                    console.log('FCM token saved for push notifications');
+                }
+
+                // Handle foreground messages
+                messaging.onMessage((payload) => {
+                    console.log('FCM message received:', payload);
+                    if (payload.data && payload.data.type === 'motion_alert') {
+                        showMotionAlert();
+                    }
+                });
+            } catch (err) {
+                console.log('Push notification setup skipped:', err.message);
+            }
+        }
+
         // ─── Request notification permission ───────────────────────────
         function requestNotificationPermission() {
             if ('Notification' in window && Notification.permission === 'default') {
@@ -400,35 +633,32 @@
             }
         }
 
-        // ─── Main connection logic ─────────────────────────────────────
-        async function connect() {
-            // Auto-connect via device ID: look up active session
-            if (!sessionId && deviceId) {
-                setStatus('connecting', 'Finding dashcam...');
-                showOverlay('Finding Dashcam...', 'Looking up active session', true, false);
-                try {
-                    const deviceDoc = await db.collection('devices').doc(deviceId).get();
-                    if (!deviceDoc.exists) {
-                        showOverlay('Dashcam Offline', 'Remote Viewer is not enabled on the dashcam. Open DriveSight and enable Remote Viewer in Settings.', false, true);
-                        setStatus('failed', 'Dashcam offline');
-                        return;
-                    }
-                    const deviceData = deviceDoc.data();
-                    sessionId = deviceData.sessionId;
-                    sessionSecret = deviceData.sessionSecret;
-                    // Save device ID for future one-tap access
-                    localStorage.setItem('drivesight_device_id', deviceId);
-                } catch (err) {
-                    console.error('Device lookup error:', err);
-                    showOverlay('Connection Error', 'Failed to look up dashcam. Check your internet connection.', false, true);
-                    setStatus('failed', 'Lookup failed');
+        // ─── Connection logic ──────────────────────────────────────────
+        async function connectToSession() {
+            // Look up device to get current session
+            setStatus('connecting', 'Finding dashcam...');
+            showOverlay('Finding Dashcam...', 'Looking up active session', true, false);
+
+            try {
+                const deviceDoc = await db.collection('devices').doc(deviceId).get();
+                if (!deviceDoc.exists) {
+                    showOverlay('Dashcam Offline', 'Remote Viewer is not enabled on the dashcam. Open DriveSight and enable Remote Viewer in Settings.', false, true);
+                    setStatus('failed', 'Dashcam offline');
                     return;
                 }
+                const deviceData = deviceDoc.data();
+                sessionId = deviceData.sessionId;
+                sessionSecret = deviceData.sessionSecret;
+            } catch (err) {
+                console.error('Device lookup error:', err);
+                showOverlay('Connection Error', 'Failed to look up dashcam. Check your internet connection.', false, true);
+                setStatus('failed', 'Lookup failed');
+                return;
             }
 
             if (!sessionId || !sessionSecret) {
-                showOverlay('Invalid Link', 'This viewer link is missing session parameters. Please scan the QR code from the DriveSight app again.', false, false);
-                setStatus('failed', 'Invalid link');
+                showOverlay('Dashcam Offline', 'No active session found. Make sure Remote Viewer is enabled in the DriveSight app.', false, true);
+                setStatus('failed', 'No session');
                 return;
             }
 
@@ -436,31 +666,27 @@
             showOverlay('Connecting to Dashcam...', 'Establishing secure peer-to-peer connection', true, false);
 
             try {
-                // 1. Read session document
                 const sessionDoc = await db.collection('webrtc_sessions').doc(sessionId).get();
 
                 if (!sessionDoc.exists) {
-                    showOverlay('Session Not Found', 'This session has expired or was ended by the dashcam. Please scan a new QR code from the DriveSight app.', false, true);
-                    setStatus('failed', 'Session not found');
+                    showOverlay('Session Expired', 'The dashcam session has expired. Make sure Remote Viewer is still enabled.', false, true);
+                    setStatus('failed', 'Session expired');
                     return;
                 }
 
                 const sessionData = sessionDoc.data();
 
-                // 2. Verify secret
                 if (sessionData.sessionSecret !== sessionSecret) {
-                    showOverlay('Access Denied', 'The session secret does not match. Please scan the QR code again.', false, false);
+                    showOverlay('Access Denied', 'Session secret mismatch.', false, true);
                     setStatus('failed', 'Access denied');
                     return;
                 }
 
-                // 3. Check for SDP offer
                 const sdpOffer = sessionData.dashcamOffer;
                 if (!sdpOffer) {
-                    showOverlay('Waiting for Dashcam...', 'The dashcam has not published its offer yet. Please make sure the DriveSight app is running with Remote Viewer enabled.', true, true);
+                    showOverlay('Waiting for Dashcam...', 'The dashcam has not published its offer yet.', true, true);
                     setStatus('connecting', 'Waiting for dashcam...');
 
-                    // Listen for the offer to appear
                     unsubAnswer = db.collection('webrtc_sessions').doc(sessionId)
                         .onSnapshot((snap) => {
                             const data = snap.data();
@@ -473,12 +699,11 @@
                     return;
                 }
 
-                // 4. Start WebRTC handshake
                 await startWebRtc(sdpOffer);
 
             } catch (err) {
                 console.error('Connection error:', err);
-                showOverlay('Connection Error', 'Failed to connect to Firestore. Check your internet connection and try again.', false, true);
+                showOverlay('Connection Error', 'Failed to connect. Check your internet connection and try again.', false, true);
                 setStatus('failed', 'Connection error');
             }
         }
@@ -487,13 +712,11 @@
             setStatus('connecting', 'Connecting...');
             showOverlay('Connecting to Dashcam...', 'Setting up peer-to-peer video stream', true, false);
 
-            // Request notification permission while connecting
             requestNotificationPermission();
+            setupPushNotifications();
 
-            // Create PeerConnection
             peerConnection = new RTCPeerConnection(rtcConfig);
 
-            // Handle incoming tracks (video from dashcam)
             peerConnection.ontrack = (event) => {
                 console.log('Got remote track:', event.track.kind);
                 if (event.streams && event.streams[0]) {
@@ -505,10 +728,8 @@
                 }
             };
 
-            // Handle ICE candidates — send to Firestore
             peerConnection.onicecandidate = async (event) => {
                 if (event.candidate) {
-                    console.log('Local ICE candidate:', event.candidate.candidate);
                     try {
                         await db.collection('webrtc_sessions').doc(sessionId)
                             .collection('viewerCandidates')
@@ -521,21 +742,9 @@
                     } catch (err) {
                         console.error('Failed to add ICE candidate:', err);
                     }
-                } else {
-                    console.log('ICE gathering complete');
                 }
             };
 
-            // Log ICE connection state for debugging
-            peerConnection.oniceconnectionstatechange = () => {
-                console.log('ICE connection state:', peerConnection.iceConnectionState);
-            };
-
-            peerConnection.onicegatheringstatechange = () => {
-                console.log('ICE gathering state:', peerConnection.iceGatheringState);
-            };
-
-            // Handle connection state changes
             peerConnection.onconnectionstatechange = () => {
                 const state = peerConnection.connectionState;
                 console.log('Connection state:', state);
@@ -544,7 +753,6 @@
                     case 'connected':
                         setStatus('connected', 'Connected');
                         hideOverlay();
-                        // Update session status
                         db.collection('webrtc_sessions').doc(sessionId)
                             .update({ status: 'connected' }).catch(() => {});
                         break;
@@ -554,7 +762,7 @@
                         break;
                     case 'failed':
                         setStatus('failed', 'Connection failed');
-                        showOverlay('Connection Failed', 'Could not establish a direct connection. This may happen if both devices are behind strict firewalls (symmetric NAT). Try switching to a different network.', false, true);
+                        showOverlay('Connection Failed', 'Could not establish a direct connection. Try switching to a different network.', false, true);
                         break;
                     case 'closed':
                         setStatus('failed', 'Disconnected');
@@ -563,35 +771,26 @@
                 }
             };
 
-            // Get microphone for two-way audio (push-to-talk)
+            // Mic for push-to-talk
             try {
                 localMicStream = await navigator.mediaDevices.getUserMedia({ audio: true });
                 const audioTrack = localMicStream.getAudioTracks()[0];
-                audioTrack.enabled = false; // Start muted — user holds button to talk
+                audioTrack.enabled = false;
                 micSender = peerConnection.addTrack(audioTrack, localMicStream);
-                console.log('Mic track added (muted until push-to-talk)');
             } catch (micErr) {
-                console.warn('Mic not available — one-way audio only:', micErr.message);
+                console.warn('Mic not available:', micErr.message);
             }
 
-            // Set remote description (dashcam's offer)
-            const offer = new RTCSessionDescription({
-                type: 'offer',
-                sdp: sdpOffer
-            });
+            const offer = new RTCSessionDescription({ type: 'offer', sdp: sdpOffer });
             await peerConnection.setRemoteDescription(offer);
 
-            // Create answer
             const answer = await peerConnection.createAnswer();
             await peerConnection.setLocalDescription(answer);
 
-            // Write answer to Firestore
             await db.collection('webrtc_sessions').doc(sessionId)
                 .update({ viewerAnswer: answer.sdp });
 
-            console.log('Answer written to Firestore');
-
-            // Listen for dashcam's ICE candidates
+            // Listen for dashcam ICE candidates
             unsubCandidates = db.collection('webrtc_sessions').doc(sessionId)
                 .collection('dashcamCandidates')
                 .onSnapshot((snapshot) => {
@@ -603,9 +802,7 @@
                                 sdpMid: data.sdpMid,
                                 sdpMLineIndex: data.sdpMLineIndex
                             });
-                            peerConnection.addIceCandidate(candidate).catch((err) => {
-                                console.error('Failed to add remote ICE candidate:', err);
-                            });
+                            peerConnection.addIceCandidate(candidate).catch(() => {});
                         }
                     });
                 });
@@ -626,12 +823,9 @@
 
         function retryConnection() {
             cleanup();
-            // Reset session params so device lookup runs again
-            if (deviceId) {
-                sessionId = null;
-                sessionSecret = null;
-            }
-            connect();
+            sessionId = null;
+            sessionSecret = null;
+            connectToSession();
         }
 
         function cleanup() {
@@ -657,7 +851,6 @@
 
         function rotateVideo() {
             if (!sessionId) return;
-            // Rotate whichever camera is active (split → front, since rear is usually fine)
             const update = {};
             if (currentCameraMode === 'rear') {
                 rearRotation = (rearRotation + 90) % 360;
@@ -670,14 +863,12 @@
             }
             db.collection('webrtc_sessions').doc(sessionId)
                 .update(update)
-                .then(() => console.log('Rotation updated:', update))
                 .catch(err => console.error('Failed to update rotation:', err));
         }
 
         // ─── Camera mode toggle ─────────────────────────────────────────
         let currentCameraMode = 'rear';
         const camLabel = document.getElementById('camLabel');
-        const camBtn = document.getElementById('camBtn');
         const cameraModes = ['rear', 'front', 'split'];
         const cameraModeLabels = { rear: 'Rear', front: 'Front', split: 'Split' };
 
@@ -686,12 +877,9 @@
             const idx = cameraModes.indexOf(currentCameraMode);
             currentCameraMode = cameraModes[(idx + 1) % cameraModes.length];
             camLabel.textContent = cameraModeLabels[currentCameraMode];
-            // Update rotate label to show rotation for the now-active camera
             rotateLabel.textContent = (currentCameraMode === 'rear' ? rearRotation : frontRotation) + '°';
-            // Write to Firestore — dashcam listens for this
             db.collection('webrtc_sessions').doc(sessionId)
                 .update({ cameraMode: currentCameraMode })
-                .then(() => console.log('Camera mode set to:', currentCameraMode))
                 .catch(err => console.error('Failed to set camera mode:', err));
         }
 
@@ -715,11 +903,9 @@
             talkLabel.textContent = 'Hold to Talk';
         }
 
-        // Mouse events
         talkBtn.addEventListener('mousedown', (e) => { e.preventDefault(); startTalk(); });
         talkBtn.addEventListener('mouseup', stopTalk);
         talkBtn.addEventListener('mouseleave', stopTalk);
-        // Touch events (mobile)
         talkBtn.addEventListener('touchstart', (e) => { e.preventDefault(); startTalk(); });
         talkBtn.addEventListener('touchend', stopTalk);
         talkBtn.addEventListener('touchcancel', stopTalk);
@@ -727,37 +913,37 @@
         // ─── Cleanup on page unload ────────────────────────────────────
         window.addEventListener('beforeunload', () => {
             if (sessionId) {
-                // Best effort — update status before leaving
                 db.collection('webrtc_sessions').doc(sessionId)
                     .update({ status: 'ended' }).catch(() => {});
             }
             cleanup();
         });
 
-        // ─── Keep screen awake (prevents phone from sleeping) ──────────
+        // ─── Keep screen awake ─────────────────────────────────────────
         let wakeLock = null;
         async function requestWakeLock() {
             try {
                 if ('wakeLock' in navigator) {
                     wakeLock = await navigator.wakeLock.request('screen');
-                    wakeLock.addEventListener('release', () => {
-                        console.log('Wake lock released');
-                    });
                 }
-            } catch (err) {
-                console.log('Wake lock not available:', err);
-            }
+            } catch (err) {}
         }
 
         document.addEventListener('visibilitychange', () => {
-            if (document.visibilityState === 'visible') {
-                requestWakeLock();
-            }
+            if (document.visibilityState === 'visible') requestWakeLock();
         });
 
         // ─── Start ─────────────────────────────────────────────────────
         requestWakeLock();
-        connect();
+
+        if (deviceId) {
+            // Already paired — go straight to viewer
+            showViewer();
+            connectToSession();
+        } else {
+            // Show pairing screen
+            codeInputs[0].focus();
+        }
     </script>
 </body>
 </html>
