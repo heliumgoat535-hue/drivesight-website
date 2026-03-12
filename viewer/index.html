@@ -620,14 +620,28 @@
             video.srcObject = null;
         }
 
-        // ─── Video rotation ──────────────────────────────────────────────
-        let videoRotation = 0;
+        // ─── Camera rotation (remote) ────────────────────────────────────
+        let rearRotation = 0;
+        let frontRotation = 0;
         const rotateLabel = document.getElementById('rotateLabel');
 
         function rotateVideo() {
-            videoRotation = (videoRotation + 90) % 360;
-            video.style.transform = videoRotation ? `rotate(${videoRotation}deg)` : '';
-            rotateLabel.textContent = videoRotation + '°';
+            if (!sessionId) return;
+            // Rotate whichever camera is active (split → front, since rear is usually fine)
+            const update = {};
+            if (currentCameraMode === 'rear') {
+                rearRotation = (rearRotation + 90) % 360;
+                update.rearRotation = rearRotation;
+                rotateLabel.textContent = rearRotation + '°';
+            } else {
+                frontRotation = (frontRotation + 90) % 360;
+                update.frontRotation = frontRotation;
+                rotateLabel.textContent = frontRotation + '°';
+            }
+            db.collection('webrtc_sessions').doc(sessionId)
+                .update(update)
+                .then(() => console.log('Rotation updated:', update))
+                .catch(err => console.error('Failed to update rotation:', err));
         }
 
         // ─── Camera mode toggle ─────────────────────────────────────────
@@ -642,6 +656,8 @@
             const idx = cameraModes.indexOf(currentCameraMode);
             currentCameraMode = cameraModes[(idx + 1) % cameraModes.length];
             camLabel.textContent = cameraModeLabels[currentCameraMode];
+            // Update rotate label to show rotation for the now-active camera
+            rotateLabel.textContent = (currentCameraMode === 'rear' ? rearRotation : frontRotation) + '°';
             // Write to Firestore — dashcam listens for this
             db.collection('webrtc_sessions').doc(sessionId)
                 .update({ cameraMode: currentCameraMode })
