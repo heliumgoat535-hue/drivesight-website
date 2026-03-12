@@ -184,6 +184,29 @@
         }
         .fullscreen-btn:hover { background: rgba(255,255,255,0.2); }
 
+        .talk-btn {
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            color: #ccc;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            -webkit-user-select: none;
+            user-select: none;
+            touch-action: none;
+        }
+        .talk-btn:hover { background: rgba(255,255,255,0.2); }
+        .talk-btn.active {
+            background: #ef4444;
+            border-color: #ef4444;
+            color: #fff;
+        }
+        .talk-btn.active svg { stroke: #fff; }
+
         .hidden { display: none !important; }
 
         @keyframes spin { to { transform: rotate(360deg); } }
@@ -217,7 +240,7 @@
 
     <!-- Video -->
     <div class="video-container">
-        <video id="remoteVideo" autoplay playsinline muted></video>
+        <video id="remoteVideo" autoplay playsinline></video>
 
         <!-- Center overlay for states -->
         <div class="center-overlay" id="centerOverlay">
@@ -229,7 +252,15 @@
     </div>
 
     <!-- Bottom bar -->
-    <div class="bottom-bar">
+    <div class="bottom-bar" style="gap: 12px;">
+        <button class="talk-btn" id="talkBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/>
+                <path d="M19 10v2a7 7 0 01-14 0v-2"/>
+                <line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
+            </svg>
+            <span id="talkLabel">Hold to Talk</span>
+        </button>
         <button class="fullscreen-btn" onclick="toggleFullscreen()">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/>
@@ -280,6 +311,8 @@
         let unsubCandidates = null;
         let unsubMotion = null;
         let lastMotionTimestamp = 0;
+        let localMicStream = null;
+        let micSender = null;
 
         // ─── ICE config (STUN + TURN for NAT traversal) ───────────────
         const rtcConfig = {
@@ -492,6 +525,17 @@
                 }
             };
 
+            // Get microphone for two-way audio (push-to-talk)
+            try {
+                localMicStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                const audioTrack = localMicStream.getAudioTracks()[0];
+                audioTrack.enabled = false; // Start muted — user holds button to talk
+                micSender = peerConnection.addTrack(audioTrack, localMicStream);
+                console.log('Mic track added (muted until push-to-talk)');
+            } catch (micErr) {
+                console.warn('Mic not available — one-way audio only:', micErr.message);
+            }
+
             // Set remote description (dashcam's offer)
             const offer = new RTCSessionDescription({
                 type: 'offer',
@@ -551,12 +595,46 @@
             if (unsubAnswer) { unsubAnswer(); unsubAnswer = null; }
             if (unsubCandidates) { unsubCandidates(); unsubCandidates = null; }
             if (unsubMotion) { unsubMotion(); unsubMotion = null; }
+            if (localMicStream) {
+                localMicStream.getTracks().forEach(t => t.stop());
+                localMicStream = null;
+            }
+            micSender = null;
             if (peerConnection) {
                 peerConnection.close();
                 peerConnection = null;
             }
             video.srcObject = null;
         }
+
+        // ─── Push-to-talk ───────────────────────────────────────────────
+        const talkBtn = document.getElementById('talkBtn');
+        const talkLabel = document.getElementById('talkLabel');
+
+        function startTalk() {
+            if (localMicStream) {
+                localMicStream.getAudioTracks().forEach(t => t.enabled = true);
+                talkBtn.classList.add('active');
+                talkLabel.textContent = 'Talking...';
+            }
+        }
+
+        function stopTalk() {
+            if (localMicStream) {
+                localMicStream.getAudioTracks().forEach(t => t.enabled = false);
+            }
+            talkBtn.classList.remove('active');
+            talkLabel.textContent = 'Hold to Talk';
+        }
+
+        // Mouse events
+        talkBtn.addEventListener('mousedown', (e) => { e.preventDefault(); startTalk(); });
+        talkBtn.addEventListener('mouseup', stopTalk);
+        talkBtn.addEventListener('mouseleave', stopTalk);
+        // Touch events (mobile)
+        talkBtn.addEventListener('touchstart', (e) => { e.preventDefault(); startTalk(); });
+        talkBtn.addEventListener('touchend', stopTalk);
+        talkBtn.addEventListener('touchcancel', stopTalk);
 
         // ─── Cleanup on page unload ────────────────────────────────────
         window.addEventListener('beforeunload', () => {
