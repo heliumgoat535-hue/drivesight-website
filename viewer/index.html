@@ -261,6 +261,12 @@
             </svg>
             <span id="talkLabel">Hold to Talk</span>
         </button>
+        <button class="fullscreen-btn" onclick="rotateVideo()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/>
+            </svg>
+            <span id="rotateLabel">0°</span>
+        </button>
         <button class="fullscreen-btn" id="camBtn" onclick="cycleCameraMode()">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/>
@@ -612,6 +618,16 @@
                 peerConnection = null;
             }
             video.srcObject = null;
+        }
+
+        // ─── Video rotation ──────────────────────────────────────────────
+        let videoRotation = 0;
+        const rotateLabel = document.getElementById('rotateLabel');
+
+        function rotateVideo() {
+            videoRotation = (videoRotation + 90) % 360;
+            video.style.transform = videoRotation ? `rotate(${videoRotation}deg)` : '';
+            rotateLabel.textContent = videoRotation + '°';
         }
 
         // ─── Camera mode toggle ─────────────────────────────────────────
