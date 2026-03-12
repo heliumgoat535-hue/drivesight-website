@@ -289,17 +289,21 @@
 
         .error-icon { font-size: 48px; margin-bottom: 12px; }
 
-        /* Unpair link */
+        /* Unpair / new code button */
         .unpair-link {
             position: fixed;
-            bottom: 8px;
+            bottom: 56px;
             right: 12px;
-            font-size: 11px;
-            color: #444;
+            font-size: 13px;
+            color: #888;
             cursor: pointer;
             z-index: 11;
+            padding: 6px 12px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 6px;
         }
-        .unpair-link:hover { color: #888; }
+        .unpair-link:hover { color: #fff; background: rgba(255,255,255,0.15); }
     </style>
 </head>
 <body>
@@ -350,6 +354,7 @@
                 <div class="overlay-title" id="overlayTitle">Connecting to Dashcam...</div>
                 <div class="overlay-subtitle" id="overlaySubtitle">Establishing secure connection</div>
                 <button class="retry-btn hidden" id="retryBtn" onclick="retryConnection()">Retry Connection</button>
+                <button class="retry-btn" id="newCodeBtn" onclick="unpair()" style="background:transparent; border:1px solid #555; color:#999; margin-top:8px;">Enter New Code</button>
             </div>
         </div>
 
@@ -390,7 +395,7 @@
             </button>
         </div>
 
-        <div class="unpair-link" onclick="unpair()">Unpair</div>
+        <div class="unpair-link" onclick="unpair()">⟳ Enter New Code</div>
     </div>
 
     <!-- Motion alert (injected dynamically) -->
