@@ -721,6 +721,23 @@
             requestNotificationPermission();
             setupPushNotifications();
 
+            // ── Clear stale viewer data from previous connection ──
+            try {
+                // Remove old viewer answer so dashcam knows to expect a fresh one
+                await db.collection('webrtc_sessions').doc(sessionId)
+                    .update({ viewerAnswer: firebase.firestore.FieldValue.delete(), status: 'waiting' });
+
+                // Delete old viewer ICE candidates
+                const oldCandidates = await db.collection('webrtc_sessions').doc(sessionId)
+                    .collection('viewerCandidates').get();
+                const batch = db.batch();
+                oldCandidates.forEach(doc => batch.delete(doc.ref));
+                if (!oldCandidates.empty) await batch.commit();
+                console.log('Cleared stale viewer data (' + oldCandidates.size + ' old candidates)');
+            } catch (cleanErr) {
+                console.warn('Failed to clear stale data (may be first connection):', cleanErr.message);
+            }
+
             peerConnection = new RTCPeerConnection(rtcConfig);
 
             peerConnection.ontrack = (event) => {
@@ -935,7 +952,7 @@
         window.addEventListener('beforeunload', () => {
             if (sessionId) {
                 db.collection('webrtc_sessions').doc(sessionId)
-                    .update({ status: 'ended' }).catch(() => {});
+                    .update({ status: 'ended', flashlight: false }).catch(() => {});
             }
             cleanup();
         });
