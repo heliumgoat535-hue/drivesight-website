@@ -261,6 +261,13 @@
             </svg>
             <span id="talkLabel">Hold to Talk</span>
         </button>
+        <button class="fullscreen-btn" id="camBtn" onclick="cycleCameraMode()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/>
+                <circle cx="12" cy="13" r="4"/>
+            </svg>
+            <span id="camLabel">Rear</span>
+        </button>
         <button class="fullscreen-btn" onclick="toggleFullscreen()">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/>
@@ -605,6 +612,25 @@
                 peerConnection = null;
             }
             video.srcObject = null;
+        }
+
+        // ─── Camera mode toggle ─────────────────────────────────────────
+        let currentCameraMode = 'rear';
+        const camLabel = document.getElementById('camLabel');
+        const camBtn = document.getElementById('camBtn');
+        const cameraModes = ['rear', 'front', 'split'];
+        const cameraModeLabels = { rear: 'Rear', front: 'Front', split: 'Split' };
+
+        function cycleCameraMode() {
+            if (!sessionId) return;
+            const idx = cameraModes.indexOf(currentCameraMode);
+            currentCameraMode = cameraModes[(idx + 1) % cameraModes.length];
+            camLabel.textContent = cameraModeLabels[currentCameraMode];
+            // Write to Firestore — dashcam listens for this
+            db.collection('webrtc_sessions').doc(sessionId)
+                .update({ cameraMode: currentCameraMode })
+                .then(() => console.log('Camera mode set to:', currentCameraMode))
+                .catch(err => console.error('Failed to set camera mode:', err));
         }
 
         // ─── Push-to-talk ───────────────────────────────────────────────
