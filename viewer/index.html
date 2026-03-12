@@ -1009,6 +1009,14 @@
         // ─── Start ─────────────────────────────────────────────────────
         requestWakeLock();
 
+        // ?reset in URL clears saved device and forces code entry
+        if (params.has('reset')) {
+            localStorage.removeItem('drivesight_device_id');
+            deviceId = null;
+            // Clean URL without reloading
+            window.history.replaceState({}, '', window.location.pathname);
+        }
+
         if (deviceId) {
             // Already paired — go straight to viewer
             showViewer();
