@@ -541,12 +541,10 @@
         }
 
         function unpair() {
-            if (confirm('Unpair from this dashcam? You will need to enter the code again.')) {
-                localStorage.removeItem('drivesight_device_id');
-                if (unsubDevice) { unsubDevice(); unsubDevice = null; }
-                cleanup();
-                location.reload();
-            }
+            localStorage.removeItem('drivesight_device_id');
+            if (unsubDevice) { unsubDevice(); unsubDevice = null; }
+            cleanup();
+            location.reload();
         }
 
         // ─── UI helpers ────────────────────────────────────────────────
