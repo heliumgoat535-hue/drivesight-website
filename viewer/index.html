@@ -281,11 +281,20 @@
         let unsubMotion = null;
         let lastMotionTimestamp = 0;
 
-        // ─── STUN config (same as Android app) ────────────────────────
+        // ─── ICE config (STUN + TURN for NAT traversal) ───────────────
         const rtcConfig = {
             iceServers: [
                 { urls: 'stun:stun.l.google.com:19302' },
-                { urls: 'stun:stun1.l.google.com:19302' }
+                { urls: 'stun:stun1.l.google.com:19302' },
+                {
+                    urls: [
+                        'turn:staticauth.openrelay.metered.ca:80',
+                        'turn:staticauth.openrelay.metered.ca:443',
+                        'turns:staticauth.openrelay.metered.ca:443?transport=tcp'
+                    ],
+                    username: 'openrelayproject',
+                    credential: 'openrelayprojectsecret'
+                }
             ],
             sdpSemantics: 'unified-plan'
         };
@@ -435,6 +444,7 @@
             // Handle ICE candidates — send to Firestore
             peerConnection.onicecandidate = async (event) => {
                 if (event.candidate) {
+                    console.log('Local ICE candidate:', event.candidate.candidate);
                     try {
                         await db.collection('webrtc_sessions').doc(sessionId)
                             .collection('viewerCandidates')
@@ -447,7 +457,18 @@
                     } catch (err) {
                         console.error('Failed to add ICE candidate:', err);
                     }
+                } else {
+                    console.log('ICE gathering complete');
                 }
+            };
+
+            // Log ICE connection state for debugging
+            peerConnection.oniceconnectionstatechange = () => {
+                console.log('ICE connection state:', peerConnection.iceConnectionState);
+            };
+
+            peerConnection.onicegatheringstatechange = () => {
+                console.log('ICE gathering state:', peerConnection.iceGatheringState);
             };
 
             // Handle connection state changes
