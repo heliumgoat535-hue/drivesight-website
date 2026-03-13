@@ -450,6 +450,8 @@
         let lastMotionTimestamp = 0;
         let localMicStream = null;
         let micSender = null;
+        let currentOffer = null; // track current SDP offer to detect dashcam reconnects
+        let unsubOfferWatch = null;
 
         // ─── ICE config ────────────────────────────────────────────────
         const rtcConfig = {
@@ -882,6 +884,22 @@
                         }
                     }
                 });
+
+            // Watch for dashcam offer changes (dashcam regenerated offer for reconnect)
+            currentOffer = sdpOffer;
+            if (unsubOfferWatch) { unsubOfferWatch(); unsubOfferWatch = null; }
+            unsubOfferWatch = db.collection('webrtc_sessions').doc(sessionId)
+                .onSnapshot((snap) => {
+                    const data = snap.data();
+                    if (!data) return;
+                    const newOffer = data.dashcamOffer;
+                    if (newOffer && newOffer !== currentOffer) {
+                        console.log('Dashcam regenerated offer — re-answering with new offer');
+                        currentOffer = newOffer;
+                        cleanup();
+                        startWebRtc(newOffer);
+                    }
+                });
         }
 
         function retryConnection() {
@@ -895,6 +913,7 @@
             if (unsubAnswer) { unsubAnswer(); unsubAnswer = null; }
             if (unsubCandidates) { unsubCandidates(); unsubCandidates = null; }
             if (unsubMotion) { unsubMotion(); unsubMotion = null; }
+            if (unsubOfferWatch) { unsubOfferWatch(); unsubOfferWatch = null; }
             // NOTE: don't kill unsubDevice here — we want it to keep watching
             // so it auto-reconnects when dashcam comes back online
             if (localMicStream) {
@@ -997,6 +1016,7 @@
                     .update({ status: 'ended', flashlight: false }).catch(() => {});
             }
             if (unsubDevice) { unsubDevice(); unsubDevice = null; }
+            if (unsubOfferWatch) { unsubOfferWatch(); unsubOfferWatch = null; }
             cleanup();
         });
 
