@@ -519,12 +519,20 @@
                     return;
                 }
 
-                // Save and connect
+                // Save device
                 deviceId = code;
                 localStorage.setItem('drivesight_device_id', code);
                 const data = deviceDoc.data();
                 sessionId = data.sessionId;
                 sessionSecret = data.sessionSecret;
+
+                // ── Show confirmation on pairing screen before switching ──
+                connectBtn.textContent = '✓ Code Accepted!';
+                connectBtn.style.background = '#22c55e';
+                pairError.style.color = '#888';
+                pairError.textContent = 'Switching to viewer...';
+
+                await new Promise(r => setTimeout(r, 1500));
 
                 showViewer();
                 await connectToSession();
