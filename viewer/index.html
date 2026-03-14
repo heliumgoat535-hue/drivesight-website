@@ -457,6 +457,10 @@
         let unsubOfferWatch = null;
         let connectingInProgress = false; // prevent re-entrant connection attempts
 
+        // ─── Single-viewer lock ─────────────────────────────────────────
+        const viewerId = Math.random().toString(36).substr(2, 12) + Date.now();
+        let heartbeatInterval = null;
+
         // ─── ICE config ────────────────────────────────────────────────
         const rtcConfig = {
             iceServers: [
@@ -792,6 +796,25 @@
             setStatus('connecting', 'Connecting...');
             showOverlay('Connecting to Dashcam...', 'Setting up peer-to-peer video stream', true, false);
 
+            // ── Check if another viewer is already connected ──
+            try {
+                const lockCheck = await db.collection('webrtc_sessions').doc(sessionId).get();
+                const lockData = lockCheck.data();
+                if (lockData && lockData.viewerConnected && lockData.viewerConnected !== viewerId) {
+                    const heartbeat = lockData.viewerHeartbeat || lockData.viewerConnectedAt || 0;
+                    const age = Date.now() - heartbeat;
+                    if (age < 90000) { // Heartbeat within 90 seconds = viewer is alive
+                        showOverlay('Already in Use', 'Another device is already viewing this dashcam. Only one viewer can connect at a time.', false, true);
+                        setStatus('failed', 'Already in use');
+                        connectingInProgress = false;
+                        return;
+                    }
+                    console.log('Previous viewer lock is stale (' + Math.round(age / 1000) + 's) — taking over');
+                }
+            } catch (lockErr) {
+                console.warn('Viewer lock check failed:', lockErr.message);
+            }
+
             requestNotificationPermission();
             setupPushNotifications();
 
@@ -851,8 +874,9 @@
                         connectingInProgress = false;
                         setStatus('connected', 'Connected');
                         hideOverlay();
+                        startViewerHeartbeat();
                         db.collection('webrtc_sessions').doc(sessionId)
-                            .update({ status: 'connected' }).catch(() => {});
+                            .update({ status: 'connected', viewerHeartbeat: Date.now() }).catch(() => {});
                         break;
                     case 'disconnected':
                         connectingInProgress = false;
@@ -889,7 +913,12 @@
             await peerConnection.setLocalDescription(answer);
 
             await db.collection('webrtc_sessions').doc(sessionId)
-                .update({ viewerAnswer: answer.sdp });
+                .update({
+                    viewerAnswer: answer.sdp,
+                    viewerConnected: viewerId,
+                    viewerConnectedAt: Date.now(),
+                    viewerHeartbeat: Date.now()
+                });
 
             // Listen for dashcam ICE candidates
             unsubCandidates = db.collection('webrtc_sessions').doc(sessionId)
@@ -938,6 +967,24 @@
                 });
         }
 
+        // ─── Viewer heartbeat (single-viewer lock) ─────────────────────
+        function startViewerHeartbeat() {
+            stopViewerHeartbeat();
+            heartbeatInterval = setInterval(() => {
+                if (sessionId) {
+                    db.collection('webrtc_sessions').doc(sessionId)
+                        .update({ viewerHeartbeat: Date.now() }).catch(() => {});
+                }
+            }, 30000); // every 30 seconds
+        }
+
+        function stopViewerHeartbeat() {
+            if (heartbeatInterval) {
+                clearInterval(heartbeatInterval);
+                heartbeatInterval = null;
+            }
+        }
+
         function retryConnection() {
             cleanup();
             sessionId = null;
@@ -947,6 +994,16 @@
 
         function cleanup() {
             connectingInProgress = false;
+            stopViewerHeartbeat();
+            // Clear viewer lock in Firestore
+            if (sessionId) {
+                db.collection('webrtc_sessions').doc(sessionId)
+                    .update({
+                        viewerConnected: firebase.firestore.FieldValue.delete(),
+                        viewerConnectedAt: firebase.firestore.FieldValue.delete(),
+                        viewerHeartbeat: firebase.firestore.FieldValue.delete()
+                    }).catch(() => {});
+            }
             if (unsubAnswer) { unsubAnswer(); unsubAnswer = null; }
             if (unsubCandidates) { unsubCandidates(); unsubCandidates = null; }
             if (unsubMotion) { unsubMotion(); unsubMotion = null; }
@@ -1048,9 +1105,16 @@
 
         // ─── Cleanup on page unload ────────────────────────────────────
         window.addEventListener('beforeunload', () => {
+            stopViewerHeartbeat();
             if (sessionId) {
                 db.collection('webrtc_sessions').doc(sessionId)
-                    .update({ status: 'ended', flashlight: false }).catch(() => {});
+                    .update({
+                        status: 'ended',
+                        flashlight: false,
+                        viewerConnected: firebase.firestore.FieldValue.delete(),
+                        viewerConnectedAt: firebase.firestore.FieldValue.delete(),
+                        viewerHeartbeat: firebase.firestore.FieldValue.delete()
+                    }).catch(() => {});
             }
             if (unsubDevice) { unsubDevice(); unsubDevice = null; }
             if (unsubOfferWatch) { unsubOfferWatch(); unsubOfferWatch = null; }
