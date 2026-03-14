@@ -19,7 +19,7 @@ const messaging = firebase.messaging();
 messaging.onBackgroundMessage((payload) => {
     console.log('[SW] Background message received:', payload);
 
-    const title = payload.notification?.title || 'DriveSight Alert';
+    const title = payload.notification?.title || 'Dashcam Police Alert';
     const body = payload.notification?.body || 'Motion detected near your vehicle.';
 
     const options = {
