@@ -318,23 +318,18 @@
     <div class="pair-screen" id="pairScreen">
         <img class="pair-logo" src="../assets/icon-512.png" alt="Phone Dashcam" onerror="this.style.display='none'">
         <div class="pair-title">Phone Dashcam Viewer</div>
-        <div class="pair-subtitle">Scan the QR code on your dashcam's parking mode screen to connect</div>
+        <div class="pair-subtitle">Enter the access code shown on your dashcam's parking mode screen</div>
+
+        <div class="code-input-row" id="codeRow">
+            <input class="pin-input" id="pinInput" type="text" maxlength="6" placeholder="Access Code" autocomplete="off" style="text-transform: uppercase;">
+        </div>
+        <button class="connect-btn" id="connectBtn" onclick="pairAndConnect()" disabled>Connect</button>
 
         <div class="pair-error" id="pairError"></div>
 
         <div class="pair-hint">
-            The QR code appears when you enter parking mode in Phone Dashcam.
+            A new code is generated each time you enter parking mode.
         </div>
-
-        <details style="margin-top: 24px; color: #666;">
-            <summary style="cursor: pointer; font-size: 13px;">Already have a PIN?</summary>
-            <div style="margin-top: 12px;">
-                <div class="code-input-row" id="codeRow">
-                    <input class="pin-input" id="pinInput" type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="8" placeholder="Enter PIN" autocomplete="off">
-                </div>
-                <button class="connect-btn" id="connectBtn" onclick="pairAndConnect()" disabled>Connect</button>
-            </div>
-        </details>
     </div>
 
     <!-- ═══ VIEWER SCREEN ═══ -->
@@ -477,7 +472,7 @@
         const pinInput = document.getElementById('pinInput');
 
         pinInput.addEventListener('input', (e) => {
-            e.target.value = e.target.value.replace(/[^0-9]/g, '');
+            e.target.value = e.target.value.replace(/[^A-Za-z0-9]/g, '').toUpperCase();
             updateConnectBtn();
         });
         pinInput.addEventListener('keydown', (e) => {
@@ -485,7 +480,7 @@
         });
 
         function updateConnectBtn() {
-            connectBtn.disabled = pinInput.value.length < 4;
+            connectBtn.disabled = pinInput.value.length < 6;
         }
 
         function getCode() {
@@ -494,8 +489,8 @@
 
         // ─── Pairing ──────────────────────────────────────────────────
         async function pairAndConnect() {
-            const code = getCode();
-            if (code.length < 4) return;
+            const code = getCode().toUpperCase();
+            if (code.length < 6) return;
 
             connectBtn.disabled = true;
             connectBtn.textContent = 'Connecting...';
@@ -1091,19 +1086,14 @@
         }
 
         if (directSessionId && directSecret) {
-            // QR code scan — direct session access
+            // QR code scan — direct session access (legacy)
             connectDirect(directSessionId, directSecret);
-        } else if (localStorage.getItem('drivesight_session_id')) {
-            // Returning user with saved session (bookmarked/reopened)
-            const savedSid = localStorage.getItem('drivesight_session_id');
-            const savedSecret = localStorage.getItem('drivesight_session_secret');
-            connectDirect(savedSid, savedSecret);
         } else if (deviceId) {
-            // Legacy PIN-based pairing
+            // Access code pairing (from URL param or previous entry)
             showViewer();
             connectToSession();
         } else {
-            // No session info — show scan prompt
+            // No session info — show code entry screen
         }
     </script>
 </body>
