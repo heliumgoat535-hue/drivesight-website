@@ -57,24 +57,30 @@
             margin-bottom: 24px;
         }
 
-        .code-char {
-            width: 44px;
+        .pin-input {
+            width: 100%;
             height: 56px;
             background: #1a1a1a;
             border: 2px solid #333;
             border-radius: 10px;
             color: #fff;
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 700;
             text-align: center;
-            text-transform: uppercase;
+            letter-spacing: 8px;
             outline: none;
             transition: border-color 0.2s;
             caret-color: #f59e0b;
         }
 
-        .code-char:focus {
+        .pin-input:focus {
             border-color: #f59e0b;
+        }
+
+        .pin-input::placeholder {
+            font-size: 16px;
+            letter-spacing: normal;
+            color: #555;
         }
 
         .connect-btn {
@@ -312,25 +318,23 @@
     <div class="pair-screen" id="pairScreen">
         <img class="pair-logo" src="../assets/icon-512.png" alt="DriveSight" onerror="this.style.display='none'">
         <div class="pair-title">DriveSight Viewer</div>
-        <div class="pair-subtitle">Enter the 6-character code shown in your DriveSight app under Settings → Remote Viewer</div>
-
-        <div class="code-input-row" id="codeRow">
-            <input class="code-char" type="text" maxlength="1" inputmode="text" autocapitalize="characters" autocomplete="off" data-idx="0">
-            <input class="code-char" type="text" maxlength="1" inputmode="text" autocapitalize="characters" autocomplete="off" data-idx="1">
-            <input class="code-char" type="text" maxlength="1" inputmode="text" autocapitalize="characters" autocomplete="off" data-idx="2">
-            <input class="code-char" type="text" maxlength="1" inputmode="text" autocapitalize="characters" autocomplete="off" data-idx="3">
-            <input class="code-char" type="text" maxlength="1" inputmode="text" autocapitalize="characters" autocomplete="off" data-idx="4">
-            <input class="code-char" type="text" maxlength="1" inputmode="text" autocapitalize="characters" autocomplete="off" data-idx="5">
-        </div>
-
-        <button class="connect-btn" id="connectBtn" onclick="pairAndConnect()" disabled>Connect</button>
+        <div class="pair-subtitle">Scan the QR code on your dashcam's parking mode screen to connect</div>
 
         <div class="pair-error" id="pairError"></div>
 
         <div class="pair-hint">
-            You only need to do this once.<br>
-            After pairing, this page auto-connects every time.
+            The QR code appears when you enter parking mode in DriveSight.
         </div>
+
+        <details style="margin-top: 24px; color: #666;">
+            <summary style="cursor: pointer; font-size: 13px;">Already have a PIN?</summary>
+            <div style="margin-top: 12px;">
+                <div class="code-input-row" id="codeRow">
+                    <input class="pin-input" id="pinInput" type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="8" placeholder="Enter PIN" autocomplete="off">
+                </div>
+                <button class="connect-btn" id="connectBtn" onclick="pairAndConnect()" disabled>Connect</button>
+            </div>
+        </details>
     </div>
 
     <!-- ═══ VIEWER SCREEN ═══ -->
@@ -354,7 +358,7 @@
                 <div class="overlay-title" id="overlayTitle">Connecting to Dashcam...</div>
                 <div class="overlay-subtitle" id="overlaySubtitle">Establishing secure connection</div>
                 <button class="retry-btn hidden" id="retryBtn" onclick="retryConnection()">Retry Connection</button>
-                <button class="retry-btn" id="newCodeBtn" onclick="unpair()" style="background:transparent; border:1px solid #555; color:#999; margin-top:8px;">Enter New Code</button>
+                <button class="retry-btn" id="newCodeBtn" onclick="unpair()" style="background:transparent; border:1px solid #555; color:#999; margin-top:8px;">Disconnect</button>
             </div>
         </div>
 
@@ -395,7 +399,7 @@
             </button>
         </div>
 
-        <div class="unpair-link" onclick="unpair()">⟳ Enter New Code</div>
+        <div class="unpair-link" onclick="unpair()">⟳ Disconnect</div>
     </div>
 
     <!-- Motion alert (injected dynamically) -->
@@ -422,6 +426,10 @@
 
         // ─── Parse URL params ──────────────────────────────────────────
         const params = new URLSearchParams(window.location.search);
+        // Direct session access via QR code (new flow)
+        let directSessionId = params.get('s');
+        let directSecret = params.get('k');
+        // Legacy device ID (old PIN flow)
         let deviceId = params.get('d') || localStorage.getItem('drivesight_device_id');
         let sessionId = null;
         let sessionSecret = null;
@@ -464,49 +472,29 @@
             sdpSemantics: 'unified-plan'
         };
 
-        // ─── Code Input Handling ───────────────────────────────────────
-        const codeInputs = document.querySelectorAll('.code-char');
+        // ─── PIN Input Handling ───────────────────────────────────────
+        const pinInput = document.getElementById('pinInput');
 
-        codeInputs.forEach((input, idx) => {
-            input.addEventListener('input', (e) => {
-                const val = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
-                e.target.value = val;
-                if (val && idx < 5) codeInputs[idx + 1].focus();
-                updateConnectBtn();
-            });
-            input.addEventListener('keydown', (e) => {
-                if (e.key === 'Backspace' && !e.target.value && idx > 0) {
-                    codeInputs[idx - 1].focus();
-                }
-                if (e.key === 'Enter') {
-                    pairAndConnect();
-                }
-            });
-            // Handle paste
-            input.addEventListener('paste', (e) => {
-                e.preventDefault();
-                const text = (e.clipboardData.getData('text') || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
-                for (let i = 0; i < 6 && i < text.length; i++) {
-                    codeInputs[i].value = text[i];
-                }
-                if (text.length >= 6) codeInputs[5].focus();
-                updateConnectBtn();
-            });
+        pinInput.addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/[^0-9]/g, '');
+            updateConnectBtn();
+        });
+        pinInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') pairAndConnect();
         });
 
         function updateConnectBtn() {
-            const code = getCode();
-            connectBtn.disabled = code.length < 6;
+            connectBtn.disabled = pinInput.value.length < 4;
         }
 
         function getCode() {
-            return Array.from(codeInputs).map(i => i.value).join('');
+            return pinInput.value;
         }
 
         // ─── Pairing ──────────────────────────────────────────────────
         async function pairAndConnect() {
             const code = getCode();
-            if (code.length < 6) return;
+            if (code.length < 4) return;
 
             connectBtn.disabled = true;
             connectBtn.textContent = 'Connecting...';
@@ -515,7 +503,7 @@
             try {
                 const deviceDoc = await db.collection('devices').doc(code).get();
                 if (!deviceDoc.exists) {
-                    pairError.textContent = 'Device not found. Check the code and make sure Remote Viewer is enabled.';
+                    pairError.textContent = 'PIN not found. Check your PIN and make sure Remote Viewer is enabled in the app.';
                     connectBtn.disabled = false;
                     connectBtn.textContent = 'Connect';
                     return;
@@ -552,9 +540,40 @@
 
         function unpair() {
             localStorage.removeItem('drivesight_device_id');
+            localStorage.removeItem('drivesight_session_id');
+            localStorage.removeItem('drivesight_session_secret');
             if (unsubDevice) { unsubDevice(); unsubDevice = null; }
             cleanup();
-            location.reload();
+            // Navigate to clean viewer URL (no params)
+            window.location.href = window.location.pathname;
+        }
+
+        // ─── Direct session connection (QR code flow) ─────────────────
+        async function connectDirect(sid, secret) {
+            sessionId = sid;
+            sessionSecret = secret;
+            // Save to localStorage so user can reopen/bookmark
+            localStorage.setItem('drivesight_session_id', sid);
+            localStorage.setItem('drivesight_session_secret', secret);
+            showViewer();
+            setStatus('connecting', 'Connecting...');
+            showOverlay('Connecting to Dashcam...', 'Establishing secure connection', true, false);
+
+            // Watch the session doc — if it gets deleted, parking mode ended
+            const unsubSession = db.collection('webrtc_sessions').doc(sid)
+                .onSnapshot((snap) => {
+                    if (!snap.exists) {
+                        cleanup();
+                        setStatus('failed', 'Session ended');
+                        showOverlay('Parking Mode Ended', 'The dashcam is no longer streaming.', false, false);
+                        // Clear saved session
+                        localStorage.removeItem('drivesight_session_id');
+                        localStorage.removeItem('drivesight_session_secret');
+                        unsubSession();
+                    }
+                });
+
+            await tryConnectSession();
         }
 
         // ─── UI helpers ────────────────────────────────────────────────
@@ -614,24 +633,32 @@
             try {
                 if (!('Notification' in window) || !('serviceWorker' in navigator)) return;
 
+                // Register service worker for background push
+                const swReg = await navigator.serviceWorker.register('firebase-messaging-sw.js')
+                    .catch(e => { console.log('SW registration failed:', e.message); return null; });
+                if (!swReg) return;
+
                 const permission = await Notification.requestPermission();
                 if (permission !== 'granted') return;
 
                 const messaging = firebase.messaging();
                 const token = await messaging.getToken({
-                    vapidKey: null // Will use default FCM if no VAPID key
+                    serviceWorkerRegistration: swReg
                 }).catch(() => null);
 
-                if (token && deviceId) {
-                    // Save FCM token to device document for Cloud Function to use
-                    await db.collection('devices').doc(deviceId).update({
-                        viewerFcmToken: token
-                    }).catch(() => {
-                        // If update fails (field doesn't exist yet), use set with merge
-                        return db.collection('devices').doc(deviceId).set({
+                if (token) {
+                    // Save FCM token to session document (QR code flow)
+                    if (sessionId) {
+                        await db.collection('webrtc_sessions').doc(sessionId).update({
                             viewerFcmToken: token
-                        }, { merge: true });
-                    });
+                        }).catch(() => {});
+                    }
+                    // Save FCM token to devices document (PIN flow — persistent across sessions)
+                    if (deviceId) {
+                        await db.collection('devices').doc(deviceId).set({
+                            viewerFcmToken: token
+                        }, { merge: true }).catch(() => {});
+                    }
                     console.log('FCM token saved for push notifications');
                 }
 
@@ -1037,21 +1064,31 @@
         // ─── Start ─────────────────────────────────────────────────────
         requestWakeLock();
 
-        // ?reset in URL clears saved device and forces code entry
+        // ?reset in URL clears saved data and forces fresh start
         if (params.has('reset')) {
             localStorage.removeItem('drivesight_device_id');
+            localStorage.removeItem('drivesight_session_id');
+            localStorage.removeItem('drivesight_session_secret');
             deviceId = null;
-            // Clean URL without reloading
+            directSessionId = null;
+            directSecret = null;
             window.history.replaceState({}, '', window.location.pathname);
         }
 
-        if (deviceId) {
-            // Already paired — go straight to viewer
+        if (directSessionId && directSecret) {
+            // QR code scan — direct session access
+            connectDirect(directSessionId, directSecret);
+        } else if (localStorage.getItem('drivesight_session_id')) {
+            // Returning user with saved session (bookmarked/reopened)
+            const savedSid = localStorage.getItem('drivesight_session_id');
+            const savedSecret = localStorage.getItem('drivesight_session_secret');
+            connectDirect(savedSid, savedSecret);
+        } else if (deviceId) {
+            // Legacy PIN-based pairing
             showViewer();
             connectToSession();
         } else {
-            // Show pairing screen
-            codeInputs[0].focus();
+            // No session info — show scan prompt
         }
     </script>
 </body>

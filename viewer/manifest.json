@@ -1,0 +1,19 @@
+{
+    "name": "DriveSight Remote Viewer",
+    "short_name": "DriveSight",
+    "description": "Live remote viewer for DriveSight dashcam with motion alerts",
+    "start_url": "/viewer/",
+    "display": "standalone",
+    "orientation": "any",
+    "background_color": "#0a0a0a",
+    "theme_color": "#f97316",
+    "icons": [
+        {
+            "src": "../assets/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "gcm_sender_id": "103953800507"
+}
