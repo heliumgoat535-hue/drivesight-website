@@ -460,6 +460,7 @@
         let micSender = null;
         let currentOffer = null; // track current SDP offer to detect dashcam reconnects
         let unsubOfferWatch = null;
+        let connectingInProgress = false; // prevent re-entrant connection attempts
 
         // ─── ICE config ────────────────────────────────────────────────
         const rtcConfig = {
@@ -692,9 +693,11 @@
             // ── Live-listen on the device doc so we auto-connect when dashcam comes online ──
             unsubDevice = db.collection('devices').doc(deviceId)
                 .onSnapshot(async (deviceSnap) => {
-                    // Ignore if we're already connected or mid-handshake
+                    // Ignore if we're already connected, mid-handshake, or connection in progress
+                    if (connectingInProgress) return;
                     if (peerConnection && (peerConnection.connectionState === 'connected' ||
-                        peerConnection.connectionState === 'connecting')) return;
+                        peerConnection.connectionState === 'connecting' ||
+                        peerConnection.connectionState === 'new')) return;
 
                     if (!deviceSnap.exists) {
                         setStatus('connecting', 'Waiting for dashcam...');
@@ -732,9 +735,11 @@
         }
 
         async function tryConnectSession() {
-            // Already in a WebRTC session — skip
+            // Already in a WebRTC session or mid-setup — skip
+            if (connectingInProgress) return;
             if (peerConnection && peerConnection.connectionState === 'connected') return;
 
+            connectingInProgress = true;
             setStatus('connecting', 'Connecting...');
             showOverlay('Connecting to Dashcam...', 'Establishing secure peer-to-peer connection', true, false);
 
@@ -745,6 +750,7 @@
                     // Session doc not created yet — wait for device listener to fire again
                     setStatus('connecting', 'Waiting for session...');
                     showOverlay('Waiting for Dashcam...', 'Dashcam is starting up...', true, false);
+                    connectingInProgress = false;
                     return;
                 }
 
@@ -753,6 +759,7 @@
                 if (sessionData.sessionSecret !== sessionSecret) {
                     showOverlay('Access Denied', 'Session secret mismatch.', false, true);
                     setStatus('failed', 'Access denied');
+                    connectingInProgress = false;
                     return;
                 }
 
@@ -771,6 +778,7 @@
                                 startWebRtc(data.dashcamOffer);
                             }
                         });
+                    // Keep connectingInProgress true — startWebRtc will clear it
                     return;
                 }
 
@@ -780,10 +788,12 @@
                 console.error('Connection error:', err);
                 showOverlay('Connection Error', 'Failed to connect. Check your internet and try again.', false, true);
                 setStatus('failed', 'Connection error');
+                connectingInProgress = false;
             }
         }
 
         async function startWebRtc(sdpOffer) {
+            connectingInProgress = true;
             setStatus('connecting', 'Connecting...');
             showOverlay('Connecting to Dashcam...', 'Setting up peer-to-peer video stream', true, false);
 
@@ -843,20 +853,24 @@
 
                 switch (state) {
                     case 'connected':
+                        connectingInProgress = false;
                         setStatus('connected', 'Connected');
                         hideOverlay();
                         db.collection('webrtc_sessions').doc(sessionId)
                             .update({ status: 'connected' }).catch(() => {});
                         break;
                     case 'disconnected':
+                        connectingInProgress = false;
                         setStatus('connecting', 'Reconnecting...');
                         showOverlay('Reconnecting...', 'The connection was lost. Trying to reconnect automatically.', true, true);
                         break;
                     case 'failed':
+                        connectingInProgress = false;
                         setStatus('failed', 'Connection failed');
                         showOverlay('Connection Failed', 'Could not establish a direct connection. Try switching to a different network.', false, true);
                         break;
                     case 'closed':
+                        connectingInProgress = false;
                         setStatus('failed', 'Disconnected');
                         showOverlay('Disconnected', 'The dashcam ended the session.', false, true);
                         break;
@@ -937,6 +951,7 @@
         }
 
         function cleanup() {
+            connectingInProgress = false;
             if (unsubAnswer) { unsubAnswer(); unsubAnswer = null; }
             if (unsubCandidates) { unsubCandidates(); unsubCandidates = null; }
             if (unsubMotion) { unsubMotion(); unsubMotion = null; }
