@@ -990,8 +990,8 @@
         // ─── Camera mode toggle ─────────────────────────────────────────
         let currentCameraMode = 'rear';
         const camLabel = document.getElementById('camLabel');
-        const cameraModes = ['rear', 'front', 'split'];
-        const cameraModeLabels = { rear: 'Rear', front: 'Front', split: 'Split' };
+        const cameraModes = ['rear', 'front'];
+        const cameraModeLabels = { rear: 'Rear', front: 'Front' };
 
         function cycleCameraMode() {
             if (!sessionId) return;
