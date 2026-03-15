@@ -134,8 +134,10 @@
         footer { border-top: 1px solid var(--card-border); padding: 32px 24px; text-align: center; color: var(--text-dim); font-size: 0.85rem; }
         footer a { color: var(--green); }
 
-        .ad-slot { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 16px; margin: 32px 0; text-align: center; min-height: 100px; overflow: hidden; }
+        .ad-slot { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 0; margin: 0; text-align: center; min-height: 0; overflow: hidden; max-height: 0; opacity: 0; transition: all 0.3s; }
         .ad-slot ins { display: block; }
+        .ad-slot:has(ins[data-ad-status="filled"]) { padding: 16px; margin: 32px 0; min-height: 100px; max-height: 500px; opacity: 1; }
+        .ad-slot.ad-loaded { padding: 16px; margin: 32px 0; min-height: 100px; max-height: 500px; opacity: 1; }
         .affiliate-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 24px; margin: 28px 0; display: flex; gap: 20px; align-items: center; transition: border-color 0.2s; }
         .affiliate-card:hover { border-color: var(--green); text-decoration: none; }
         .affiliate-card .af-img { width: 80px; height: 80px; background: #1e2740; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 2rem; }
