@@ -317,6 +317,19 @@
         }
         footer a { color: var(--green); }
 
+        .ad-slot { background: rgba(20, 25, 38, 0.5); border: 1px solid #1e2740; border-radius: 12px; padding: 16px; margin: 32px 0; text-align: center; min-height: 100px; overflow: hidden; }
+        .ad-slot ins { display: block; }
+        .affiliate-card { background: rgba(20, 25, 38, 0.5); border: 1px solid #1e2740; border-radius: 16px; padding: 24px; margin: 28px 0; display: flex; gap: 20px; align-items: center; transition: border-color 0.2s; }
+        .affiliate-card:hover { border-color: #4ADE80; text-decoration: none; }
+        .affiliate-card .af-img { width: 80px; height: 80px; background: #1e2740; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 2rem; }
+        .affiliate-card .af-info { flex: 1; }
+        .affiliate-card .af-info h4 { color: #fff; font-size: 1rem; font-weight: 700; margin: 0 0 4px 0; }
+        .affiliate-card .af-info .af-price { color: #4ADE80; font-weight: 700; font-size: 0.95rem; }
+        .affiliate-card .af-info .af-desc { color: #8892a8; font-size: 0.85rem; margin-top: 4px; }
+        .affiliate-card .af-btn { background: #FF9900; color: #000; padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 0.8rem; white-space: nowrap; text-decoration: none; flex-shrink: 0; }
+        .affiliate-card .af-btn:hover { background: #e68a00; text-decoration: none; }
+        @media (max-width: 640px) { .affiliate-card { flex-direction: column; text-align: center; } .affiliate-card .af-img { width: 60px; height: 60px; } }
+
         @media (max-width: 640px) {
             h1 { font-size: 1.8rem; }
             h2 { font-size: 1.3rem; }
@@ -326,6 +339,7 @@
             .article { padding: 80px 16px 40px; }
         }
     </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2177114511441377" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -513,6 +527,11 @@
 
     <p>The verdict: if you want the most features for the least money, a phone dashcam vs hardware dashcam comparison favors the phone overwhelmingly. Hardware dashcams earn their price in two specific scenarios: extreme-heat climates where phones may throttle, and drivers who want the smallest possible form factor behind the rearview mirror. For everyone else, a dash cam app on an Android phone delivers more capability at a fraction of the cost.</p>
 
+    <div class="ad-slot">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2177114511441377" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
     <!-- ============================================ -->
     <h2>Best Phones to Use as a Dedicated Dashcam</h2>
 
@@ -560,6 +579,16 @@
     </div>
 
     <p>Optional: enable auto-start on charger in Settings, and Phone Dashcam will begin recording automatically every time you start your car. No need to touch the phone at all.</p>
+
+    <a href="https://www.amazon.com/s?k=phone+mount+for+car+dashcam&tag=phonedashcam-20" class="affiliate-card" target="_blank" rel="noopener nofollow sponsored">
+        <div class="af-img">📱</div>
+        <div class="af-info">
+            <h4>Best Phone Mounts for Dashcam Use</h4>
+            <span class="af-price">From $12.99</span>
+            <div class="af-desc">Suction cup & vent mounts rated for windshield dashcam use. Stable at highway speeds.</div>
+        </div>
+        <span class="af-btn">View on Amazon</span>
+    </a>
 
     <img src="assets/real-settings-main.jpg" alt="Phone Dashcam settings menu showing all configuration options" class="hero-img">
     <p class="img-caption">Extensive settings let you customize every aspect of recording and alerts</p>

@@ -264,6 +264,19 @@
         }
         footer a { color: var(--green); }
 
+        .ad-slot { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 16px; margin: 32px 0; text-align: center; min-height: 100px; overflow: hidden; }
+        .ad-slot ins { display: block; }
+        .affiliate-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 24px; margin: 28px 0; display: flex; gap: 20px; align-items: center; transition: border-color 0.2s; }
+        .affiliate-card:hover { border-color: var(--green); text-decoration: none; }
+        .affiliate-card .af-img { width: 80px; height: 80px; background: #1e2740; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 2rem; }
+        .affiliate-card .af-info { flex: 1; }
+        .affiliate-card .af-info h4 { color: var(--text-bright); font-size: 1rem; font-weight: 700; margin: 0 0 4px 0; }
+        .affiliate-card .af-info .af-price { color: var(--green); font-weight: 700; font-size: 0.95rem; }
+        .affiliate-card .af-info .af-desc { color: var(--text-dim); font-size: 0.85rem; margin-top: 4px; }
+        .affiliate-card .af-btn { background: #FF9900; color: #000; padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 0.8rem; white-space: nowrap; text-decoration: none; flex-shrink: 0; }
+        .affiliate-card .af-btn:hover { background: #e68a00; text-decoration: none; }
+        @media (max-width: 640px) { .affiliate-card { flex-direction: column; text-align: center; } .affiliate-card .af-img { width: 60px; height: 60px; } }
+
         @media (max-width: 640px) {
             h1 { font-size: 1.8rem; }
             h2 { font-size: 1.3rem; }
@@ -271,6 +284,7 @@
             .feature-section { padding: 20px 20px; }
         }
     </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2177114511441377" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -346,6 +360,11 @@
     <img src="assets/real-police-map-38.jpg" alt="Phone Dashcam camera alert map showing speed cameras and police locations" class="hero-img">
     <p class="img-caption">Map view with over 336,000 camera and police alert locations</p>
 
+    <div class="ad-slot">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2177114511441377" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
     <!-- ============================================ -->
     <h2>Parking and Surveillance</h2>
 
@@ -403,6 +422,16 @@
     <p>The phone wins in every single hardware category except heat tolerance. And even that gap is closing as phone manufacturers improve thermal management with vapor chambers and graphene heat spreaders.</p>
 
     <p>You are not buying a dashcam when you use Phone Dashcam. You are unlocking the dashcam that was already inside your phone the entire time.</p>
+
+    <a href="https://www.amazon.com/s?k=usb+c+car+charger+fast+charging&tag=phonedashcam-20" class="affiliate-card" target="_blank" rel="noopener nofollow sponsored">
+        <div class="af-img">🔌</div>
+        <div class="af-info">
+            <h4>Fast USB-C Car Chargers for Dashcam Use</h4>
+            <span class="af-price">From $9.99</span>
+            <div class="af-desc">Keep your phone charged while recording. 67W+ fast charging keeps battery at 100% even during dashcam use.</div>
+        </div>
+        <span class="af-btn">View on Amazon</span>
+    </a>
 
     <!-- ============================================ -->
     <h2>Frequently Asked Questions</h2>

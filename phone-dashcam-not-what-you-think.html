@@ -255,12 +255,26 @@
         }
         footer a { color: var(--green); }
 
+        .ad-slot { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 16px; margin: 32px 0; text-align: center; min-height: 100px; overflow: hidden; }
+        .ad-slot ins { display: block; }
+        .affiliate-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 24px; margin: 28px 0; display: flex; gap: 20px; align-items: center; transition: border-color 0.2s; }
+        .affiliate-card:hover { border-color: var(--green); text-decoration: none; }
+        .affiliate-card .af-img { width: 80px; height: 80px; background: #1e2740; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 2rem; }
+        .affiliate-card .af-info { flex: 1; }
+        .affiliate-card .af-info h4 { color: var(--text-bright); font-size: 1rem; font-weight: 700; margin: 0 0 4px 0; }
+        .affiliate-card .af-info .af-price { color: var(--green); font-weight: 700; font-size: 0.95rem; }
+        .affiliate-card .af-info .af-desc { color: var(--text-dim); font-size: 0.85rem; margin-top: 4px; }
+        .affiliate-card .af-btn { background: #FF9900; color: #000; padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 0.8rem; white-space: nowrap; text-decoration: none; flex-shrink: 0; }
+        .affiliate-card .af-btn:hover { background: #e68a00; text-decoration: none; }
+        @media (max-width: 640px) { .affiliate-card { flex-direction: column; text-align: center; } .affiliate-card .af-img { width: 60px; height: 60px; } }
+
         @media (max-width: 640px) {
             h1 { font-size: 1.8rem; }
             h2 { font-size: 1.3rem; }
             .article { padding: 80px 16px 40px; }
         }
     </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2177114511441377" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -369,6 +383,11 @@
     <h3>Software Updates That Add Features</h3>
     <p>Your hardware dashcam gets maybe one firmware update in its entire lifetime, and it probably just fixes a bug. A phone dashcam app gets updated regularly through the Play Store. New features, better performance, new AI models, new camera databases. The dashcam you install today is better next month. Try getting that from a piece of hardware soldered together in a factory.</p>
 
+    <div class="ad-slot">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2177114511441377" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
     <!-- ============================================ -->
     <h2>The Two Honest Advantages Hardware Dashcams Still Have</h2>
 
@@ -406,6 +425,16 @@
         <li><strong>You are a delivery driver or rideshare driver.</strong> Dual camera recording (front road view plus cabin view) is built into your phone. A hardware setup for this costs $300+.</li>
         <li><strong>You want parking surveillance without a hardwire kit.</strong> A phone on a USB battery bank gives you hours of parking mode protection with zero installation.</li>
     </ul>
+
+    <a href="https://www.amazon.com/s?k=phone+mount+for+car+dashcam&tag=phonedashcam-20" class="affiliate-card" target="_blank" rel="noopener nofollow sponsored">
+        <div class="af-img">📱</div>
+        <div class="af-info">
+            <h4>Best Phone Mounts for Dashcam Use</h4>
+            <span class="af-price">From $12.99</span>
+            <div class="af-desc">Suction cup & vent mounts rated for windshield dashcam use. Stable at highway speeds.</div>
+        </div>
+        <span class="af-btn">View on Amazon</span>
+    </a>
 
     <!-- ============================================ -->
     <h2>Frequently Asked Questions</h2>
