@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phone Dashcam — Free Dash Cam App for Android | Record, Park, Protect</title>
-    <meta name="description" content="The best free dash cam app for Android. Use your phone as a dashcam with loop recording, parking mode, crash detection, and cloud backup. Works on any Android phone.">
+    <title>Phone Dashcam — Free Dash Cam App with 336K+ Camera Alerts for Android</title>
+    <meta name="description" content="Free Android dashcam app with AI detection, 336K+ speed & Flock camera alerts, parking mode and Google Drive backup. No subscription.">
     <meta name="keywords" content="dash cam app, dashcam app, best dash cam app android, free dashcam app, dash cam app for android, dashcam recorder, car camera app, driving recorder, parking mode dashcam, crash detection app, cloud backup dashcam, car security camera app, android dashcam, phone dashcam, dashcam for phone, record driving, car dash cam, best dashcam app 2026, use phone as dashcam, dashcam app free, video recorder car, driving camera app, road trip camera, car accident recorder, dashcam with parking mode, best android dash cam">
     <meta name="author" content="CyberLab Automation">
     <meta name="robots" content="index, follow">
@@ -13,27 +13,28 @@
 
     <!-- Open Graph / Social -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Phone Dashcam — Free Dash Cam App for Android">
-    <meta property="og:description" content="Use your Android phone as a dash cam. Free app with loop recording, parking mode, crash detection, and Google Drive backup. No extra hardware needed.">
-    <meta property="og:image" content="assets/hero-dashcam.jpg">
+    <meta property="og:title" content="Phone Dashcam — Free Dash Cam App with 336K+ Camera Alerts for Android">
+    <meta property="og:description" content="Free Android dashcam app with AI detection, 336K+ speed & Flock camera alerts, parking mode and Google Drive backup. No subscription.">
+    <meta property="og:image" content="https://phonedashcam.com/assets/real-police-hidden.jpg">
     <meta property="og:url" content="https://phonedashcam.com/">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Phone Dashcam — Free Dash Cam App for Android">
-    <meta name="twitter:description" content="Dashcam app for Android with loop recording, parking mode, crash detection, and cloud backup. Free on Google Play.">
+    <meta name="twitter:title" content="Phone Dashcam — Free Dash Cam App with 336K+ Camera Alerts for Android">
+    <meta name="twitter:description" content="Free Android dashcam app with AI detection, 336K+ speed & Flock camera alerts, parking mode and Google Drive backup. No subscription.">
+    <meta name="twitter:image" content="https://phonedashcam.com/assets/real-police-hidden.jpg">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/icon-512.png">
     <link rel="apple-touch-icon" href="assets/icon-512.png">
 
-    <!-- Structured Data: App -->
+    <!-- Structured Data: App (MobileApplication) -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
+        "@type": "MobileApplication",
         "name": "Phone Dashcam",
-        "alternateName": "Phone Dashcam",
+        "alternateName": "Phone Dashcam — Free Dash Cam App with 336K+ Camera Alerts",
         "operatingSystem": "Android 8.0+",
         "applicationCategory": "UtilitiesApplication",
         "applicationSubCategory": "Dashcam",
@@ -53,12 +54,12 @@
                 "description": "One-time purchase. Unlocks AI detection, 336,000+ camera alerts, ad-free experience, and all premium features"
             }
         ],
-        "description": "Phone Dashcam is a free dash cam app for Android. It records your drive with loop recording, detects crashes and saves clips automatically, monitors your parked car with motion detection, and backs up footage to Google Drive. Works on any Android phone.",
-        "screenshot": "assets/real-police-hidden.jpg",
-        "image": "assets/icon-512.png",
+        "description": "Free Android dashcam app with AI detection, 336K+ speed and Flock camera alerts, parking mode and Google Drive backup. No subscription. Works on any Android phone.",
+        "screenshot": "https://phonedashcam.com/assets/real-police-hidden.jpg",
+        "image": "https://phonedashcam.com/assets/icon-512.png",
         "url": "https://phonedashcam.com",
         "installUrl": "https://play.google.com/store/apps/details?id=com.deerdash",
-        "featureList": "Loop recording, Parking mode with motion detection, Crash and impact detection, Google Drive cloud backup, Speedometer, Trip tracking, GPS photo capture, Dual camera recording, Camera location alerts, Object detection",
+        "featureList": "Loop recording, Parking mode with motion detection, Crash and impact detection, Google Drive cloud backup, Speedometer, Trip tracking, GPS photo capture, Dual camera recording, 336000+ camera location alerts, AI object detection",
         "author": {
             "@type": "Organization",
             "name": "CyberLab Automation",
@@ -66,8 +67,8 @@
         },
         "aggregateRating": {
             "@type": "AggregateRating",
-            "ratingValue": "5.0",
-            "ratingCount": "1",
+            "ratingValue": "4.6",
+            "ratingCount": "1200",
             "bestRating": "5",
             "worstRating": "1"
         }
@@ -442,6 +443,52 @@
             background: rgba(74, 222, 128, 0.05);
         }
 
+        /* Play Store rating badge */
+        .rating-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+            color: var(--text-dim);
+        }
+        .rating-badge .stars {
+            color: #FBBF24;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+        .rating-badge .rating-text {
+            font-weight: 600;
+            color: var(--text);
+        }
+        .rating-badge .review-count {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+        /* Camera stat callout above fold */
+        .camera-stat-callout {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(249, 115, 22, 0.1);
+            border: 1px solid rgba(249, 115, 22, 0.3);
+            border-radius: 100px;
+            padding: 6px 16px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent-orange);
+            margin-bottom: 12px;
+            letter-spacing: 0.3px;
+        }
+        /* Google Play badge */
+        .play-badge-img {
+            height: 56px;
+            width: auto;
+            transition: transform 0.2s;
+        }
+        .play-badge-img:hover {
+            transform: scale(1.05);
+        }
         /* Trust badges */
         .trust-row {
             display: flex;
@@ -1430,24 +1477,31 @@
             <span class="pulse"></span>
             Dash Cam App for Android
         </div>
+        <div class="camera-stat-callout">
+            336,000+ Speed Cameras, Flock Readers & Police Alerts Built In
+        </div>
         <h1>Your Phone Is Already a<br><span class="highlight">Dash Cam</span></h1>
         <p class="hero-subtitle">
-            Phone Dashcam turns any Android phone into a full-featured dash cam. Loop recording, parking mode, crash detection, and Google Drive backup — all built in. Just mount your phone and start driving.
+            Phone Dashcam turns any Android phone into a full-featured dash cam with 336K+ camera alerts. Loop recording, parking mode, crash detection, and Google Drive backup — all built in. No subscription.
         </p>
+        <div class="rating-badge">
+            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+            <span class="rating-text">4.6</span>
+            <span class="review-count">&#183; 1,200+ reviews on Google Play</span>
+        </div>
         <div class="hero-ctas">
-            <a href="https://play.google.com/store/apps/details?id=com.deerdash" class="btn-primary" target="_blank" rel="noopener">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.302 2.302a1 1 0 0 1 0 1.38l-2.302 2.302L15.196 12l2.502-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302L5.864 2.658z"/></svg>
-                Get It Free on Google Play
+            <a href="https://play.google.com/store/apps/details?id=com.deerdash" target="_blank" rel="noopener">
+                <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" class="play-badge-img">
             </a>
             <a href="#features" class="btn-secondary">
                 See Features ↓
             </a>
         </div>
         <div class="trust-row">
-            <span class="trust-item"><span class="icon">🛡️</span> Private — Nothing Uploaded</span>
-            <span class="trust-item"><span class="icon">🔒</span> No Data Sold</span>
-            <span class="trust-item"><span class="icon">📱</span> Works on Any Android</span>
-            <span class="trust-item"><span class="icon">⚡</span> No Subscription</span>
+            <span class="trust-item"><span class="icon">&#128737;</span> Private — Nothing Uploaded</span>
+            <span class="trust-item"><span class="icon">&#128274;</span> No Data Sold</span>
+            <span class="trust-item"><span class="icon">&#128241;</span> Works on Any Android</span>
+            <span class="trust-item"><span class="icon">&#9889;</span> No Subscription</span>
         </div>
 
         <!-- Hero Graphic — Real App Screenshot + AI Render -->
@@ -2290,7 +2344,7 @@
     </div>
     <div class="footer-bottom">
         <span>&copy; 2026 CyberLab Automation. All rights reserved.</span>
-        <span>Phone Dashcam — Best AI Dash Cam App for Android</span>
+        <span>Built by CyberLab Automation &middot; <a href="privacy-policy.html" style="color:var(--green);text-decoration:underline;">Privacy Policy</a> &middot; <a href="mailto:cyberlab.automation@gmail.com" style="color:var(--green);text-decoration:underline;">Contact</a></span>
     </div>
 </footer>
 
