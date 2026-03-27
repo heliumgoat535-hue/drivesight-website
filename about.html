@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Phone Dashcam — CyberLab Automation</title>
+    <meta name="description" content="Phone Dashcam is built by CyberLab Automation. Learn about our mission to make dash cam technology accessible to every driver through a free Android app.">
+    <meta name="author" content="CyberLab Automation">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://phonedashcam.com/about">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="About Phone Dashcam — CyberLab Automation">
+    <meta property="og:description" content="Learn about the team behind Phone Dashcam and our mission to make dash cam technology accessible to every driver.">
+    <meta property="og:url" content="https://phonedashcam.com/about">
+
+    <link rel="icon" type="image/webp" href="assets/icon-512.webp">
+    <link rel="apple-touch-icon" href="assets/icon-512.webp">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        "name": "About Phone Dashcam",
+        "description": "Phone Dashcam is built by CyberLab Automation. Learn about our mission to make dash cam technology accessible to every driver.",
+        "url": "https://phonedashcam.com/about",
+        "mainEntity": {
+            "@type": "Organization",
+            "name": "CyberLab Automation",
+            "url": "https://phonedashcam.com",
+            "email": "cyberlab.automation@gmail.com",
+            "foundingDate": "2025",
+            "description": "Independent software studio focused on automotive safety and driver protection tools for Android."
+        }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://phonedashcam.com/" },
+            { "@type": "ListItem", "position": 2, "name": "About", "item": "https://phonedashcam.com/about" }
+        ]
+    }
+    </script>
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: #0a0e17;
+            color: #e0e0e0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; height: auto; display: block; }
+        :root {
+            --green: #4ADE80; --green-dark: #22c55e; --green-glow: rgba(74, 222, 128, 0.15);
+            --dark-bg: #0a0e17; --card-bg: #141926; --card-border: #1e2740;
+            --text: #e0e0e0; --text-dim: #8892a8; --text-bright: #ffffff;
+        }
+        .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(10, 14, 23, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--card-border); padding: 0 24px; }
+        .navbar-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+        .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.25rem; color: var(--text-bright); }
+        .nav-logo img { width: 36px; height: 36px; border-radius: 8px; }
+        .nav-links { display: flex; gap: 32px; align-items: center; }
+        .nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--text-dim); transition: color 0.2s; }
+        .nav-links a:hover { color: var(--green); }
+        .nav-cta { background: var(--green); color: #000 !important; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; transition: all 0.2s; }
+        .nav-cta:hover { background: var(--green-dark); transform: translateY(-1px); }
+        .mobile-menu-btn { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
+
+        .page-content { max-width: 800px; margin: 0 auto; padding: 120px 24px 80px; }
+        .page-content h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; color: var(--text-bright); margin-bottom: 12px; letter-spacing: -0.02em; }
+        .page-content .subtitle { font-size: 1.1rem; color: var(--text-dim); margin-bottom: 48px; line-height: 1.7; }
+        .page-content h2 { font-size: 1.5rem; font-weight: 800; color: var(--text-bright); margin: 48px 0 16px; }
+        .page-content h3 { font-size: 1.15rem; font-weight: 700; color: var(--green); margin: 32px 0 12px; }
+        .page-content p { font-size: 1rem; color: var(--text); margin-bottom: 16px; line-height: 1.8; }
+        .page-content ul { margin: 0 0 24px 24px; color: var(--text); }
+        .page-content ul li { margin-bottom: 8px; line-height: 1.7; }
+        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin: 32px 0 48px; }
+        .stat-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 24px; text-align: center; }
+        .stat-card .number { font-size: 2rem; font-weight: 900; color: var(--green); display: block; }
+        .stat-card .label { font-size: 0.85rem; color: var(--text-dim); margin-top: 4px; }
+        .timeline { margin: 32px 0 48px; padding-left: 24px; border-left: 2px solid var(--card-border); }
+        .timeline-item { position: relative; padding: 0 0 32px 24px; }
+        .timeline-item::before { content: ''; position: absolute; left: -29px; top: 6px; width: 12px; height: 12px; background: var(--green); border-radius: 50%; border: 2px solid var(--dark-bg); }
+        .timeline-item h3 { margin-top: 0; }
+        .timeline-item p { margin-bottom: 0; }
+
+        footer { border-top: 1px solid var(--card-border); padding: 48px 24px 24px; }
+        .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; }
+        .footer-brand p { color: var(--text-dim); font-size: 0.85rem; margin-top: 12px; line-height: 1.6; }
+        .footer-col { display: flex; flex-direction: column; gap: 10px; }
+        .footer-col h4 { color: var(--text-bright); font-weight: 700; font-size: 0.9rem; }
+        .footer-col a { color: var(--text-dim); font-size: 0.85rem; transition: color 0.2s; }
+        .footer-col a:hover { color: var(--green); }
+        .footer-bottom { max-width: 1200px; margin: 32px auto 0; padding-top: 24px; border-top: 1px solid var(--card-border); display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--text-dim); }
+        @media (max-width: 768px) {
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: rgba(10,14,23,0.97); padding: 24px; gap: 16px; border-bottom: 1px solid var(--card-border); }
+            .nav-links.open { display: flex; }
+            .mobile-menu-btn { display: block; }
+            .footer-inner { grid-template-columns: 1fr; gap: 24px; }
+            .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+            .stat-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="navbar-inner">
+        <a href="/" class="nav-logo">
+            <img src="assets/icon-512.webp" alt="Phone Dashcam Logo">
+            Phone Dashcam
+        </a>
+        <div class="nav-links" id="navLinks">
+            <a href="/#features">Features</a>
+            <a href="/blog">Blog</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="https://play.google.com/store/apps/details?id=com.deerdash" class="nav-cta" target="_blank" rel="noopener">Download Free</a>
+        </div>
+        <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+    </div>
+</nav>
+
+<main class="page-content">
+    <h1>About Phone Dashcam</h1>
+    <p class="subtitle">Built by CyberLab Automation &mdash; an independent software studio focused on automotive safety tools that actually work.</p>
+
+    <h2>Why We Built This</h2>
+    <p>Every year, millions of insurance claims come down to one driver's word against another. Dedicated dashcams cost $150&ndash;$400, require hardwiring, and still miss half the story. Meanwhile, the phone sitting in your cupholder has a better camera, more processing power, and a GPS chip already built in.</p>
+    <p>Phone Dashcam started as a side project to solve a simple problem: turn a spare Android phone into a full dashcam without buying new hardware. It grew into a complete driving safety platform with features most hardware dashcams still don't offer.</p>
+
+    <h2>What Phone Dashcam Does</h2>
+    <p>The app runs on any Android phone (8.0+) and records continuously in a loop. When something happens, it saves the clip automatically. But recording is just the baseline. Here's what sets it apart:</p>
+    <ul>
+        <li><strong>Parking mode</strong> &mdash; motion-activated recording that guards your car when you're not in it. Screen dims to near-zero on AMOLED to save battery.</li>
+        <li><strong>Crash detection</strong> &mdash; accelerometer-based impact sensing that auto-saves footage the moment a collision is detected.</li>
+        <li><strong>336,000+ camera alerts</strong> &mdash; a built-in offline database of speed cameras, red light cameras, Flock ALPR readers, and reported police speed traps across the US.</li>
+        <li><strong>AI object detection</strong> &mdash; on-device YOLOv8 model that identifies vehicles, pedestrians, and objects in real time. No cloud processing, no data leaves your phone.</li>
+        <li><strong>Google Drive backup</strong> &mdash; automatic cloud sync over WiFi. Your footage is always recoverable even if the phone is damaged.</li>
+        <li><strong>Dual camera</strong> &mdash; record front and rear simultaneously on supported devices.</li>
+    </ul>
+
+    <h2>By the Numbers</h2>
+    <div class="stat-grid">
+        <div class="stat-card">
+            <span class="number">336K+</span>
+            <span class="label">Camera locations in database</span>
+        </div>
+        <div class="stat-card">
+            <span class="number">$0</span>
+            <span class="label">Monthly subscription fees</span>
+        </div>
+        <div class="stat-card">
+            <span class="number">100%</span>
+            <span class="label">On-device AI processing</span>
+        </div>
+        <div class="stat-card">
+            <span class="number">8.0+</span>
+            <span class="label">Minimum Android version</span>
+        </div>
+    </div>
+
+    <h2>Development Timeline</h2>
+    <div class="timeline">
+        <div class="timeline-item">
+            <h3>Early 2025 &mdash; The Idea</h3>
+            <p>Started building a basic loop-recording dashcam app after getting frustrated with a $200 hardware dashcam that kept overheating and losing footage.</p>
+        </div>
+        <div class="timeline-item">
+            <h3>Mid 2025 &mdash; Parking Mode &amp; Crash Detection</h3>
+            <p>Added motion-activated parking mode and accelerometer-based crash detection. These two features alone replaced the most expensive hardware dashcam features.</p>
+        </div>
+        <div class="timeline-item">
+            <h3>Late 2025 &mdash; Camera Alert Database</h3>
+            <p>Integrated a 336,000+ location database of speed cameras, red light cameras, and Flock Safety ALPR readers. The database works fully offline &mdash; no internet required while driving.</p>
+        </div>
+        <div class="timeline-item">
+            <h3>Early 2026 &mdash; AI Detection &amp; Pro Launch</h3>
+            <p>Shipped on-device AI object detection using YOLOv8, Google Drive cloud backup, and the one-time $9.99 Pro upgrade. Published on Google Play.</p>
+        </div>
+    </div>
+
+    <h2>Our Approach</h2>
+    <p>Privacy-first. Everything runs on your phone. Video never touches our servers. AI processing happens locally. Cloud backup goes to your Google Drive, not ours. We collect anonymous crash reports to improve the app and nothing else.</p>
+    <p>No subscriptions. The core app is free. The Pro upgrade is a one-time $9.99 purchase. No monthly fees, no annual renewal, no upsells. You pay once and own it.</p>
+    <p>No bloat. The app does one thing well: protect you on the road. No social features, no gamification, no unnecessary permissions.</p>
+
+    <h2>Get in Touch</h2>
+    <p>Questions, feature requests, or partnership inquiries: <a href="mailto:cyberlab.automation@gmail.com" style="color:var(--green);text-decoration:underline;">cyberlab.automation@gmail.com</a></p>
+    <p>You can also visit our <a href="/contact" style="color:var(--green);text-decoration:underline;">contact page</a> for more ways to reach us.</p>
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <div class="nav-logo">
+                <img src="assets/icon-512.webp" alt="Phone Dashcam" style="width:32px;height:32px;border-radius:6px;" loading="lazy">
+                Phone Dashcam
+            </div>
+            <p>The smartest AI dash cam app on Android. Parking mode, crash detection, cloud backup, and 336,000+ camera alerts. Built by CyberLab Automation.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Product</h4>
+            <a href="/#features">Features</a>
+            <a href="/#pricing">Pricing</a>
+            <a href="/#faq">FAQ</a>
+            <a href="/blog">Blog</a>
+        </div>
+        <div class="footer-col">
+            <h4>Company</h4>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy-policy.html">Privacy Policy</a>
+            <a href="/terms">Terms of Service</a>
+        </div>
+        <div class="footer-col">
+            <h4>Download</h4>
+            <a href="https://play.google.com/store/apps/details?id=com.deerdash" target="_blank" rel="noopener">Google Play Store</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>&copy; 2026 CyberLab Automation. All rights reserved.</span>
+        <span><a href="/privacy-policy.html" style="color:var(--green);text-decoration:underline;">Privacy Policy</a> &middot; <a href="/terms" style="color:var(--green);text-decoration:underline;">Terms</a> &middot; <a href="/contact" style="color:var(--green);text-decoration:underline;">Contact</a></span>
+    </div>
+</footer>
+
+</body>
+</html>
