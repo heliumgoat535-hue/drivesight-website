@@ -32,23 +32,28 @@
         "@type": "Article",
         "headline": "How to Turn an Old Android Phone Into a Dashcam",
         "description": "Step-by-step guide to turning any spare Android phone into a dedicated AI dashcam with parking mode, crash detection, and cloud backup.",
-        "author": {
-            "@type": "Organization",
-            "name": "CyberLab Automation",
-            "url": "https://phonedashcam.com"
-        },
-        "publisher": {
-            "@type": "Organization",
-            "name": "CyberLab Automation",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "https://phonedashcam.com/assets/icon-512.png"
-            }
-        },
+        "author": {"@id": "https://phonedashcam.com/#organization"},
+        "publisher": {"@id": "https://phonedashcam.com/#organization"},
         "datePublished": "2026-03-11",
         "dateModified": "2026-03-11",
         "image": "https://phonedashcam.com/assets/real-windshield-mount.jpg",
-        "mainEntityOfPage": "https://phonedashcam.com/turn-old-phone-into-dashcam"
+        "mainEntityOfPage": "https://phonedashcam.com/turn-old-phone-into-dashcam",
+        "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": [".article h1", ".article > p:first-of-type"]
+        }
+    }
+    </script>
+
+    <!-- Structured Data: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Phone Dashcam", "item": "https://phonedashcam.com"},
+            {"@type": "ListItem", "position": 2, "name": "How to Turn an Old Phone Into a Dashcam", "item": "https://phonedashcam.com/turn-old-phone-into-dashcam"}
+        ]
     }
     </script>
 

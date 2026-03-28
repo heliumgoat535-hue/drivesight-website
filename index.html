@@ -28,6 +28,45 @@
     <link rel="icon" type="image/webp" href="assets/icon-512.webp">
     <link rel="apple-touch-icon" href="assets/icon-512.webp">
 
+    <!-- Structured Data: Organization (canonical definition) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "@id": "https://phonedashcam.com/#organization",
+        "name": "CyberLab Automation",
+        "url": "https://phonedashcam.com",
+        "logo": "https://phonedashcam.com/assets/icon-512.webp",
+        "email": "cyberlab.automation@gmail.com",
+        "foundingDate": "2025",
+        "description": "Independent software studio focused on automotive safety and driver protection tools for Android.",
+        "sameAs": [
+            "https://play.google.com/store/apps/details?id=com.deerdash",
+            "https://www.youtube.com/@CyberlabAutomation",
+            "https://www.reddit.com/r/phonedashcam/"
+        ],
+        "knowsAbout": ["dashcam apps", "dash cam technology", "parking mode", "crash detection", "speed camera alerts", "driver safety", "ALPR camera locations", "Android automotive apps"],
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "cyberlab.automation@gmail.com",
+            "contactType": "customer support",
+            "availableLanguage": "English"
+        }
+    }
+    </script>
+
+    <!-- Structured Data: WebSite -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "@id": "https://phonedashcam.com/#website",
+        "name": "Phone Dashcam",
+        "url": "https://phonedashcam.com",
+        "publisher": {"@id": "https://phonedashcam.com/#organization"}
+    }
+    </script>
+
     <!-- Structured Data: App (MobileApplication) -->
     <script type="application/ld+json">
     {
@@ -38,6 +77,7 @@
         "operatingSystem": "Android 8.0+",
         "applicationCategory": "UtilitiesApplication",
         "applicationSubCategory": "Dashcam",
+        "softwareVersion": "1.0",
         "offers": [
             {
                 "@type": "Offer",
@@ -54,17 +94,23 @@
                 "description": "One-time purchase. Unlocks AI detection, 336,000+ camera alerts, ad-free experience, and all premium features"
             }
         ],
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "12",
+            "bestRating": "5",
+            "worstRating": "1"
+        },
         "description": "Free Android dashcam app with AI detection, 336K+ speed and Flock camera alerts, parking mode and Google Drive backup. No subscription. Works on any Android phone.",
         "screenshot": "https://phonedashcam.com/assets/real-police-hidden.webp",
         "image": "https://phonedashcam.com/assets/icon-512.webp",
         "url": "https://phonedashcam.com",
         "installUrl": "https://play.google.com/store/apps/details?id=com.deerdash",
+        "sameAs": [
+            "https://play.google.com/store/apps/details?id=com.deerdash"
+        ],
         "featureList": "Loop recording, Parking mode with motion detection, Crash and impact detection, Google Drive cloud backup, Speedometer, Trip tracking, GPS photo capture, Dual camera recording, 336000+ camera location alerts, AI object detection",
-        "author": {
-            "@type": "Organization",
-            "name": "CyberLab Automation",
-            "url": "https://phonedashcam.com"
-        }
+        "author": {"@id": "https://phonedashcam.com/#organization"}
     }
     </script>
 
