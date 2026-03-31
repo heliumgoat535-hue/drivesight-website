@@ -2243,11 +2243,41 @@
         <span class="section-label">Stay Updated</span>
         <h2 style="font-size: 1.75rem; font-weight: 700; margin: 12px 0 8px; color: var(--text-main);">Get the Free Dashcam Setup Guide</h2>
         <p style="color: var(--text-dim); margin-bottom: 28px; font-size: 1rem;">Mount your phone as a dashcam in 60 seconds. Tips on placement, power, and getting the best footage — delivered free.</p>
-        <form action="https://formspree.io/f/xvzvrpqq" method="POST" style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;" onsubmit="this.querySelector('button').textContent='Sending…'">
+        <form id="email-capture-form" style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
             <input type="email" name="email" placeholder="your@email.com" required style="flex: 1; min-width: 220px; padding: 14px 18px; border-radius: 10px; border: 1px solid var(--card-border); background: var(--card-bg); color: var(--text-main); font-size: 1rem; outline: none;">
             <button type="submit" class="btn-primary" style="white-space: nowrap;">Send Me the Guide</button>
         </form>
-        <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 12px;">No spam. Unsubscribe any time.</p>
+        <p id="email-capture-msg" style="font-size: 0.8rem; color: var(--text-dim); margin-top: 12px;">No spam. Unsubscribe any time.</p>
+        <script>
+        document.getElementById('email-capture-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var form = this;
+            var btn = form.querySelector('button');
+            var msg = document.getElementById('email-capture-msg');
+            btn.textContent = 'Sending…';
+            btn.disabled = true;
+            fetch('https://formspree.io/f/xvzvrpqq', {
+                method: 'POST',
+                headers: { 'Accept': 'application/json' },
+                body: new FormData(form)
+            }).then(function(r) {
+                if (r.ok) {
+                    form.innerHTML = '<p style="color:#4ade80;font-size:1rem;font-weight:600;">You\'re on the list. Check your inbox.</p>';
+                    msg.style.display = 'none';
+                } else {
+                    btn.textContent = 'Send Me the Guide';
+                    btn.disabled = false;
+                    msg.textContent = 'Something went wrong — try again.';
+                    msg.style.color = '#f87171';
+                }
+            }).catch(function() {
+                btn.textContent = 'Send Me the Guide';
+                btn.disabled = false;
+                msg.textContent = 'Something went wrong — try again.';
+                msg.style.color = '#f87171';
+            });
+        });
+        </script>
     </div>
 </section>
 
