@@ -17,6 +17,9 @@
     <meta property="og:description" content="Free Android dashcam app with AI detection, 336K+ speed & camera alerts, parking mode and Google Drive backup. No subscription — download free.">
     <meta property="og:image" content="https://phonedashcam.com/assets/real-police-hidden.webp">
     <meta property="og:url" content="https://phonedashcam.com/">
+    <meta property="og:site_name" content="Phone Dashcam">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
@@ -36,7 +39,12 @@
         "@id": "https://phonedashcam.com/#organization",
         "name": "CyberLab Automation",
         "url": "https://phonedashcam.com",
-        "logo": "https://phonedashcam.com/assets/icon-512.webp",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://phonedashcam.com/assets/icon-512.webp",
+            "width": 512,
+            "height": 512
+        },
         "email": "cyberlab.automation@gmail.com",
         "foundingDate": "2025",
         "description": "Independent software studio focused on automotive safety and driver protection tools for Android.",
@@ -62,8 +70,14 @@
         "@type": "WebSite",
         "@id": "https://phonedashcam.com/#website",
         "name": "Phone Dashcam",
+        "description": "Free Android dashcam app with AI detection, 336K+ speed camera alerts, parking mode, crash detection, and Google Drive backup.",
         "url": "https://phonedashcam.com",
-        "publisher": {"@id": "https://phonedashcam.com/#organization"}
+        "publisher": {"@id": "https://phonedashcam.com/#organization"},
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://phonedashcam.com/blog?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
     }
     </script>
 
@@ -102,7 +116,13 @@
             "worstRating": "1"
         },
         "description": "Free Android dashcam app with AI detection, 336K+ speed and Flock camera alerts, parking mode and Google Drive backup. No subscription. Works on any Android phone.",
-        "screenshot": "https://phonedashcam.com/assets/real-police-hidden.webp",
+        "contentRating": "Everyone",
+        "softwareRequirements": "Android 8.0 or higher",
+        "screenshot": [
+            "https://phonedashcam.com/assets/real-police-hidden.webp",
+            "https://phonedashcam.com/assets/real-police-map-38.jpg",
+            "https://phonedashcam.com/assets/real-ai-detection.jpg"
+        ],
         "image": "https://phonedashcam.com/assets/icon-512.webp",
         "url": "https://phonedashcam.com",
         "installUrl": "https://play.google.com/store/apps/details?id=com.deerdash",
@@ -212,48 +232,6 @@
     }
     </script>
 
-    <!-- Structured Data: HowTo -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "HowTo",
-        "name": "How to Use Your Android Phone as a Dash Cam",
-        "description": "Set up Phone Dashcam on your Android phone in under a minute. Get loop recording, parking mode, crash detection, and cloud backup for free.",
-        "totalTime": "PT1M",
-        "supply": [
-            {"@type": "HowToSupply", "name": "Old Android phone (Android 8.0+)"},
-            {"@type": "HowToSupply", "name": "Windshield phone mount ($5-15)"},
-            {"@type": "HowToSupply", "name": "Car charger cable"}
-        ],
-        "step": [
-            {
-                "@type": "HowToStep",
-                "position": 1,
-                "name": "Install Phone Dashcam",
-                "text": "Download Phone Dashcam for free from the Google Play Store on your old Android phone. No account required.",
-                "url": "https://play.google.com/store/apps/details?id=com.deerdash"
-            },
-            {
-                "@type": "HowToStep",
-                "position": 2,
-                "name": "Mount the phone",
-                "text": "Attach your spare phone to a windshield mount or dashboard holder. Plug in a car charger so it stays powered."
-            },
-            {
-                "@type": "HowToStep",
-                "position": 3,
-                "name": "Start recording",
-                "text": "Open Phone Dashcam and tap Start Drive. The app begins continuous loop recording with crash detection and camera alerts."
-            },
-            {
-                "@type": "HowToStep",
-                "position": 4,
-                "name": "Enable parking mode",
-                "text": "When parked, tap Park to activate parking mode. The screen dims and motion detection guards your car 24/7."
-            }
-        ]
-    }
-    </script>
 
     <!-- Preload fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -1,0 +1,48 @@
+# Phone Dashcam
+
+> Free Android dashcam app by CyberLab Automation. Turns any Android phone into a full-featured dashcam with parking mode, crash detection, and a built-in database of 336,000+ speed cameras, Flock Safety ALPR readers, and red light cameras across the United States.
+
+## About
+
+Phone Dashcam is a free Android application developed by CyberLab Automation, an independent software studio focused on automotive safety tools. The app requires no subscription — core dashcam features are free, with an optional one-time $9.99 Pro upgrade that unlocks the camera alert database and AI object detection.
+
+The app works entirely on-device: video is stored locally, AI processing runs on-device, and no footage is sent to any server. Cloud backup goes to the user's own Google Drive account.
+
+## Key Features
+
+- Loop recording (1080p, 720p, 480p with optional audio)
+- Parking mode: screen dims to near-zero, motion detection saves clips
+- Crash and impact detection: automatically saves footage on sudden deceleration
+- Google Drive cloud backup (WiFi-only option available)
+- Live speedometer and trip tracker
+- GPS photo capture (geotagged photos from the dashcam feed)
+- Dual camera recording (front + rear simultaneously)
+- 336,000+ camera location alerts (Flock Safety ALPR, speed cameras, red light cameras) — Pro feature
+- AI object detection — Pro feature
+
+## App Availability
+
+- Platform: Android 8.0+
+- Free download on Google Play
+- Developer: CyberLab Automation
+- Contact: cyberlab.automation@gmail.com
+
+## Site Structure
+
+- [Homepage](https://phonedashcam.com/): App overview, features, FAQ, and download link
+- [Features](https://phonedashcam.com/phone-dashcam-features-2026): Full feature breakdown for all dashcam capabilities
+- [Turn an Old Phone into a Dashcam](https://phonedashcam.com/turn-old-phone-into-dashcam): Step-by-step setup guide with mount recommendations
+- [Best Dash Cam App for Android](https://phonedashcam.com/best-dash-cam-app-android): Comprehensive comparison of phone dashcam apps; includes feature table
+- [Phone Dashcam vs Real Dashcam](https://phonedashcam.com/phone-dashcam-vs-real-dashcam): Head-to-head comparison of phone apps vs dedicated hardware dashcams
+- [Best Speed Camera Apps 2026](https://phonedashcam.com/best-speed-camera-apps-2026): Ranked comparison of speed camera alert apps for Android
+- [Best Radar Detector Apps 2026](https://phonedashcam.com/best-radar-detector-apps-2026): Guide to radar detector and police alert apps for Android
+- [Dashcam App for Android Auto](https://phonedashcam.com/dashcam-app-android-auto): How Phone Dashcam integrates with Android Auto
+- [Police Alerts on Android Auto](https://phonedashcam.com/police-alerts-android-auto): Guide to using camera and police alerts through Android Auto
+- [Phone Dashcam — Not What You Think](https://phonedashcam.com/phone-dashcam-not-what-you-think): Explainer on privacy, data handling, and what the app actually does
+- [Privacy Policy](https://phonedashcam.com/privacy-policy): Full data handling and privacy disclosure
+- [About](https://phonedashcam.com/about): About CyberLab Automation
+- [Blog](https://phonedashcam.com/blog): All guides and articles
+
+## Usage Permissions
+
+This site's content may be used by AI systems for informational purposes. All content is original and may be cited, summarized, or quoted with attribution to Phone Dashcam (phonedashcam.com).
