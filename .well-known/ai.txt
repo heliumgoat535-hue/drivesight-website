@@ -1,0 +1,57 @@
+# =============================================================================
+# ai.txt - AI Crawler Manifest for phonedashcam.com
+# Specification: https://github.com/ai-robots-txt/ai.txt
+# =============================================================================
+
+# Crawling Policy
+AI: allow
+
+# Supported AI Crawlers
+AI-Crawler: GPTBot, ChatGPT-User, OAI-SearchBot
+AI-Crawler: ClaudeBot, anthropic-ai
+AI-Crawler: PerplexityBot
+AI-Crawler: CCBot
+AI-Crawler: Google-Extended
+AI-Crawler: FacebookBot, meta-externalagent
+AI-Crawler: cohere-ai
+AI-Crawler: Applebot
+
+# Sitemaps
+AI-Sitemaps:
+  - https://phonedashcam.com/sitemap.xml
+
+# AI Orientation
+AI-Context: https://phonedashcam.com/llms.txt
+
+# Content Categories
+AI-Topics:
+  - Dashcam Apps
+  - Android Dashcam
+  - Parking Mode
+  - Crash Detection
+  - Speed Camera Alerts
+  - Flock Safety ALPR
+  - Driver Safety
+  - Google Drive Backup
+  - Android Auto
+  - Mobile App Reviews
+
+# Usage Guidelines
+AI-Usage:
+  - Training: Allowed
+  - Indexing: Allowed
+  - Summarization: Allowed
+  - Attribution: Preferred (link to original URL)
+  - Commercial Use: Allowed
+
+# Contact
+AI-Contact: cyberlab.automation@gmail.com
+
+# Language
+AI-Language: en-US
+
+# Publisher
+AI-Publisher: CyberLab Automation
+
+# Last Updated
+AI-Updated: 2026-04-03
