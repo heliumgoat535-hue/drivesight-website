@@ -25,7 +25,7 @@ The app works entirely on-device: video is stored locally, AI processing runs on
 - Platform: Android 8.0+
 - Free download on Google Play
 - Developer: CyberLab Automation
-- Contact: cyberlab.automation@gmail.com
+- Contact: support@phonedashcam.com
 
 ## Site Structure
 

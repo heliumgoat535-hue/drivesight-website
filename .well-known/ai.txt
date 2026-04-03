@@ -45,7 +45,7 @@ AI-Usage:
   - Commercial Use: Allowed
 
 # Contact
-AI-Contact: cyberlab.automation@gmail.com
+AI-Contact: support@phonedashcam.com
 
 # Language
 AI-Language: en-US
