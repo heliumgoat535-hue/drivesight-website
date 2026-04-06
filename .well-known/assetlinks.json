@@ -1,0 +1,15 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.deerdash",
+      "sha256_cert_fingerprints": [
+        "47:06:FD:D9:C9:8C:CE:42:D6:38:DB:CA:4F:41:CB:37:2F:F8:E2:99:8D:5F:10:63:B4:7D:3C:95:FE:0C:A1:B1"
+      ]
+    }
+  }
+]
