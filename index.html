@@ -1086,6 +1086,44 @@
             margin-left: 4px;
             vertical-align: middle;
         }
+        .feat-callout {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            margin: 32px auto 0;
+            max-width: 700px;
+        }
+        .feat-stat {
+            text-align: center;
+        }
+        .feat-stat .num {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--green);
+            line-height: 1;
+        }
+        .feat-stat .lbl {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-top: 4px;
+        }
+        .feat-legend {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 24px;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+        .feat-legend span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
         @media (max-width: 900px) {
             .feat-columns { grid-template-columns: 1fr; gap: 32px; }
         }
@@ -1126,7 +1164,7 @@
             box-shadow: 0 0 60px rgba(74, 222, 128, 0.15);
         }
         .price-card.featured::before {
-            content: 'BEST VALUE';
+            content: 'MOST POPULAR';
             position: absolute;
             top: -12px;
             left: 50%;
@@ -1775,7 +1813,17 @@
     <div class="section-inner">
         <span class="section-label">Full Feature List</span>
         <h2 class="section-title">Every Feature in Phone Dashcam</h2>
-        <p class="section-subtitle">A complete breakdown of what the app does. Free features work out of the box. Pro features unlock with a subscription.</p>
+        <p class="section-subtitle">A fully functional dashcam — free, forever. No account required, no credit card, no paywall to skip past. Just install and drive.</p>
+
+        <div class="feat-callout">
+            <div class="feat-stat"><span class="num">23</span><span class="lbl">Features included free</span></div>
+            <div class="feat-stat" style="opacity:0.5;"><span class="num">10</span><span class="lbl">Pro upgrades available</span></div>
+        </div>
+
+        <div class="feat-legend">
+            <span><span style="color:var(--green);font-weight:700;">✓</span> Free — included with download</span>
+            <span><span class="pro-label" style="font-size:0.65rem;">Pro</span> Paid upgrade</span>
+        </div>
 
         <div class="feat-columns">
             <!-- COLUMN 1: Recording & Capture -->
@@ -2157,7 +2205,7 @@
                     <div style="font-size: 2.5rem; margin-bottom: 16px;">🚨</div>
                     <h3 style="font-size: 1.6rem; font-weight: 800; color: var(--text-bright); margin-bottom: 12px;">Know Where Every Camera Is</h3>
                     <p style="color: var(--text-dim); font-size: 0.95rem; line-height: 1.7; margin-bottom: 20px;">Phone Dashcam maps 336,000+ surveillance cameras, speed cameras, red light cameras, Flock Safety ALPR readers, and police speed traps across the United States. Get real-time alerts with the camera type, street name, and distance as you approach.</p>
-                    <a href="https://play.google.com/store/apps/details?id=com.deerdash" class="btn-primary" target="_blank" rel="noopener" style="display:inline-flex; font-size: 0.95rem; padding: 12px 24px;">Get Camera Alerts — from $6.99/mo</a>
+                    <a href="https://play.google.com/store/apps/details?id=com.deerdash" class="btn-primary" target="_blank" rel="noopener" style="display:inline-flex; font-size: 0.95rem; padding: 12px 24px;">Get Camera Alerts — Free Download</a>
                 </div>
                 <div class="camera-alerts-img" style="text-align: center;">
                     <img src="assets/real-police-hidden.webp" alt="Phone Dashcam Police Hidden Ahead alert at 69 mph with 25 confirmed Waze reports" class="real-screenshot" style="width:100%; max-width:500px;" loading="lazy">
@@ -2172,42 +2220,45 @@
 <section class="pricing" id="pricing">
     <div class="section-inner">
         <span class="section-label">Pricing</span>
-        <h2 class="section-title">Simple, Honest Pricing</h2>
-        <p class="section-subtitle">Start free. Upgrade for $6.99/month or $29.99/year. Cancel anytime.</p>
+        <h2 class="section-title">Free Is the Whole Dashcam</h2>
+        <p class="section-subtitle">Most drivers never need to pay. The free version records, detects crashes, backs up footage, and runs parking mode. Pro adds camera alerts, AI detection, and more if you want it.</p>
 
         <div class="pricing-cards">
             <!-- Free -->
-            <div class="price-card">
+            <div class="price-card featured">
                 <h3>Free</h3>
                 <div class="price">$0</div>
-                <div class="price-sub">Forever free, no catches</div>
+                <div class="price-sub">No account, no credit card, no catch</div>
                 <ul class="price-features">
                     <li>Full dashcam recording with loop storage</li>
                     <li>Parking mode with motion detection</li>
-                    <li>Impact & crash detection with auto-save</li>
-                    <li>Google Drive cloud backup</li>
-                    <li>Speedometer with GPS tracking</li>
+                    <li>Impact &amp; crash detection with auto-save</li>
+                    <li>Hard braking detection</li>
+                    <li>Live speedometer with GPS tracking</li>
+                    <li>Time-lapse creator (4x, 8x, 16x)</li>
                     <li>Quick photo with GPS stamp</li>
-                    <li>Video clip manager</li>
+                    <li>Video clip manager with playback</li>
+                    <li>Trip tracking and history</li>
+                    <li>SD card and custom folder support</li>
                 </ul>
-                <a href="https://play.google.com/store/apps/details?id=com.deerdash" class="btn-full outline" target="_blank" rel="noopener">Download Free</a>
+                <a href="https://play.google.com/store/apps/details?id=com.deerdash" class="btn-full primary" target="_blank" rel="noopener">Download Free</a>
             </div>
             <!-- Pro -->
-            <div class="price-card featured">
+            <div class="price-card">
                 <h3>Pro</h3>
-                <div class="price">$6.99<span style="font-size:1rem;font-weight:400">/mo</span></div>
+                <div class="price" style="font-size:2rem;">$6.99<span style="font-size:0.9rem;font-weight:400">/mo</span></div>
                 <div class="price-sub">Or $29.99/year — cancel anytime</div>
                 <ul class="price-features">
-                    <li>Everything in Free</li>
+                    <li>Everything in Free, plus:</li>
                     <li>336,000+ camera &amp; police alerts</li>
-                    <li>Alert sounds with street names &amp; distance</li>
                     <li>AI object detection with bounding boxes</li>
-                    <li>Auto-save clips on AI detection</li>
-                    <li>Community heatmap with hazard zones</li>
-                    <li>Ad-free experience</li>
-                    <li>Priority support</li>
+                    <li>Dual camera (front + rear)</li>
+                    <li>Auto-start on charger</li>
+                    <li>Google Drive cloud backup</li>
+                    <li>Wildlife hotspot warnings</li>
+                    <li>No ads</li>
                 </ul>
-                <a href="https://play.google.com/store/apps/details?id=com.deerdash" class="btn-full primary" target="_blank" rel="noopener">Try Pro Free</a>
+                <a href="https://play.google.com/store/apps/details?id=com.deerdash" class="btn-full outline" target="_blank" rel="noopener">Upgrade to Pro</a>
             </div>
         </div>
     </div>
