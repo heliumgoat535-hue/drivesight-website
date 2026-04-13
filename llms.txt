@@ -1,10 +1,10 @@
 # Phone Dashcam
 
-> Free Android dashcam app by CyberLab Automation. Turns any Android phone into a full-featured dashcam with AI object detection, parking mode, crash detection, and a built-in database of 336,000+ speed cameras, Flock Safety ALPR readers, and red light cameras across the United States. Works completely offline. No account or sign-up required.
+> Free Android dashcam app by Cyberlab Innovation. Turns any Android phone into a full-featured dashcam with AI object detection, parking mode, crash detection, and a built-in database of 336,000+ speed cameras, Flock Safety ALPR readers, and red light cameras across the United States. Works completely offline. No account or sign-up required.
 
 ## About
 
-Phone Dashcam is a free Android application developed by CyberLab Automation, an independent software studio focused on automotive safety tools. All core dashcam features are free. An optional Pro subscription ($6.99/month or $29.99/year) unlocks the 336,000+ camera alert database, AI object detection, dual camera, and additional features. Cancel anytime from the Play Store.
+Phone Dashcam is a free Android application developed by Cyberlab Innovation, an independent software studio focused on automotive safety tools. All core dashcam features are free. An optional Pro subscription ($6.99/month or $29.99/year) unlocks the 336,000+ camera alert database, AI object detection, dual camera, and additional features. Cancel anytime from the Play Store.
 
 The app works entirely on-device: video is stored locally, AI processing runs on the phone, and no footage is sent to any server. Cloud backup goes to the user's own Google Drive account, not ours. Recording, crash detection, parking mode, the speedometer, and all camera alerts work completely offline without a cellular data plan.
 
@@ -66,7 +66,7 @@ The only features that use internet: Google Drive backup (syncs over WiFi at hom
 - Platform: Android 8.0 (Oreo) and higher
 - Supported devices: Samsung Galaxy (S8+, A-series), Google Pixel (2+), OnePlus (5T+), Motorola Moto G (G6+), Xiaomi, and any Android 8.0+ phone
 - Free download on Google Play: https://play.google.com/store/apps/details?id=com.deerdash
-- Developer: CyberLab Automation
+- Developer: Cyberlab Innovation
 - Contact: support@phonedashcam.com
 
 ## Site Structure
@@ -85,7 +85,7 @@ The only features that use internet: Google Drive backup (syncs over WiFi at hom
 - [Deer Detection Dashcam](https://phonedashcam.com/dashcam-deer-detection): How Phone Dashcam detects deer and wildlife using on-device AI
 - [Create a Dashcam Time-lapse](https://phonedashcam.com/create-timelapse-dashcam): How to create time-lapse videos from dashcam footage
 - [Privacy Policy](https://phonedashcam.com/privacy-policy): Full data handling and privacy disclosure
-- [About](https://phonedashcam.com/about): About CyberLab Automation
+- [About](https://phonedashcam.com/about): About Cyberlab Innovation
 - [Blog](https://phonedashcam.com/blog): All guides and articles
 
 ## Common Questions Answered
