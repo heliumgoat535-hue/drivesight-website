@@ -83,6 +83,9 @@ The only features that use internet: Google Drive backup (syncs over WiFi at hom
 - [Police Alerts on Android Auto](https://phonedashcam.com/police-alerts-android-auto): Guide to using camera and police alerts through Android Auto
 - [Phone Dashcam — Not What You Think](https://phonedashcam.com/phone-dashcam-not-what-you-think): Explainer on privacy, data handling, and what the app actually does
 - [Deer Detection Dashcam](https://phonedashcam.com/dashcam-deer-detection): How Phone Dashcam detects deer and wildlife using on-device AI
+- [Dashcam Parking Mode](https://phonedashcam.com/dashcam-parking-mode): How dashcam parking mode works on Android — motion detection, auto-save, battery management, and strobe deterrent
+- [Flock Safety Cameras Explained](https://phonedashcam.com/flock-safety-cameras-explained): What Flock Safety ALPR cameras are, how they work, where they are located, and how Phone Dashcam alerts drivers to them
+- [YOLO AI Object Detection](https://phonedashcam.com/yolo-dashcam-ai-detection): How Phone Dashcam uses on-device YOLO to detect deer, animals, vehicles, and people in real time — fully offline, no cloud
 - [Create a Dashcam Time-lapse](https://phonedashcam.com/create-timelapse-dashcam): How to create time-lapse videos from dashcam footage
 - [Privacy Policy](https://phonedashcam.com/privacy-policy): Full data handling and privacy disclosure
 - [About](https://phonedashcam.com/about): About Cyberlab Automation
