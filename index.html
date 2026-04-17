@@ -365,7 +365,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <style>
         /* ============ RESET & BASE ============ */
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; font-size: 16px; }
+        html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: #0a0e17;
@@ -457,6 +457,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             color: var(--text);
             font-size: 1.5rem;
             cursor: pointer;
+            padding: 10px 12px;
+            min-width: 44px;
+            min-height: 44px;
+            line-height: 1;
         }
 
         /* ============ HERO ============ */
@@ -1490,14 +1494,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             .nav-links.open {
                 display: flex;
                 flex-direction: column;
-                position: absolute;
+                position: fixed;
                 top: 64px;
                 left: 0;
                 right: 0;
-                background: var(--dark-bg);
+                background: rgba(10, 14, 23, 0.98);
                 border-bottom: 1px solid var(--card-border);
                 padding: 20px 24px;
                 gap: 16px;
+                z-index: 1001;
             }
             .hero { min-height: auto; padding: 120px 20px 60px; }
             .hero h1 { font-size: 2.2rem; }
