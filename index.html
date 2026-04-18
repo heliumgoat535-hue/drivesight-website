@@ -1536,59 +1536,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             transform: translateY(0);
         }
 
-        /* ============ EXIT INTENT POPUP ============ */
-        .exit-popup-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.7);
-            z-index: 10000;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(5px);
-        }
-        .exit-popup-overlay.show { display: flex; }
-        .exit-popup {
-            background: var(--card-bg);
-            border: 1px solid var(--green);
-            border-radius: 20px;
-            padding: 48px 40px;
-            max-width: 480px;
-            width: 90%;
-            text-align: center;
-            position: relative;
-            box-shadow: 0 0 80px rgba(74, 222, 128, 0.2);
-            animation: popIn 0.3s ease-out;
-        }
-        @keyframes popIn {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-        .exit-popup .close-btn {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            background: none;
-            border: none;
-            color: var(--text-dim);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        .exit-popup h3 {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: var(--text-bright);
-            margin-bottom: 12px;
-        }
-        .exit-popup p {
-            color: var(--text-dim);
-            font-size: 0.95rem;
-            margin-bottom: 24px;
-            line-height: 1.6;
-        }
         /* Screenshot Gallery */
         .screenshot-gallery {
             display: grid;
@@ -2560,18 +2507,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </a>
 </div>
 
-<!-- ============ EXIT INTENT POPUP ============ -->
-<div class="exit-popup-overlay" id="exitPopup">
-    <div class="exit-popup">
-        <button class="close-btn" onclick="document.getElementById('exitPopup').classList.remove('show')">&times;</button>
-        <div style="font-size: 3rem; margin-bottom: 16px;">🚨</div>
-        <h3>Wait — Don't Drive Unprotected</h3>
-        <p>93% of insurance disputes are won with dashcam footage. Phone Dashcam is 100% free to download — try it now, upgrade when you're ready.</p>
-        <a href="https://play.google.com/store/apps/details?id=com.deerdash" class="btn-primary" style="width:100%;justify-content:center;" target="_blank" rel="noopener">Get Phone Dashcam Free</a>
-        <p style="margin-top:12px;font-size:0.8rem;color:var(--text-dim);">Join thousands of smart drivers protecting their commute</p>
-    </div>
-</div>
-
 <!-- ============ JAVASCRIPT ============ -->
 <script>
 // Scroll animations
@@ -2611,15 +2546,6 @@ if (stickyCta) {
     stickyCta.style.transform = 'translateY(100%)';
     stickyCta.style.transition = 'transform 0.3s ease';
 }
-
-// Exit intent popup (desktop only — triggers when mouse leaves viewport)
-let exitShown = false;
-document.addEventListener('mouseout', (e) => {
-    if (!exitShown && e.clientY < 5 && !e.relatedTarget && !e.toElement) {
-        document.getElementById('exitPopup').classList.add('show');
-        exitShown = true;
-    }
-});
 
 // Close mobile menu on link click
 document.querySelectorAll('#navLinks a').forEach(link => {
