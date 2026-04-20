@@ -811,7 +811,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             color: var(--green);
             margin: 0 auto 20px;
         }
-        .step h3 {
+        .step h3, .step .step-title {
             font-size: 1.15rem;
             font-weight: 700;
             color: var(--text-bright);
@@ -884,7 +884,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             font-size: 2.5rem;
             margin-bottom: 16px;
         }
-        .use-case-card h3 {
+        .use-case-card h3, .use-case-card .use-case-title {
             font-size: 1.1rem;
             font-weight: 700;
             color: var(--text-bright);
@@ -1222,7 +1222,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             border-radius: 100px;
             letter-spacing: 1px;
         }
-        .price-card h3 {
+        .price-card h3, .price-card .plan-name {
             font-size: 1.3rem;
             font-weight: 700;
             color: var(--text-bright);
@@ -1426,7 +1426,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             margin-top: 12px;
             line-height: 1.6;
         }
-        .footer-col h4 {
+        .footer-col h4, .footer-col .footer-col-head {
             font-size: 0.85rem;
             font-weight: 700;
             color: var(--text-bright);
@@ -1980,22 +1980,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="steps-grid">
             <div class="step fade-up">
                 <div class="step-number">1</div>
-                <h3>Grab a Spare Phone</h3>
+                <div class="step-title">Grab a Spare Phone</div>
                 <p>Dig out that old Android phone from a drawer — any phone running Android 8.0+ works. Install Phone Dashcam from Google Play for free.</p>
             </div>
             <div class="step fade-up">
                 <div class="step-number">2</div>
-                <h3>Mount & Plug In</h3>
+                <div class="step-title">Mount &amp; Plug In</div>
                 <p>Stick your spare phone on a windshield mount, plug in a car charger, and you've got a dedicated dashcam that stays in the car.</p>
             </div>
             <div class="step fade-up">
                 <div class="step-number">3</div>
-                <h3>Start Driving</h3>
+                <div class="step-title">Start Driving</div>
                 <p>Tap "Start Drive" and AI starts watching. Crash detection, recording, and alerts are all automatic.</p>
             </div>
             <div class="step fade-up">
                 <div class="step-number">4</div>
-                <h3>Park with Confidence</h3>
+                <div class="step-title">Park with Confidence</div>
                 <p>Tap "Park" when you stop. Motion detection guards your car 24/7 while the screen stays off.</p>
             </div>
         </div>
@@ -2096,37 +2096,37 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="use-case-grid">
             <div class="use-case-card fade-up">
                 <div class="emoji">📱</div>
-                <h3>Old Phone, New Purpose</h3>
+                <div class="use-case-title">Old Phone, New Purpose</div>
                 <p>That old Android phone in your drawer? Turn it into a dedicated dashcam that lives in your car. Leave it mounted with a charger — parking mode runs 24/7 without tying up your daily phone. <a href="/turn-old-phone-into-dashcam" style="color: var(--accent); text-decoration: underline;">Setup guide →</a></p>
             </div>
             <div class="use-case-card fade-up">
                 <div class="emoji">🚗</div>
-                <h3>Daily Commuters</h3>
+                <div class="use-case-title">Daily Commuters</div>
                 <p>Crash detection auto-saves evidence. Cloud backup means your footage is safe even if your phone is damaged. Peace of mind on every drive.</p>
             </div>
             <div class="use-case-card fade-up">
                 <div class="emoji">🚚</div>
-                <h3>Delivery & Rideshare Drivers</h3>
+                <div class="use-case-title">Delivery &amp; Rideshare Drivers</div>
                 <p>Amazon, UberEats, DoorDash, Uber, Lyft — protect yourself with continuous recording, crash evidence, and parking mode between deliveries.</p>
             </div>
             <div class="use-case-card fade-up">
                 <div class="emoji">🏙️</div>
-                <h3>Street Parkers</h3>
+                <div class="use-case-title">Street Parkers</div>
                 <p>Park on city streets with confidence. Motion detection catches hit-and-runs, vandalism, and break-in attempts. Flash strobe scares off intruders.</p>
             </div>
             <div class="use-case-card fade-up">
                 <div class="emoji">🛣️</div>
-                <h3>Highway & Long-Distance Drivers</h3>
+                <div class="use-case-title">Highway &amp; Long-Distance Drivers</div>
                 <p>Continuous recording captures every mile. Crash detection auto-saves evidence instantly. Cloud backup means your footage is safe even on long trips away from home.</p>
             </div>
             <div class="use-case-card fade-up">
                 <div class="emoji">🚛</div>
-                <h3>Truckers & Fleet Drivers</h3>
+                <div class="use-case-title">Truckers &amp; Fleet Drivers</div>
                 <p>Long-haul recording with loop storage management. Full-screen dash cam mode. Impact detection protects you in disputes.</p>
             </div>
             <div class="use-case-card fade-up">
                 <div class="emoji">📸</div>
-                <h3>Road Trip Enthusiasts</h3>
+                <div class="use-case-title">Road Trip Enthusiasts</div>
                 <p>Capture your journey with GPS-stamped photos and video. Camera alerts keep you aware of speed traps and cameras. Back up highlights to Google Drive automatically.</p>
             </div>
         </div>
@@ -2223,7 +2223,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="pricing-cards">
             <!-- Free -->
             <div class="price-card featured">
-                <h3>Free</h3>
+                <div class="plan-name">Free</div>
                 <div class="price">$0</div>
                 <div class="price-sub">No account, no credit card, no catch</div>
                 <ul class="price-features">
@@ -2238,11 +2238,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <li>Trip tracking and history</li>
                     <li>SD card and custom folder support</li>
                 </ul>
-                <a href="https://play.google.com/store/apps/details?id=com.deerdash" class="btn-full primary" target="_blank" rel="noopener">Download Free</a>
+                <a href="https://play.google.com/store/apps/details?id=com.deerdash" class="btn-full primary" target="_blank" rel="noopener">Download on Google Play</a>
             </div>
             <!-- Pro -->
             <div class="price-card">
-                <h3>Pro</h3>
+                <div class="plan-name">Pro</div>
                 <div class="price" style="font-size:2rem;">$6.99<span style="font-size:0.9rem;font-weight:400">/mo</span></div>
                 <div class="price-sub">Or $29.99/year — cancel anytime</div>
                 <ul class="price-features">
@@ -2464,12 +2464,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <p>The smartest AI dash cam app on Android. Parking mode, crash detection, cloud backup, and 336,000+ camera alerts. Built by Cyberlab Automation.</p>
         </div>
         <div class="footer-col">
-            <h4>Product</h4>
-            <a href="#features">Features</a>
-            <a href="#pricing">Pricing</a>
-            <a href="/accessories">Accessories</a>
+            <p class="footer-col-head">Product</p>
+            <a href="#features">App Features</a>
+            <a href="#pricing">Pricing Plans</a>
+            <a href="/accessories">Accessories &amp; Mounts</a>
             <a href="#comparison">Compare</a>
-            <a href="#faq">FAQ</a>
+            <a href="#faq">Common Questions</a>
             <a href="/turn-old-phone-into-dashcam">Old Phone Setup Guide</a>
             <a href="/best-dash-cam-app-android">Best Dash Cam App 2026</a>
             <a href="/phone-dashcam-not-what-you-think">Why Phone Dashcams Work Now</a>
@@ -2479,25 +2479,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <a href="/best-radar-detector-apps-2026">Best Radar Detector Apps</a>
         </div>
         <div class="footer-col">
-            <h4>Company</h4>
-            <a href="/about">About</a>
-            <a href="/contact">Contact</a>
-            <a href="/privacy-policy.html">Privacy Policy</a>
+            <p class="footer-col-head">Company</p>
+            <a href="/about">About Us</a>
+            <a href="/contact">Contact Us</a>
+            <a href="/privacy-policy.html">Privacy &amp; Data</a>
             <a href="/terms">Terms of Service</a>
         </div>
         <div class="footer-col">
-            <h4>Download</h4>
+            <p class="footer-col-head">Download</p>
             <a href="https://play.google.com/store/apps/details?id=com.deerdash" target="_blank" rel="noopener">Google Play Store</a>
         </div>
         <div class="footer-col">
-            <h4>More Apps</h4>
+            <p class="footer-col-head">More Apps</p>
             <a href="https://stonesnapapp.com" target="_blank" rel="noopener">StoneSnap – Rock Identifier</a>
             <a href="https://gridwatchapp.com" target="_blank" rel="noopener">GridWatch – Safety &amp; Alerts</a>
         </div>
     </div>
     <div class="footer-bottom">
         <span>&copy; 2026 Cyberlab Automation. All rights reserved.</span>
-        <span><a href="/privacy-policy.html" style="color:var(--green);text-decoration:underline;">Privacy Policy</a> &middot; <a href="/terms" style="color:var(--green);text-decoration:underline;">Terms</a> &middot; <a href="/contact" style="color:var(--green);text-decoration:underline;">Contact</a></span>
+        <span><a href="/privacy-policy.html" style="color:var(--green);text-decoration:underline;">Privacy Policy</a> &middot; <a href="/terms" style="color:var(--green);text-decoration:underline;">Terms</a> &middot; <a href="/contact" style="color:var(--green);text-decoration:underline;">Get in Touch</a></span>
     </div>
 </footer>
 
