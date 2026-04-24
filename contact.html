@@ -303,10 +303,10 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
     status.className = 'form-status';
     status.style.display = 'none';
     var data = {
-        name: form.name.value,
-        email: form.email.value,
-        subject: form.subject.value,
-        message: form.message.value
+        name: form.elements['name'].value,
+        email: form.elements['email'].value,
+        subject: form.elements['subject'].value,
+        message: form.elements['message'].value
     };
     fetch('https://formspree.io/f/xvzvrpqq', {
         method: 'POST',
