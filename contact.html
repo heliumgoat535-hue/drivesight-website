@@ -99,9 +99,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         .page-content ul li { margin-bottom: 8px; line-height: 1.7; }
 
         .contact-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 32px; margin: 32px 0; }
-        .contact-card .email-display { font-size: 1.25rem; font-weight: 700; color: var(--green); margin-bottom: 8px; }
-        .contact-card .email-display a { color: var(--green); text-decoration: underline; }
-        .contact-card .email-display a:hover { color: var(--green-dark); }
+        .contact-card .email-display { display: flex; align-items: center; gap: 12px; font-size: 1.25rem; font-weight: 700; color: var(--green); margin-bottom: 8px; }
+        .copy-btn { background: var(--card-border); border: 1px solid var(--card-border); color: var(--text-dim); border-radius: 6px; padding: 4px 12px; font-size: 0.8rem; cursor: pointer; transition: background 0.2s, color 0.2s; flex-shrink: 0; }
+        .copy-btn:hover { background: var(--green); color: #000; border-color: var(--green); }
+        .copy-btn.copied { background: var(--green); color: #000; border-color: var(--green); }
         .contact-card .response-time { font-size: 0.9rem; color: var(--text-dim); margin-top: 8px; }
 
         .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 32px 0 48px; }
@@ -160,7 +161,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p class="subtitle">Have a question, found a bug, or want to work with us? Here's how to reach Cyberlab Automation.</p>
 
     <div class="contact-card">
-        <div class="email-display"><a href="mailto:support@phonedashcam.com">support@phonedashcam.com</a></div>
+        <div class="email-display">
+            <span id="email-addr">support@phonedashcam.com</span>
+            <button class="copy-btn" onclick="copyEmail()" id="copy-btn">Copy</button>
+        </div>
         <p>This is the fastest way to reach us. All emails go directly to the development team.</p>
         <p class="response-time">Expected response time: within 48 hours on business days.</p>
     </div>
@@ -234,6 +238,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span><a href="/privacy-policy.html" style="color:var(--green);text-decoration:underline;">Privacy Policy</a> &middot; <a href="/terms" style="color:var(--green);text-decoration:underline;">Terms</a> &middot; <a href="/contact" style="color:var(--green);text-decoration:underline;">Contact</a></span>
     </div>
 </footer>
+
+<script>
+function copyEmail() {
+    navigator.clipboard.writeText('support@phonedashcam.com').then(function() {
+        var btn = document.getElementById('copy-btn');
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+    });
+}
+</script>
 
 </body>
 </html>
