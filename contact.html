@@ -298,6 +298,19 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
     var btn = document.getElementById('form-submit-btn');
     var status = document.getElementById('form-status');
     var form = e.target;
+    var nameVal = form.elements['name'].value.trim();
+    var emailVal = form.elements['email'].value.trim();
+    var messageVal = form.elements['message'].value.trim();
+    if (!nameVal || !emailVal || !messageVal) {
+        status.textContent = 'Please fill in your name, email, and message.';
+        status.className = 'form-status error';
+        return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+        status.textContent = 'Please enter a valid email address.';
+        status.className = 'form-status error';
+        return;
+    }
     btn.disabled = true;
     btn.textContent = 'Sending...';
     status.className = 'form-status';
