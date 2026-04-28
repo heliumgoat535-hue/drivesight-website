@@ -50,7 +50,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         "@type": "Article",
         "headline": "Real-Time Police Alerts on Android Auto: How It Works (2026)",
         "description": "Phone Dashcam's Police Map feature shows real-time police speed trap alerts directly on your car's Android Auto infotainment display. Scan for nearby police activity, see distance and road name, and drive with full awareness.",
-        "author": {"@id": "https://phonedashcam.com/#organization"},
+        "author": {"@type": "Organization", "name": "Cyberlab Automation", "url": "https://phonedashcam.com/about"},
         "publisher": {"@id": "https://phonedashcam.com/#organization"},
         "datePublished": "2026-03-30",
         "dateModified": "2026-04-03",
@@ -203,7 +203,37 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             h2 { font-size: 1.3rem; }
             .article { padding: 80px 16px 40px; }
         }
-    </style>
+    
+        .article-byline {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            margin: 0 0 28px;
+        }
+        .article-byline img {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+        .byline-name {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-bright);
+        }
+        .byline-name a { color: var(--text-bright); text-decoration: none; }
+        .byline-name a:hover { color: var(--green); }
+        .byline-role {
+            display: block;
+            font-size: 0.78rem;
+            color: var(--text-dim);
+            margin-top: 1px;
+        }
+        </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2177114511441377" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -229,6 +259,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <h1>Real-Time Police Alerts on Android Auto: How It Works</h1>
     <p class="article-meta">March 30, 2026 &middot; 7 min read</p>
+
+    <div class="article-byline">
+        <img src="/assets/icon-512.png" alt="Cyberlab Automation">
+        <div>
+            <span class="byline-name"><a href="/about">Cyberlab Automation</a></span>
+            <span class="byline-role">Android developer &middot; Builder of Phone Dashcam</span>
+        </div>
+    </div>
 
     <p>Speed traps are a $6 billion dollar industry in the United States. Thousands of local departments rely on traffic ticket revenue, and drivers pay the price every day. Knowing where enforcement is active before you reach it is not about breaking the law. It is about driving with awareness instead of driving blind.</p>
 

@@ -66,7 +66,9 @@ The only features that use internet: Google Drive backup (syncs over WiFi at hom
 - Platform: Android 8.0 (Oreo) and higher
 - Supported devices: Samsung Galaxy (S8+, A-series), Google Pixel (2+), OnePlus (5T+), Motorola Moto G (G6+), Xiaomi, and any Android 8.0+ phone
 - Free download on Google Play: https://play.google.com/store/apps/details?id=com.deerdash
-- Developer: Cyberlab Automation
+- Developer: Cyberlab Automation (independent Android software studio)
+- Developer expertise: Android Camera2 API, CameraX, YOLOv8 on-device inference, accelerometer-based event detection, foreground service lifecycle on Android 8–14
+- Developer bio: https://phonedashcam.com/about
 - Contact: support@phonedashcam.com
 
 ## Site Structure

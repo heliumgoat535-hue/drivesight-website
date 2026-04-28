@@ -52,7 +52,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         "@type": "Article",
         "headline": "Dashcam Laws by State 2026: All 50 States Explained",
         "description": "Complete guide to dashcam laws for all 50 US states — windshield placement rules, audio recording consent requirements, and what drivers need to know before recording.",
-        "author": {"@id": "https://phonedashcam.com/#organization"},
+        "author": {"@type": "Organization", "name": "Cyberlab Automation", "url": "https://phonedashcam.com/about"},
         "publisher": {"@id": "https://phonedashcam.com/#organization"},
         "datePublished": "2026-04-19",
         "dateModified": "2026-04-28",
@@ -318,7 +318,37 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             color: var(--text-dim); font-size: 0.85rem;
         }
         footer a { color: var(--green); }
-    </style>
+    
+        .article-byline {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            margin: 0 0 28px;
+        }
+        .article-byline img {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+        .byline-name {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-bright);
+        }
+        .byline-name a { color: var(--text-bright); text-decoration: none; }
+        .byline-name a:hover { color: var(--green); }
+        .byline-role {
+            display: block;
+            font-size: 0.78rem;
+            color: var(--text-dim);
+            margin-top: 1px;
+        }
+        </style>
 </head>
 <body>
 
@@ -340,6 +370,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <h1>Dashcam Laws by State 2026: All 50 States Explained</h1>
     <p class="article-meta">Updated April 2026 &middot; By Cyberlab Automation</p>
+
+    <div class="article-byline">
+        <img src="/assets/icon-512.png" alt="Cyberlab Automation">
+        <div>
+            <span class="byline-name"><a href="/about">Cyberlab Automation</a></span>
+            <span class="byline-role">Android developer &middot; Builder of Phone Dashcam</span>
+        </div>
+    </div>
 
     <p>Dashcams are legal in every US state. No state bans them. But two separate sets of rules trip up drivers who don't know about them: where you can physically mount the camera on your windshield, and whether you need passenger consent before recording audio. Get either of those wrong and your footage could be inadmissible — or in rare cases, create legal exposure for you instead of protecting you.</p>
 

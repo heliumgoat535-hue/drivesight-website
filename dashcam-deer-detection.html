@@ -53,7 +53,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         "@type": "Article",
         "headline": "How Phone Dashcam Detects Deer and Wildlife on the Road",
         "description": "Phone Dashcam runs a YOLO26 AI model on-device to detect deer, large animals, and road hazards in real-time. This article explains the detection pipeline and why phone AI outperforms dedicated dashcams for wildlife detection.",
-        "author": {"@id": "https://phonedashcam.com/#organization"},
+        "author": {"@type": "Organization", "name": "Cyberlab Automation", "url": "https://phonedashcam.com/about"},
         "publisher": {"@id": "https://phonedashcam.com/#organization"},
         "datePublished": "2026-04-04",
         "dateModified": "2026-04-28",
@@ -252,6 +252,36 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             line-height: 1.7;
             margin-bottom: 4px;
         }
+        
+        .article-byline {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            margin: 0 0 28px;
+        }
+        .article-byline img {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+        .byline-name {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-bright);
+        }
+        .byline-name a { color: var(--text-bright); text-decoration: none; }
+        .byline-name a:hover { color: var(--green); }
+        .byline-role {
+            display: block;
+            font-size: 0.78rem;
+            color: var(--text-dim);
+            margin-top: 1px;
+        }
         </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2177114511441377" crossorigin="anonymous"></script>
 </head>
@@ -278,6 +308,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <h1>How Phone Dashcam Detects Deer and Wildlife on the Road</h1>
     <p class="article-meta">April 4, 2026 &middot; 7 min read</p>
+
+    <div class="article-byline">
+        <img src="/assets/icon-512.png" alt="Cyberlab Automation">
+        <div>
+            <span class="byline-name"><a href="/about">Cyberlab Automation</a></span>
+            <span class="byline-role">Android developer &middot; Builder of Phone Dashcam</span>
+        </div>
+    </div>
 
     <div class="key-facts">
         <div class="key-facts-label">Key Facts</div>
