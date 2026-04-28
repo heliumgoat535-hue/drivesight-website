@@ -6,3 +6,5 @@ directory = "."
 
 [build]
 command = ""
+# wrangler.toml
+name = 'noisy-disk-8a54ai-mentions-tracker'
