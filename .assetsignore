@@ -1,0 +1,8 @@
+.git
+node_modules
+*.md
+CNAME
+_config.yml
+wrangler.toml
+.gitignore
+.claude
