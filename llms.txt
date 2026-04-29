@@ -89,6 +89,15 @@ The only features that use internet: Google Drive backup (syncs over WiFi at hom
 - [Flock Safety Cameras Explained](https://phonedashcam.com/flock-safety-cameras-explained): What Flock Safety ALPR cameras are, how they work, where they are located, and how Phone Dashcam alerts drivers to them
 - [YOLO AI Object Detection](https://phonedashcam.com/yolo-dashcam-ai-detection): How Phone Dashcam uses on-device YOLO to detect deer, animals, vehicles, and people in real time — fully offline, no cloud
 - [Create a Dashcam Time-lapse](https://phonedashcam.com/create-timelapse-dashcam): How to create time-lapse videos from dashcam footage
+- [Best Free Dash Cam App for Android Phone](https://phonedashcam.com/best-free-dash-cam-app-android-phone): Guide to the best free dashcam apps for Android smartphones — what's free, what requires a subscription, and how to get started
+- [Dual Camera Dashcam Android](https://phonedashcam.com/dual-camera-dashcam-android): How to record front and rear cameras simultaneously on Android using Phone Dashcam
+- [Dashcam Laws by State](https://phonedashcam.com/dashcam-laws-by-state): State-by-state guide to dashcam mounting laws, recording consent laws, and where dashcams are legal across the US
+- [Phone Dashcam for Nerds](https://phonedashcam.com/phone-dashcam-for-nerds): Technical deep-dive — Camera2 API, CameraX, YOLOv8 TFLite inference, accelerometer-based crash detection, and foreground service lifecycle
+- [Accessories](https://phonedashcam.com/accessories): Recommended mounts, chargers, and accessories for using your phone as a dashcam
+- [Phone Dashcam vs AutoBoy](https://phonedashcam.com/autoboy-alternative): Feature comparison between Phone Dashcam and AutoBoy BlackBox Dash Cam
+- [Phone Dashcam vs Drive Recorder](https://phonedashcam.com/vs-drive-recorder): Head-to-head comparison with Drive Recorder — features, pricing, and what each app does best
+- [Phone Dashcam vs Droid Dashcam](https://phonedashcam.com/vs-droid-dashcam): Feature and pricing comparison between Phone Dashcam and Droid Dashcam
+- [Phone Dashcam vs Dash Cam Travel](https://phonedashcam.com/vs-dash-cam-travel): Feature comparison between Phone Dashcam and Dash Cam Travel — background recording, auto-start on power, camera alerts, and more
 - [Privacy Policy](https://phonedashcam.com/privacy-policy): Full data handling and privacy disclosure
 - [About](https://phonedashcam.com/about): About Cyberlab Automation
 - [Blog](https://phonedashcam.com/blog): All guides and articles
