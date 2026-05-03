@@ -1,0 +1,16 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://phonedashcam.com/",
+      "service-doc": [
+        { "href": "https://phonedashcam.com/llms.txt", "type": "text/plain" }
+      ],
+      "describedby": [
+        { "href": "https://phonedashcam.com/.well-known/ai.txt", "type": "text/plain" }
+      ],
+      "item": [
+        { "href": "https://phonedashcam.com/sitemap.xml", "type": "application/xml" }
+      ]
+    }
+  ]
+}
