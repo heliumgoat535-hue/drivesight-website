@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Dashcam — Бесплатный видеорегистратор для Android</title>
+    <meta name="description" content="Бесплатное приложение-видеорегистратор для Android с ИИ-распознаванием, режимом парковки, базой из 336 000+ камер ГИБДД и резервным копированием в Google Drive.">
+    <meta name="keywords" content="видеорегистратор для android, бесплатный видеорегистратор, приложение видеорегистратор, антирадар приложение, регистратор для смартфона, dashcam android, ИИ видеорегистратор">
+    <meta name="author" content="Cyberlab Automation">
+    <meta name="robots" content="index, follow">
+
+    <link rel="canonical" href="https://phonedashcam.com/ru/">
+    <link rel="alternate" hreflang="en" href="https://phonedashcam.com/">
+    <link rel="alternate" hreflang="ru" href="https://phonedashcam.com/ru/">
+    <link rel="alternate" hreflang="de" href="https://phonedashcam.com/de/">
+    <link rel="alternate" hreflang="nl" href="https://phonedashcam.com/nl/">
+    <link rel="alternate" hreflang="x-default" href="https://phonedashcam.com/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:title" content="Phone Dashcam — Бесплатный видеорегистратор для Android">
+    <meta property="og:description" content="Превратите свой смартфон в умный видеорегистратор. ИИ, парковка, 336 000+ камер, бесплатно.">
+    <meta property="og:image" content="https://phonedashcam.com/assets/aiobjects.png">
+    <meta property="og:url" content="https://phonedashcam.com/ru/">
+    <meta property="og:site_name" content="Phone Dashcam">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Phone Dashcam — Бесплатный видеорегистратор для Android">
+    <meta name="twitter:description" content="Превратите свой смартфон в умный видеорегистратор. ИИ, парковка, 336 000+ камер, бесплатно.">
+    <meta name="twitter:image" content="https://phonedashcam.com/assets/aiobjects.png">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png">
+    <link rel="apple-touch-icon" href="/assets/favicon-192.png">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "MobileApplication",
+        "name": "Phone Dashcam",
+        "operatingSystem": "ANDROID",
+        "applicationCategory": "TravelApplication",
+        "inLanguage": "ru",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "downloadUrl": "https://play.google.com/store/apps/details?id=com.deerdash",
+        "description": "Бесплатное приложение-видеорегистратор для Android с ИИ-распознаванием объектов, режимом парковки и базой камер ГИБДД."
+    }
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #e8e8e8;
+            line-height: 1.6;
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        nav {
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            position: sticky; top: 0;
+            background: rgba(10,10,10,0.92);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+        nav .container { display: flex; justify-content: space-between; align-items: center; }
+        nav .logo { font-weight: 700; font-size: 1.2rem; color: #fff; text-decoration: none; }
+        nav .lang { font-size: 0.9rem; color: #888; text-decoration: none; }
+        nav .lang:hover { color: #fff; }
+
+        .hero {
+            padding: 80px 0 60px;
+            text-align: center;
+            background: radial-gradient(ellipse at top, rgba(34,197,94,0.15), transparent 60%);
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 20px;
+            line-height: 1.15;
+        }
+        .hero h1 .accent { color: #22c55e; }
+        .hero p.lead {
+            font-size: 1.2rem;
+            color: #b8b8b8;
+            max-width: 680px;
+            margin: 0 auto 36px;
+        }
+        .badge {
+            display: inline-block;
+            background: rgba(34,197,94,0.15);
+            color: #22c55e;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            border: 1px solid rgba(34,197,94,0.3);
+        }
+        .cta-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.15s, background 0.15s;
+            font-size: 1rem;
+        }
+        .btn-primary { background: #22c55e; color: #000; }
+        .btn-primary:hover { background: #16a34a; transform: translateY(-1px); }
+        .btn-secondary { background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.15); }
+        .btn-secondary:hover { background: rgba(255,255,255,0.12); }
+
+        section { padding: 70px 0; border-top: 1px solid rgba(255,255,255,0.06); }
+        h2 {
+            font-size: 2.2rem;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        .card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 14px;
+            padding: 28px;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .card:hover { border-color: rgba(34,197,94,0.4); transform: translateY(-2px); }
+        .card .icon { font-size: 2rem; margin-bottom: 14px; }
+        .card h3 { color: #fff; margin-bottom: 10px; font-size: 1.15rem; }
+        .card p { color: #aaa; font-size: 0.95rem; }
+
+        .faq-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 14px;
+        }
+        .faq-item h3 { color: #fff; font-size: 1.05rem; margin-bottom: 8px; }
+        .faq-item p { color: #aaa; font-size: 0.95rem; }
+
+        .final-cta {
+            text-align: center;
+            padding: 90px 24px;
+            background: linear-gradient(135deg, rgba(34,197,94,0.1), rgba(34,197,94,0.02));
+            border-radius: 18px;
+            margin: 60px auto;
+            max-width: 900px;
+        }
+        .final-cta h2 { margin-bottom: 18px; }
+        .final-cta p { color: #b8b8b8; margin-bottom: 28px; font-size: 1.1rem; }
+
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        footer a { color: #888; text-decoration: none; margin: 0 10px; }
+        footer a:hover { color: #fff; }
+
+        @media (max-width: 640px) {
+            .hero { padding: 50px 0 40px; }
+            .hero h1 { font-size: 2rem; }
+            .hero p.lead { font-size: 1.05rem; }
+            h2 { font-size: 1.7rem; margin-bottom: 36px; }
+            section { padding: 50px 0; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="container">
+        <a href="/ru/" class="logo">Phone Dashcam</a>
+        <a href="/" class="lang">English →</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="container">
+        <div class="badge">● Установлено более 10 000 раз</div>
+        <h1>Превратите смартфон в <span class="accent">умный видеорегистратор</span></h1>
+        <p class="lead">
+            Бесплатное Android-приложение с ИИ-распознаванием объектов, автоматическим режимом парковки,
+            определением ДТП и базой из 336 000+ камер контроля скорости по всему миру.
+        </p>
+        <div class="cta-row">
+            <a href="https://play.google.com/store/apps/details?id=com.deerdash" class="btn btn-primary">
+                Скачать в Google Play
+            </a>
+            <a href="#features" class="btn btn-secondary">Возможности</a>
+        </div>
+    </div>
+</section>
+
+<section id="features">
+    <div class="container">
+        <h2>Всё, что нужно от видеорегистратора</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="icon">🅿️</div>
+                <h3>Режим парковки</h3>
+                <p>Автоматическая запись при обнаружении движения или удара, когда вы оставили автомобиль.</p>
+            </div>
+            <div class="card">
+                <div class="icon">🚨</div>
+                <h3>336 000+ камер</h3>
+                <p>База камер контроля скорости и ГИБДД с голосовыми оповещениями в реальном времени.</p>
+            </div>
+            <div class="card">
+                <div class="icon">💥</div>
+                <h3>Определение ДТП</h3>
+                <p>Датчики смартфона фиксируют столкновение и сохраняют клип в защищённую папку.</p>
+            </div>
+            <div class="card">
+                <div class="icon">☁️</div>
+                <h3>Резервная копия в Google Drive</h3>
+                <p>Важные клипы автоматически загружаются в облако — даже если телефон украдут.</p>
+            </div>
+            <div class="card">
+                <div class="icon">🤖</div>
+                <h3>ИИ-распознавание</h3>
+                <p>Локальная нейросеть YOLOv8 распознаёт пешеходов, животных и транспорт прямо на устройстве.</p>
+            </div>
+            <div class="card">
+                <div class="icon">🔄</div>
+                <h3>Циклическая запись</h3>
+                <p>Старые клипы автоматически удаляются — память телефона никогда не переполнится.</p>
+            </div>
+            <div class="card">
+                <div class="icon">📡</div>
+                <h3>Двойная камера + USB</h3>
+                <p>Поддержка фронтальной и тыловой записи, а также внешних USB-камер UVC.</p>
+            </div>
+            <div class="card">
+                <div class="icon">🗺️</div>
+                <h3>GPS-трекинг поездок</h3>
+                <p>Маршрут, скорость и статистика поездки сохраняются вместе с видео.</p>
+            </div>
+            <div class="card">
+                <div class="icon">🚗</div>
+                <h3>Android Auto</h3>
+                <p>Управляйте записью прямо с экрана головного устройства автомобиля.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <h2>Часто задаваемые вопросы</h2>
+        <div class="faq-item">
+            <h3>Приложение действительно бесплатное?</h3>
+            <p>Да. Базовые функции — запись, режим парковки, оповещения о камерах — полностью бесплатны без рекламы в самом видео. Премиум-функции (ИИ-распознавание, облачное копирование) доступны по подписке от $6.99/мес.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Какая версия Android поддерживается?</h3>
+            <p>Android 8.0 (Oreo) и выше. Рекомендуется устройство с минимум 3 ГБ ОЗУ для стабильной записи в Full HD.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Записывает ли приложение в фоне?</h3>
+            <p>Да. Используется foreground-сервис с WakeLock — запись продолжается, даже когда экран выключен или вы используете другое приложение.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Можно ли подключить внешнюю USB-камеру?</h3>
+            <p>Да. Поддерживаются стандартные USB UVC-камеры, в том числе как тыловой регистратор для двойной записи.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Где хранятся видео?</h3>
+            <p>Локально на устройстве в папке приложения. Защищённые клипы (ДТП, ручная блокировка) могут опционально копироваться в Google Drive.</p>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="final-cta">
+        <h2>Готовы начать?</h2>
+        <p>Скачайте Phone Dashcam бесплатно и превратите свой телефон в полноценный видеорегистратор за 60 секунд.</p>
+        <a href="https://play.google.com/store/apps/details?id=com.deerdash" class="btn btn-primary">
+            Скачать в Google Play
+        </a>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <p>
+            <a href="/">English</a> •
+            <a href="/privacy.html">Конфиденциальность</a> •
+            <a href="/contact.html">Контакты</a>
+        </p>
+        <p style="margin-top: 12px;">© 2026 Cyberlab Automation. Все права защищены.</p>
+    </div>
+</footer>
+
+</body>
+</html>
