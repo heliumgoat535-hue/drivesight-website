@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://phonedashcam.com/</loc>
     <lastmod>2026-05-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="en" href="https://phonedashcam.com/"/>
-    <xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="ru" href="https://phonedashcam.com/ru/"/>
-    <xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="de" href="https://phonedashcam.com/de/"/>
-    <xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="nl" href="https://phonedashcam.com/nl/"/>
-    <xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="x-default" href="https://phonedashcam.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://phonedashcam.com/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://phonedashcam.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://phonedashcam.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://phonedashcam.com/nl/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://phonedashcam.com/"/>
   </url>
   <url>
     <loc>https://phonedashcam.com/ru/</loc>
     <lastmod>2026-05-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="en" href="https://phonedashcam.com/"/>
-    <xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="ru" href="https://phonedashcam.com/ru/"/>
-    <xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="de" href="https://phonedashcam.com/de/"/>
-    <xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="nl" href="https://phonedashcam.com/nl/"/>
-    <xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="x-default" href="https://phonedashcam.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://phonedashcam.com/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://phonedashcam.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://phonedashcam.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://phonedashcam.com/nl/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://phonedashcam.com/"/>
   </url>
   <url>
     <loc>https://phonedashcam.com/de/</loc>
     <lastmod>2026-05-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="en" href="https://phonedashcam.com/"/>
-    <xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="ru" href="https://phonedashcam.com/ru/"/>
-    <xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="de" href="https://phonedashcam.com/de/"/>
-    <xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="nl" href="https://phonedashcam.com/nl/"/>
-    <xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="x-default" href="https://phonedashcam.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://phonedashcam.com/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://phonedashcam.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://phonedashcam.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://phonedashcam.com/nl/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://phonedashcam.com/"/>
   </url>
   <url>
     <loc>https://phonedashcam.com/nl/</loc>
     <lastmod>2026-05-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="en" href="https://phonedashcam.com/"/>
-    <xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="ru" href="https://phonedashcam.com/ru/"/>
-    <xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="de" href="https://phonedashcam.com/de/"/>
-    <xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="nl" href="https://phonedashcam.com/nl/"/>
-    <xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="x-default" href="https://phonedashcam.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://phonedashcam.com/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://phonedashcam.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://phonedashcam.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://phonedashcam.com/nl/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://phonedashcam.com/"/>
   </url>
   <url><loc>https://phonedashcam.com/best-dash-cam-app-android</loc><lastmod>2026-04-28</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://phonedashcam.com/best-free-dash-cam-app-android-phone</loc><lastmod>2026-04-28</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
