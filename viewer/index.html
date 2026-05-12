@@ -492,6 +492,11 @@
 
         updateConnectBtn();
 
+        // Some mobile browsers + autofill paths populate the input without firing
+        // any input/change/blur event, leaving the Connect button stuck disabled.
+        // Poll the value as a brute-force fallback.
+        setInterval(updateConnectBtn, 250);
+
         function getCode() {
             return pinInput.value;
         }
