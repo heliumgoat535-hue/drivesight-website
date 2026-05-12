@@ -425,7 +425,8 @@
         let directSessionId = params.get('s');
         let directSecret = params.get('k');
         // Legacy device ID (old PIN flow)
-        let deviceId = params.get('d') || localStorage.getItem('drivesight_device_id');
+        // Accept 'd' (legacy) or 'code' (QR code from Android app) as the device/pairing code
+        let deviceId = params.get('d') || params.get('code') || localStorage.getItem('drivesight_device_id');
         let sessionId = null;
         let sessionSecret = null;
 
@@ -479,6 +480,8 @@
             e.target.value = e.target.value.replace(/[^A-Za-z0-9]/g, '').toUpperCase();
             updateConnectBtn();
         });
+        pinInput.addEventListener('change', updateConnectBtn);
+        pinInput.addEventListener('blur', updateConnectBtn);
         pinInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') pairAndConnect();
         });
@@ -486,6 +489,8 @@
         function updateConnectBtn() {
             connectBtn.disabled = pinInput.value.length < 4;
         }
+
+        updateConnectBtn();
 
         function getCode() {
             return pinInput.value;
