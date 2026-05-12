@@ -400,10 +400,10 @@
     <!-- Motion alert (injected dynamically) -->
     <div id="alertContainer"></div>
 
-    <!-- Firebase JS SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging-compat.js"></script>
+    <!-- Firebase JS SDK (self-hosted to bypass CSP that blocks gstatic.com) -->
+    <script src="firebase-app-compat.js"></script>
+    <script src="firebase-firestore-compat.js"></script>
+    <script src="firebase-messaging-compat.js"></script>
 
     <script>
         // ─── Firebase Config ───────────────────────────────────────────

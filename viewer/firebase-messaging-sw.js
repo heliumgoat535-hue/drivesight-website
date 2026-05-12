@@ -1,8 +1,8 @@
 // Firebase Cloud Messaging Service Worker
 // Handles background push notifications when the viewer tab is closed/backgrounded.
 
-importScripts('https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js');
-importScripts('https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging-compat.js');
+importScripts('firebase-app-compat.js');
+importScripts('firebase-messaging-compat.js');
 
 firebase.initializeApp({
     apiKey: "AIzaSyBn6SRgwVvcNkP9sUoHep_iShLFC-pJSIk",
