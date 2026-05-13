@@ -32,7 +32,8 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-# Content Signals: allow AI search/retrieval, decline training corpus use
-Content-Signal: ai-train=no, search=yes, ai-input=yes
+# Content Signals (Cloudflare proposal): allow AI search/retrieval, decline training corpus use
+# Commented out — Googlebot flags unknown directives as warnings in Search Console.
+# Content-Signal: ai-train=no, search=yes, ai-input=yes
 
 Sitemap: https://phonedashcam.com/sitemap.xml
