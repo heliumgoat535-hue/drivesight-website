@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Phone Dashcam Remote Viewer</title>
+    <title>DriveSight Remote Viewer</title>
     <link rel="icon" type="image/png" href="../assets/icon-512.png">
     <link rel="manifest" href="manifest.json">
     <style>
@@ -316,8 +316,8 @@
 
     <!-- ═══ PAIRING SCREEN ═══ -->
     <div class="pair-screen" id="pairScreen">
-        <img class="pair-logo" src="../assets/icon-512.png" alt="Phone Dashcam" onerror="this.style.display='none'">
-        <div class="pair-title">Phone Dashcam Viewer</div>
+        <img class="pair-logo" src="../assets/icon-512.png" alt="DriveSight" onerror="this.style.display='none'">
+        <div class="pair-title">DriveSight Viewer</div>
         <div class="pair-subtitle">Enter the access code shown on your dashcam's parking mode screen</div>
 
         <div class="code-input-row" id="codeRow">
@@ -340,7 +340,7 @@
                 <div class="status-dot" id="statusDot"></div>
                 <span class="status-text" id="statusText">Initializing...</span>
             </div>
-            <span class="logo-text">Phone Dashcam</span>
+            <span class="logo-text">DriveSight</span>
         </div>
 
         <!-- Video -->
@@ -619,7 +619,7 @@
             alertContainer.appendChild(alert);
 
             if (Notification.permission === 'granted') {
-                new Notification('Phone Dashcam', {
+                new Notification('DriveSight', {
                     body: 'Motion detected on your dashcam!',
                     icon: '../assets/icon-512.png',
                     tag: 'motion-alert',
@@ -694,7 +694,7 @@
         // ─── Connection logic ──────────────────────────────────────────
         async function connectToSession() {
             setStatus('connecting', 'Waiting for dashcam...');
-            showOverlay('Waiting for Dashcam...', 'Open Phone Dashcam and switch to the Drive screen with Remote Viewer enabled', true, false);
+            showOverlay('Waiting for Dashcam...', 'Open DriveSight and switch to the Drive screen with Remote Viewer enabled', true, false);
 
             // Stop any previous device listener
             if (unsubDevice) { unsubDevice(); unsubDevice = null; }
@@ -710,7 +710,7 @@
 
                     if (!deviceSnap.exists) {
                         setStatus('connecting', 'Waiting for dashcam...');
-                        showOverlay('Waiting for Dashcam...', 'Open Phone Dashcam and switch to the Drive screen with Remote Viewer enabled', true, false);
+                        showOverlay('Waiting for Dashcam...', 'Open DriveSight and switch to the Drive screen with Remote Viewer enabled', true, false);
                         return;
                     }
 
@@ -720,7 +720,7 @@
 
                     if (!newSessionId || !newSecret) {
                         setStatus('connecting', 'Waiting for dashcam...');
-                        showOverlay('Waiting for Dashcam...', 'Enable Remote Viewer in Phone Dashcam Settings, then switch to Drive screen', true, false);
+                        showOverlay('Waiting for Dashcam...', 'Enable Remote Viewer in DriveSight Settings, then switch to Drive screen', true, false);
                         return;
                     }
 
