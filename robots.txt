@@ -36,4 +36,8 @@ Allow: /
 # Commented out — Googlebot flags unknown directives as warnings in Search Console.
 # Content-Signal: ai-train=no, search=yes, ai-input=yes
 
+# Cloudflare email-protection endpoints — exclude from crawl
+User-agent: *
+Disallow: /cdn-cgi/
+
 Sitemap: https://phonedashcam.com/sitemap.xml
