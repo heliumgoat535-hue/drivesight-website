@@ -908,18 +908,32 @@
                 }
             };
 
-            // Mic for push-to-talk
+            // setRemoteDescription FIRST so the offer's audio m-section creates
+            // the audio transceiver. Then we attach our mic track to that same
+            // transceiver via replaceTrack — calling addTrack() before SRD
+            // creates a parallel m-section that the dashcam can't negotiate,
+            // which is why push-to-talk was silent.
+            const offer = new RTCSessionDescription({ type: 'offer', sdp: sdpOffer });
+            await peerConnection.setRemoteDescription(offer);
+
+            // Mic for push-to-talk — attach to the existing audio transceiver
             try {
                 localMicStream = await navigator.mediaDevices.getUserMedia({ audio: true });
                 const audioTrack = localMicStream.getAudioTracks()[0];
                 audioTrack.enabled = false;
-                micSender = peerConnection.addTrack(audioTrack, localMicStream);
+                const audioTransceiver = peerConnection.getTransceivers().find(
+                    t => t.receiver && t.receiver.track && t.receiver.track.kind === 'audio'
+                );
+                if (audioTransceiver) {
+                    await audioTransceiver.sender.replaceTrack(audioTrack);
+                    try { audioTransceiver.direction = 'sendrecv'; } catch (_) {}
+                    micSender = audioTransceiver.sender;
+                } else {
+                    micSender = peerConnection.addTrack(audioTrack, localMicStream);
+                }
             } catch (micErr) {
                 console.warn('Mic not available:', micErr.message);
             }
-
-            const offer = new RTCSessionDescription({ type: 'offer', sdp: sdpOffer });
-            await peerConnection.setRemoteDescription(offer);
 
             const answer = await peerConnection.createAnswer();
             await peerConnection.setLocalDescription(answer);
