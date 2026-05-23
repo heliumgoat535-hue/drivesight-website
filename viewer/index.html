@@ -456,6 +456,10 @@
         let lastMotionTimestamp = 0;
         let localMicStream = null;
         let micSender = null;
+        let micTrackForPtt = null;   // local audio track, used to attach/detach via replaceTrack
+        let pttReady = false;
+        let pttSending = false;
+        let pttStatsTimer = null;
         let currentOffer = null; // track current SDP offer to detect dashcam reconnects
         let unsubOfferWatch = null;
         let connectingInProgress = false; // prevent re-entrant connection attempts
@@ -920,23 +924,45 @@
             try {
                 localMicStream = await navigator.mediaDevices.getUserMedia({ audio: true });
                 const audioTrack = localMicStream.getAudioTracks()[0];
-                audioTrack.enabled = false;
+                // Keep enabled=true so RTP packets actually flow as soon as
+                // the transceiver is sendrecv. We mute/unmute via the SENDER
+                // (replaceTrack with null/track), which is the only reliable
+                // way across browsers — toggling track.enabled silently
+                // dropped packets on some Samsung Internet builds.
+                audioTrack.enabled = true;
+                micTrackForPtt = audioTrack;
                 const audioTransceiver = peerConnection.getTransceivers().find(
                     t => t.receiver && t.receiver.track && t.receiver.track.kind === 'audio'
                 );
                 if (audioTransceiver) {
+                    // Force sendrecv BEFORE replaceTrack so the answer's m=audio
+                    // is sendrecv (not recvonly).
+                    try { audioTransceiver.direction = 'sendrecv'; } catch (e) { console.warn('direction set failed:', e); }
                     await audioTransceiver.sender.replaceTrack(audioTrack);
-                    try { audioTransceiver.direction = 'sendrecv'; } catch (_) {}
                     micSender = audioTransceiver.sender;
+                    console.log('[PTT] mic attached to existing transceiver, direction =', audioTransceiver.direction);
                 } else {
                     micSender = peerConnection.addTrack(audioTrack, localMicStream);
+                    console.log('[PTT] mic added via addTrack (no existing audio transceiver)');
                 }
+                // Mute by removing the track from the sender; PTT button puts it back.
+                await micSender.replaceTrack(null);
+                pttReady = true;
+                updatePttBadge();
             } catch (micErr) {
-                console.warn('Mic not available:', micErr.message);
+                console.warn('[PTT] Mic not available:', micErr.message);
+                pttReady = false;
+                updatePttBadge();
             }
 
             const answer = await peerConnection.createAnswer();
             await peerConnection.setLocalDescription(answer);
+            // Sanity check — log the direction the answer claims for m=audio.
+            try {
+                const audioSection = answer.sdp.split(/^m=/m).find(s => s.startsWith('audio'));
+                const dirLine = audioSection && audioSection.split('\n').find(l => /^a=(sendrecv|sendonly|recvonly|inactive)/.test(l.trim()));
+                console.log('[PTT] answer m=audio direction:', dirLine && dirLine.trim());
+            } catch (_) {}
 
             await db.collection('webrtc_sessions').doc(sessionId)
                 .update({
@@ -1106,20 +1132,62 @@
         const talkBtn = document.getElementById('talkBtn');
         const talkLabel = document.getElementById('talkLabel');
 
-        function startTalk() {
-            if (localMicStream) {
-                localMicStream.getAudioTracks().forEach(t => t.enabled = true);
-                talkBtn.classList.add('active');
-                talkLabel.textContent = 'Talking...';
+        function updatePttBadge() {
+            if (!talkLabel) return;
+            if (!pttReady) {
+                talkLabel.textContent = 'Mic ⛔';
+                return;
+            }
+            if (pttSending) {
+                talkLabel.textContent = 'TX ●';
+            } else {
+                talkLabel.textContent = 'Hold to Talk';
             }
         }
 
-        function stopTalk() {
-            if (localMicStream) {
-                localMicStream.getAudioTracks().forEach(t => t.enabled = false);
+        async function startTalk() {
+            if (!micSender || !micTrackForPtt) {
+                console.warn('[PTT] start: no sender or track yet');
+                return;
             }
+            try {
+                micTrackForPtt.enabled = true;
+                await micSender.replaceTrack(micTrackForPtt);
+                pttSending = true;
+                talkBtn.classList.add('active');
+                updatePttBadge();
+                console.log('[PTT] start: track attached to sender');
+                // Poll outbound-rtp audio stats so we can SEE bytes flowing.
+                if (pttStatsTimer) clearInterval(pttStatsTimer);
+                let lastBytes = 0;
+                pttStatsTimer = setInterval(async () => {
+                    if (!peerConnection) return;
+                    try {
+                        const stats = await peerConnection.getStats(micSender.track);
+                        stats.forEach(r => {
+                            if (r.type === 'outbound-rtp' && r.kind === 'audio') {
+                                const delta = (r.bytesSent || 0) - lastBytes;
+                                lastBytes = r.bytesSent || 0;
+                                talkLabel.textContent = delta > 0 ? `TX ● ${Math.round(delta/100)/10}KB/s` : 'TX (0)';
+                            }
+                        });
+                    } catch (_) {}
+                }, 1000);
+            } catch (e) {
+                console.error('[PTT] start failed:', e);
+            }
+        }
+
+        async function stopTalk() {
+            if (pttStatsTimer) { clearInterval(pttStatsTimer); pttStatsTimer = null; }
+            try {
+                if (micSender) await micSender.replaceTrack(null);
+            } catch (e) {
+                console.warn('[PTT] stop replaceTrack(null) failed:', e);
+            }
+            pttSending = false;
             talkBtn.classList.remove('active');
-            talkLabel.textContent = 'Hold to Talk';
+            updatePttBadge();
         }
 
         talkBtn.addEventListener('mousedown', (e) => { e.preventDefault(); startTalk(); });
