@@ -523,7 +523,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             font-size: 0.8rem;
             font-weight: 600;
             color: var(--green);
-            margin-bottom: 24px;
+            margin-bottom: 10px;
             letter-spacing: 0.5px;
         }
         .hero-badge .pulse {
@@ -545,7 +545,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             font-size: clamp(2.5rem, 6vw, 4.5rem);
             font-weight: 900;
             line-height: 1.1;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             color: var(--text-bright);
             letter-spacing: -0.02em;
         }
@@ -556,18 +556,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             background-clip: text;
         }
         .hero-subtitle {
-            font-size: clamp(1.05rem, 2.5vw, 1.3rem);
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
             color: var(--text-dim);
-            max-width: 650px;
-            margin: 0 auto 40px;
-            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto 24px;
+            line-height: 1.65;
         }
         .hero-ctas {
             display: flex;
-            gap: 16px;
+            gap: 14px;
             justify-content: center;
+            align-items: center;
             flex-wrap: wrap;
-            margin-bottom: 48px;
+            margin-bottom: 40px;
         }
         .btn-primary {
             display: inline-flex;
@@ -644,7 +645,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             font-size: 0.8rem;
             font-weight: 600;
             color: var(--accent-orange);
-            margin-bottom: 12px;
+            margin-bottom: 28px;
             letter-spacing: 0.3px;
         }
         /* Google Play badge */
@@ -703,7 +704,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         }
 
         /* ============ SECTIONS COMMON ============ */
-        section { padding: 100px 24px; }
+        section { padding: 96px 24px; }
         .section-inner { max-width: 1200px; margin: 0 auto; }
         .section-label {
             display: inline-block;
@@ -738,7 +739,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
             gap: 24px;
-            margin-top: 60px;
+            margin-top: 48px;
         }
         .feature-card {
             background: var(--card-bg);
@@ -893,7 +894,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 24px;
-            margin-top: 60px;
+            margin-top: 48px;
         }
         .use-case-card {
             background: var(--dark-bg);
@@ -1211,7 +1212,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 24px;
-            margin-top: 60px;
+            margin-top: 48px;
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
@@ -1308,7 +1309,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 24px;
-            margin-top: 60px;
+            margin-top: 48px;
         }
         .review-card {
             background: var(--dark-bg);
@@ -1387,7 +1388,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         .final-cta {
             background: linear-gradient(135deg, #0f1a2e 0%, #0a1628 50%, #0d1f15 100%);
             text-align: center;
-            padding: 120px 24px;
+            padding: 100px 24px;
             position: relative;
             overflow: hidden;
         }
@@ -1720,8 +1721,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span class="review-count">&#183; Cancel anytime</span>
         </div>
         <div class="hero-ctas">
-            <a href="https://play.google.com/store/apps/details?id=com.deerdash" target="_blank" rel="noopener">
-                <img decoding="async" loading="lazy" width="646" height="250" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" class="play-badge-img">
+            <a href="https://play.google.com/store/apps/details?id=com.deerdash" class="btn-primary" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24" aria-hidden="true"><path d="M3.609 1.814L13.792 12 3.61 22.186a.994.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.302 2.302a1 1 0 0 1 0 1.38l-2.302 2.302L15.196 12l2.502-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302L5.864 2.658z"/></svg>
+                Download Free on Google Play
             </a>
             <a href="#features" class="btn-secondary">
                 See Features ↓
@@ -1962,7 +1964,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </section>
 
 <!-- ============ VIDEO DEMO ============ -->
-<section style="background: var(--dark-bg); padding: 80px 0 40px;">
+<section style="background: var(--dark-bg); padding: 80px 24px 40px;">
     <div class="section-inner">
         <span class="section-label">See It Live</span>
         <h2 class="section-title">Watch It In Action</h2>
@@ -2001,7 +2003,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </section>
 
 <!-- ============ APP IN ACTION GALLERY ============ -->
-<section style="background: var(--dark-bg); padding: 40px 0 80px;">
+<section style="background: var(--dark-bg); padding: 40px 24px 80px;">
     <div class="section-inner">
         <span class="section-label">Real Screenshots</span>
         <h2 class="section-title">The App in Action</h2>
@@ -2052,7 +2054,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </section>
 
 <!-- ============ PARKING MODE & DOG MODE ============ -->
-<section id="parking-mode" style="background: var(--dark-bg); padding: 80px 0;" aria-label="Dashcam parking mode, Dog Mode, and remote live viewing features">
+<section id="parking-mode" style="background: var(--dark-bg); padding: 80px 24px;" aria-label="Dashcam parking mode, Dog Mode, and remote live viewing features">
     <div class="section-inner">
         <span class="section-label">Parking Mode &amp; Dog Mode</span>
         <h2 class="section-title">A Dashcam That Watches Your Car While You're Parked</h2>
