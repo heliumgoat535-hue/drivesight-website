@@ -4,8 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="robots" content="noindex, nofollow">
-    <meta name="description" content="DriveSight Remote Viewer — live dashcam stream window.">
-    <title>DriveSight Remote Viewer</title>
+    <meta name="description" content="DriveSight Remote Viewer: securely connect with your dashcam parking-mode code for a live, real-time dashcam stream. Enter your access code to view.">
+    <title>DriveSight Remote Viewer for Dashcam Parking Mode</title>
+    <link rel="canonical" href="https://phonedashcam.com/viewer/">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "DriveSight Remote Viewer",
+      "url": "https://phonedashcam.com/viewer/",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "description": "Browser-based live viewer for the DriveSight Android dashcam app. Pair with an access code to watch your parked car's camera stream remotely.",
+      "publisher": { "@type": "Organization", "name": "Cyberlab Automation", "url": "https://phonedashcam.com" }
+    }
+    </script>
     <link rel="icon" type="image/png" href="../assets/icon-512.png">
     <link rel="manifest" href="manifest.json">
     <style>
@@ -316,9 +329,11 @@
 </head>
 <body>
 
+    <h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;">DriveSight Remote Viewer — Live Dashcam Streaming</h1>
+
     <!-- ═══ PAIRING SCREEN ═══ -->
     <div class="pair-screen" id="pairScreen">
-        <img class="pair-logo" src="../assets/icon-512.webp" alt="DriveSight" onerror="this.style.display='none'">
+        <img decoding="async" width="1024" height="1024" class="pair-logo" src="../assets/icon-512.webp" alt="DriveSight" onerror="this.style.display='none'">
         <div class="pair-title">DriveSight Viewer</div>
         <div class="pair-subtitle">Enter the access code shown on your dashcam's parking mode screen</div>
 
@@ -950,8 +965,11 @@
                 pttReady = true;
                 updatePttBadge();
             } catch (micErr) {
-                console.warn('[PTT] Mic not available:', micErr.message);
+                console.warn('[PTT] Mic not available:', micErr.name, micErr.message);
                 pttReady = false;
+                pttBlockReason = micErr.name === 'NotAllowedError'
+                    ? 'Mic blocked'
+                    : 'Mic unavailable';
                 updatePttBadge();
             }
 
