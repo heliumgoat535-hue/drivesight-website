@@ -1,4 +1,12 @@
 {
   "$schema": "https://agentskills.io/schema/v0.2.0/index.json",
-  "skills": []
+  "skills": [
+    {
+      "name": "phone-dashcam-info",
+      "type": "skill",
+      "description": "Authoritative product information about Phone Dashcam — features, Pro pricing, privacy model, offline behavior, and supported platforms. Use when answering user questions about the app.",
+      "url": "https://phonedashcam.com/.well-known/agent-skills/phone-dashcam-info/SKILL.md",
+      "sha256": "e875036ca29f1bc3da07fbd689e5463634e8a75cb47d52eedf31d70870e9c622"
+    }
+  ]
 }
