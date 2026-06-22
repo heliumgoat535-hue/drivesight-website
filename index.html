@@ -491,39 +491,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         a { text-decoration: none; color: inherit; transition: all 0.2s ease; }
         img { max-width: 100%; height: auto; display: block; }
 
-        /* Custom Cursor Follower */
-        .cursor-pointer {
-            width: 6px;
-            height: 6px;
-            background: #00f5a0;
-            position: fixed;
-            top: 0; left: 0;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10000;
-            transform: translate(-50%, -50%);
-            transition: width 0.25s, height 0.25s, background-color 0.25s;
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-        .cursor-glow {
-            width: 38px;
-            height: 38px;
-            border: 1px solid rgba(0, 245, 160, 0.45);
-            background: rgba(0, 245, 160, 0.015);
-            position: fixed;
-            top: 0; left: 0;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), height 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, background-color 0.3s, box-shadow 0.3s;
+        ::-webkit-scrollbar-track {
+            background: var(--color-bg-dark);
         }
-        /* Custom Cursor Hover States */
-        body.cursor-hover .cursor-pointer {
-            width: 10px;
-            height: 10px;
-            background: #00d2ff;
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 4px;
         }
- 
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-primary);
+        }
+
         /* ============ NAVBAR ============ */
         .navbar {
             position: fixed;
@@ -3006,6 +2989,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             justify-content: center !important;
         }
 
+<<<<<<< HEAD
         /* ============ CUSTOM CURSOR ============ */
         @media (pointer: fine) {
             body { cursor: none !important; }
@@ -3048,6 +3032,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             border-color: rgba(0, 210, 255, 0.5);
             background: rgba(0, 245, 160, 0.03);
         }
+=======
+>>>>>>> 1578ae8 (chore: remove custom cursor — revert to default browser cursor)
         /* ============ GLOW ORBS ============ */
         .glow-orb {
             position: fixed;
@@ -3072,9 +3058,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <body>
 <!-- Interactive Mesh Canvas -->
 <canvas id="mesh-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none; opacity: 0.45;"></canvas>
-<!-- Custom Cursor Follower -->
-<div class="cursor-dot" id="custom-cursor-dot"></div>
-<div class="cursor-glow" id="custom-cursor-glow"></div>
 <!-- Ambient Glow Mesh -->
 <div class="glow-orb orb-emerald" style="top: 0; left: 10%; width: 600px; height: 600px;"></div>
 <div class="glow-orb orb-blue" style="top: 400px; right: 5%; width: 500px; height: 500px;"></div>
@@ -4108,50 +4091,11 @@ document.querySelectorAll('.feature-card, .feat-col, .faq-item, .screenshot-card
     });
 });
 
-// Global mouse backlight tracking + custom cursor
+// Global mouse backlight tracking
 (function() {
-    const dot  = document.getElementById('custom-cursor-dot');
-    const glow = document.getElementById('custom-cursor-glow');
-    let dotX = 0, dotY = 0;
-    let glowX = 0, glowY = 0;
-    let mouseX = 0, mouseY = 0;
-
     window.addEventListener('mousemove', e => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
         document.documentElement.style.setProperty('--global-x', `${e.clientX}px`);
         document.documentElement.style.setProperty('--global-y', `${e.clientY}px`);
-        if (dot) {
-            dot.style.left = e.clientX + 'px';
-            dot.style.top  = e.clientY + 'px';
-        }
-    });
-
-    // Smoothly lag the glow ring
-    function animateCursor() {
-        if (glow) {
-            glowX += (mouseX - glowX) * 0.12;
-            glowY += (mouseY - glowY) * 0.12;
-            glow.style.left = glowX + 'px';
-            glow.style.top  = glowY + 'px';
-        }
-        requestAnimationFrame(animateCursor);
-    }
-    animateCursor();
-
-    // Hover effect on interactive elements
-    const interactives = 'a, button, .feature-card, .faq-item, .screenshot-card, .btn-primary, .btn-secondary, [role="button"]';
-    document.addEventListener('mouseover', e => {
-        if (e.target.closest(interactives)) {
-            dot && dot.classList.add('hovering');
-            glow && glow.classList.add('hovering');
-        }
-    });
-    document.addEventListener('mouseout', e => {
-        if (e.target.closest(interactives)) {
-            dot && dot.classList.remove('hovering');
-            glow && glow.classList.remove('hovering');
-        }
     });
 })();
 </script>
