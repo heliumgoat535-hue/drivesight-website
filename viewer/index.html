@@ -384,12 +384,6 @@
                 </svg>
                 <span id="talkLabel">Hold to Talk</span>
             </button>
-            <button class="fullscreen-btn" onclick="rotateVideo()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/>
-                </svg>
-                <span id="rotateLabel">0°</span>
-            </button>
             <button class="fullscreen-btn" id="camBtn" onclick="cycleCameraMode()">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/>
@@ -403,11 +397,12 @@
                 </svg>
                 <span id="flashLabel">Flash</span>
             </button>
-            <button class="fullscreen-btn" onclick="toggleFullscreen()">
+            <button class="fullscreen-btn" id="snapshotBtn" onclick="takeSnapshot()">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/>
+                    <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/>
+                    <circle cx="12" cy="13" r="4"/>
                 </svg>
-                Fullscreen
+                <span id="snapshotLabel">Snapshot</span>
             </button>
         </div>
 
@@ -656,6 +651,38 @@
                 document.documentElement.requestFullscreen().catch(() => {});
             } else {
                 document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        // ─── Snapshot — grab the current live frame and download it ─────────
+        function takeSnapshot() {
+            if (!video || !video.videoWidth || !video.videoHeight) {
+                alert('No live video to capture yet.');
+                return;
+            }
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            canvas.toBlob(function (blob) {
+                if (!blob) return;
+                const url = URL.createObjectURL(blob);
+                const ts = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'DriveSight_' + ts + '.jpg';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                setTimeout(() => URL.revokeObjectURL(url), 1000);
+            }, 'image/jpeg', 0.95);
+            // Brief visual confirmation on the button label.
+            const label = document.getElementById('snapshotLabel');
+            if (label) {
+                const prev = label.textContent;
+                label.textContent = 'Saved!';
+                setTimeout(() => { label.textContent = prev; }, 1200);
             }
         }
 
