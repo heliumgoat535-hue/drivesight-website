@@ -2050,7 +2050,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         }
         .navbar.scrolled {
             top: 12px !important;
-            background: rgba(4, 4, 7, 0.85) !important;
+            /* Translucent so the blur(24px) shows the page content frosting
+               through the bar as you scroll, instead of going near-opaque. */
+            background: rgba(4, 4, 7, 0.38) !important;
+            backdrop-filter: blur(28px) saturate(160%) !important;
+            -webkit-backdrop-filter: blur(28px) saturate(160%) !important;
             border-color: rgba(0, 245, 160, 0.2) !important;
             box-shadow: 0 24px 48px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 245, 160, 0.05) !important;
         }
