@@ -177,6 +177,15 @@
             font-weight: 600;
         }
 
+        /* Cabin temperature readout (Parking Mode) */
+        .temp-readout {
+            font-size: 13px;
+            color: #999;
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+        }
+        .temp-readout.hot { color: #ef4444; }
+
         /* Video container */
         .video-container {
             position: relative;
@@ -357,6 +366,7 @@
                 <div class="status-dot" id="statusDot"></div>
                 <span class="status-text" id="statusText">Initializing...</span>
             </div>
+            <span class="temp-readout" id="tempReadout"></span>
             <span class="logo-text">DriveSight</span>
         </div>
 
@@ -464,6 +474,7 @@
         let unsubMotion = null;
         let unsubDevice = null;
         let lastMotionTimestamp = 0;
+        let lastTempAlertTimestamp = 0;
         let localMicStream = null;
         let micSender = null;
         let micTrackForPtt = null;   // local audio track, used to attach/detach via replaceTrack
@@ -646,6 +657,44 @@
             setTimeout(() => { alert.remove(); }, 5000);
         }
 
+        // ─── Cabin temperature (Parking Mode) ───────────────────────────
+        function formatTemp(celsius, approximate) {
+            const c = Math.round(celsius);
+            const f = Math.round(celsius * 9 / 5 + 32);
+            return `${approximate ? '~' : ''}${c}°C / ${f}°F`;
+        }
+
+        function updateTempReadout(celsius, approximate) {
+            const el = document.getElementById('tempReadout');
+            el.textContent = `🌡 ${formatTemp(celsius, approximate)}`;
+            el.classList.toggle('hot', celsius >= 40);
+        }
+
+        function showTempAlert(celsius) {
+            const alert = document.createElement('div');
+            alert.className = 'motion-alert';
+            alert.innerHTML = `
+                <svg class="motion-alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                    <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+                Cabin Heat: ${formatTemp(celsius || 0, false)}
+            `;
+            alertContainer.innerHTML = '';
+            alertContainer.appendChild(alert);
+
+            if (Notification.permission === 'granted') {
+                new Notification('DriveSight', {
+                    body: `Cabin temp ${formatTemp(celsius || 0, false)} — check your vehicle.`,
+                    icon: '../assets/icon-512.png',
+                    tag: 'temp-alert',
+                    renotify: true
+                });
+            }
+
+            setTimeout(() => { alert.remove(); }, 8000);
+        }
+
         function toggleFullscreen() {
             if (!document.fullscreenElement) {
                 document.documentElement.requestFullscreen().catch(() => {});
@@ -725,6 +774,9 @@
                     console.log('FCM message received:', payload);
                     if (payload.data && payload.data.type === 'motion_alert') {
                         showMotionAlert();
+                    }
+                    if (payload.data && payload.data.type === 'temp_alert') {
+                        showTempAlert(parseFloat(payload.data.celsius) || 0);
                     }
                 });
             } catch (err) {
@@ -1034,15 +1086,26 @@
                     });
                 });
 
-            // Listen for motion alerts
+            // Listen for motion alerts, cabin temperature, and heat alerts
             unsubMotion = db.collection('webrtc_sessions').doc(sessionId)
                 .onSnapshot((snap) => {
                     const data = snap.data();
-                    if (data && data.motionAlert && data.motionAlert.timestamp) {
+                    if (!data) return;
+                    if (data.motionAlert && data.motionAlert.timestamp) {
                         const ts = data.motionAlert.timestamp;
                         if (ts > lastMotionTimestamp) {
                             lastMotionTimestamp = ts;
                             showMotionAlert();
+                        }
+                    }
+                    if (data.cabinTemp && typeof data.cabinTemp.celsius === 'number') {
+                        updateTempReadout(data.cabinTemp.celsius, data.cabinTemp.approximate);
+                    }
+                    if (data.tempAlert && data.tempAlert.timestamp) {
+                        const ts = data.tempAlert.timestamp;
+                        if (ts > lastTempAlertTimestamp) {
+                            lastTempAlertTimestamp = ts;
+                            showTempAlert(data.tempAlert.celsius);
                         }
                     }
                 });
