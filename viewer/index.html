@@ -661,7 +661,7 @@
         function formatTemp(celsius, approximate) {
             const c = Math.round(celsius);
             const f = Math.round(celsius * 9 / 5 + 32);
-            return `${approximate ? '~' : ''}${c}°C / ${f}°F`;
+            return `${f}°F / ${c}°C${approximate ? ' (est)' : ''}`;
         }
 
         function updateTempReadout(celsius, approximate) {
