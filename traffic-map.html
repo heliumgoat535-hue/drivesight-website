@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="google-site-verification" content="zhf91iEx_qMCudqjN4_EFK2I0hMN74I7r65bsB6PDXo" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7R95MFY0PM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7R95MFY0PM');
+</script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WNK22QM3');</script>
+<!-- End Google Tag Manager -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Map: Crowd-Sourced Road Busyness From Dashcams (New in DriveSight)</title>
+    <meta name="description" content="DriveSight's new Traffic Map turns dashcam vehicle detection into a living map of how busy roads really are — anonymous, crowd-sourced, and updated every trip.">
+    <meta name="keywords" content="traffic map app, road busyness map, crowd-sourced traffic data, dashcam vehicle detection, vehicles per mile, busy roads map, anonymous traffic data, android dashcam traffic">
+    <meta name="author" content="Cyberlab Automation">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://phonedashcam.com/traffic-map">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Traffic Map: Crowd-Sourced Road Busyness From Dashcams">
+    <meta property="og:description" content="Your dashcam counts the cars it sees. The Traffic Map turns that into glowing roads — anonymous road busyness data from every DriveSight driver.">
+    <meta property="og:image" content="https://phonedashcam.com/assets/hero-dashcam.jpg">
+    <meta property="og:site_name" content="DriveSight">
+    <meta property="og:url" content="https://phonedashcam.com/traffic-map">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Traffic Map: Crowd-Sourced Road Busyness From Dashcams">
+    <meta name="twitter:description" content="Dashcam AI counts vehicles per mile and lights up a shared map of busy roads — with nobody's identity attached.">
+
+    <link rel="icon" type="image/png" href="assets/icon-512.png">
+    <link rel="apple-touch-icon" href="assets/icon-512.png">
+
+    <!-- Structured Data: Article -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Traffic Map: Crowd-Sourced Road Busyness From Dashcams",
+        "description": "DriveSight's Traffic Map uses on-device vehicle detection to measure vehicles per mile on every trip, then combines anonymous data from all drivers into a map of glowing roads.",
+        "author": {
+            "@type": "Person",
+            "name": "DriveSight Team",
+            "url": "https://phonedashcam.com/about"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "DriveSight",
+            "url": "https://phonedashcam.com",
+            "@id": "https://phonedashcam.com/#organization"
+        },
+        "datePublished": "2026-07-17",
+        "dateModified": "2026-07-17",
+        "image": "https://phonedashcam.com/assets/hero-dashcam.jpg",
+        "mainEntityOfPage": "https://phonedashcam.com/traffic-map",
+        "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": [".article h1", ".article > p:first-of-type"]
+        },
+        "articleSection": "Features",
+        "keywords": ["traffic map", "road busyness", "crowd-sourced traffic", "dashcam vehicle detection", "vehicles per mile"],
+        "inLanguage": "en-US"
+    }
+    </script>
+
+    <!-- Structured Data: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "DriveSight", "item": "https://phonedashcam.com"},
+            {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://phonedashcam.com/blog"},
+            {"@type": "ListItem", "position": 3, "name": "Traffic Map", "item": "https://phonedashcam.com/traffic-map"}
+        ]
+    }
+    </script>
+
+    <!-- Structured Data: FAQPage -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What is the DriveSight Traffic Map?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The Traffic Map is a crowd-sourced map of road busyness built from dashcam data. While you drive, DriveSight's AI counts the distinct vehicles it sees and converts that into a vehicles-per-mile score for each stretch of road. Your own routes draw as colored lines, and anonymous data from all DriveSight drivers makes roads glow by how busy they actually are."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is the Traffic Map data anonymous?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. Shared road data contains only a coarsened location, a vehicles-per-mile number, and a timestamp — no account ID, no device ID, and no trip ID. Segments near the start and end of your trips are never uploaded, so home and work locations stay on your phone. Data is also uploaded in random order so individual routes can never be reconstructed."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How does DriveSight measure how busy a road is?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "DriveSight's on-device AI detects cars, trucks, buses, and motorcycles in the camera feed and tracks each one so it is only counted once. The count is divided by distance driven to get vehicles per mile — a density measure that works fairly across short city hops and long highway runs. It is bucketed into four levels: Light, Moderate, Heavy, and Very Heavy."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I see my own driving history on the Traffic Map?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. Your full trip history stays on your device — every trip card shows its vehicles-per-mile score, the Stats screen shows busyness by day and by month, and the Traffic Map draws your own routes as colored lines. Only the anonymous road-level numbers are shared with the community."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Do I need an account to use the Traffic Map?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No account or sign-up is required. The community layer loads for everyone, and contributing happens automatically and anonymously when you drive with vehicle detection enabled."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0e17;
+            color: #e0e0e0;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+        a { color: #4ADE80; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        img { max-width: 100%; height: auto; display: block; border-radius: 12px; }
+
+        :root {
+            --green: #4ADE80;
+            --green-dark: #22c55e;
+            --dark-bg: #0a0e17;
+            --card-bg: #141926;
+            --card-border: #1e2740;
+            --text: #e0e0e0;
+            --text-dim: #8892a8;
+            --text-bright: #ffffff;
+        }
+
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(10, 14, 23, 0.92);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--card-border);
+            padding: 0 24px;
+        }
+        .navbar-inner {
+            max-width: 800px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between; height: 64px;
+        }
+        .nav-logo {
+            display: flex; align-items: center; gap: 10px;
+            font-weight: 800; font-size: 1.25rem; color: var(--text-bright); text-decoration: none;
+        }
+        .nav-logo img { width: 36px; height: 36px; border-radius: 8px; }
+        .nav-cta {
+            background: var(--green); color: #000 !important; padding: 8px 20px;
+            border-radius: 8px; font-weight: 700; font-size: 0.85rem;
+            transition: all 0.2s; text-decoration: none;
+        }
+        .nav-cta:hover { background: var(--green-dark); transform: translateY(-1px); text-decoration: none; }
+
+        .article {
+            max-width: 800px; margin: 0 auto;
+            padding: 100px 24px 60px;
+        }
+        .breadcrumb {
+            font-size: 0.85rem; color: var(--text-dim); margin-bottom: 24px;
+        }
+        .breadcrumb a { color: var(--text-dim); }
+        .breadcrumb a:hover { color: var(--green); }
+
+        h1 {
+            font-size: 2.4rem; font-weight: 900; color: var(--text-bright);
+            line-height: 1.2; margin-bottom: 16px;
+        }
+        .article-meta {
+            font-size: 0.9rem; color: var(--text-dim); margin-bottom: 32px;
+        }
+        h2 {
+            font-size: 1.6rem; font-weight: 800; color: var(--text-bright);
+            margin: 48px 0 16px; line-height: 1.3;
+        }
+        h3 {
+            font-size: 1.2rem; font-weight: 700; color: var(--text-bright);
+            margin: 32px 0 12px;
+        }
+        p { margin-bottom: 16px; color: var(--text); font-size: 1.05rem; }
+
+        .step-card {
+            background: var(--card-bg); border: 1px solid var(--card-border);
+            border-radius: 16px; padding: 24px 28px; margin: 20px 0;
+        }
+        .step-card .step-num {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 32px; height: 32px; border-radius: 50%; background: var(--green);
+            color: #000; font-weight: 800; font-size: 0.9rem; margin-right: 12px;
+        }
+        .step-card h3 { display: inline; margin: 0; }
+        .step-card p { margin-top: 12px; margin-bottom: 0; }
+
+        .feature-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0;
+        }
+        .feature-item {
+            background: var(--card-bg); border: 1px solid var(--card-border);
+            border-radius: 12px; padding: 20px;
+        }
+        .feature-item .icon { font-size: 1.5rem; margin-bottom: 8px; }
+        .feature-item h4 { color: var(--text-bright); font-size: 1rem; margin-bottom: 6px; }
+        .feature-item p { font-size: 0.9rem; color: var(--text-dim); margin: 0; }
+
+        .compare-box {
+            background: var(--card-bg); border: 1px solid var(--card-border);
+            border-radius: 16px; padding: 28px; margin: 24px 0;
+        }
+        .compare-box table { width: 100%; border-collapse: collapse; }
+        .compare-box th, .compare-box td {
+            padding: 12px 16px; text-align: left;
+            border-bottom: 1px solid var(--card-border);
+        }
+        .compare-box th { color: var(--text-bright); font-weight: 700; font-size: 0.95rem; }
+        .compare-box td { color: var(--text); font-size: 0.95rem; }
+        .check { color: var(--green); font-weight: 700; }
+        .cross { color: #ef4444; }
+
+        .cta-box {
+            background: linear-gradient(135deg, rgba(74, 222, 128, 0.1), rgba(74, 222, 128, 0.05));
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            border-radius: 16px; padding: 32px; text-align: center; margin: 40px 0;
+        }
+        .cta-box h3 { margin-top: 0; }
+        .btn-primary {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: var(--green); color: #000; padding: 14px 28px;
+            border-radius: 12px; font-weight: 700; font-size: 1rem;
+            transition: all 0.2s; text-decoration: none; margin-top: 12px;
+        }
+        .btn-primary:hover { background: var(--green-dark); transform: translateY(-2px); text-decoration: none; }
+
+        .info-box {
+            background: var(--card-bg); border: 1px solid rgba(74, 222, 128, 0.3);
+            border-left: 4px solid var(--green);
+            border-radius: 12px; padding: 20px 24px; margin: 24px 0;
+        }
+        .info-box .label {
+            color: var(--green); font-size: 0.78rem; font-weight: 700;
+            letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px;
+        }
+        .info-box p { margin: 0; color: var(--text-bright); font-size: 1.05rem; line-height: 1.7; }
+
+        .faq-item {
+            background: var(--card-bg); border: 1px solid var(--card-border);
+            border-radius: 12px; padding: 20px 24px; margin: 12px 0;
+        }
+        .faq-item h3 { font-size: 1rem; margin: 0 0 10px; color: var(--text-bright); }
+        .faq-item p { margin: 0; font-size: 0.95rem; color: var(--text); }
+
+        .ad-slot { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 0; margin: 0; text-align: center; min-height: 0; overflow: hidden; max-height: 0; opacity: 0; transition: all 0.3s; }
+        .ad-slot ins { display: block; }
+        .ad-slot:has(ins[data-ad-status="filled"]) { padding: 16px; margin: 32px 0; min-height: 100px; max-height: 500px; opacity: 1; }
+        .ad-slot.ad-loaded { padding: 16px; margin: 32px 0; min-height: 100px; max-height: 500px; opacity: 1; }
+
+        footer {
+            border-top: 1px solid var(--card-border);
+            padding: 32px 24px; text-align: center;
+            color: var(--text-dim); font-size: 0.85rem;
+        }
+        footer a { color: var(--green); }
+
+        @media (max-width: 640px) {
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.3rem; }
+            .feature-grid { grid-template-columns: 1fr; }
+            .article { padding: 80px 16px 40px; }
+        }
+    </style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNK22QM3"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<nav class="navbar">
+    <div class="navbar-inner">
+        <a href="/" class="nav-logo">
+            <img decoding="async" width="1024" height="1024" src="assets/icon-512.webp" alt="DriveSight">
+            DriveSight
+        </a>
+        <a href="https://play.google.com/store/apps/details?id=com.deerdash" class="nav-cta" target="_blank" rel="noopener">Download Free</a>
+    </div>
+</nav>
+
+<article class="article">
+    <div class="breadcrumb">
+        <a href="/">DriveSight</a> &rsaquo; <a href="/blog">Blog</a> &rsaquo; Traffic Map
+    </div>
+
+    <h1>Traffic Map: Your Dashcam Is Now Making Road Data History</h1>
+    <p class="article-meta">July 2026 &middot; New feature &middot; 4 min read</p>
+
+    <div class="info-box">
+        <div class="label">Quick Answer</div>
+        <p><strong>DriveSight now counts every vehicle your dashcam sees and turns it into a living map of how busy roads really are.</strong> Each trip gets a vehicles-per-mile score, your history rolls up by day and month, and the new Traffic Map makes roads glow with anonymous, crowd-sourced busyness data from every DriveSight driver.</p>
+    </div>
+
+    <p>Navigation apps tell you how slow traffic is moving right now. Nobody tells you how <em>busy</em> a road actually is — how many cars you'll share it with on a Tuesday evening versus a Sunday morning. Starting with v2.6.0, DriveSight does, using hardware you already own: your phone's camera.</p>
+
+    <h2>How It Works</h2>
+
+    <div class="step-card">
+        <span class="step-num">1</span><h3>Your dashcam counts vehicles</h3>
+        <p>DriveSight's on-device AI already detects cars, trucks, buses, and motorcycles while you drive. Now it tracks each vehicle so it's counted exactly once — not once per frame — and tallies distinct vehicles for every tenth of a mile.</p>
+    </div>
+
+    <div class="step-card">
+        <span class="step-num">2</span><h3>Every trip gets a busyness score</h3>
+        <p>Total vehicles divided by distance gives vehicles per mile — a fair density measure whether you drove two miles or two hundred. Trips are bucketed into four levels: <strong style="color:#4CAF50;">Light</strong>, <strong style="color:#FFC107;">Moderate</strong>, <strong style="color:#FF7043;">Heavy</strong>, and <strong style="color:#E53935;">Very Heavy</strong>.</p>
+    </div>
+
+    <div class="step-card">
+        <span class="step-num">3</span><h3>Your history builds automatically</h3>
+        <p>Every trip card shows its busyness chip. The Stats screen rolls your driving up by day and by month, so you can literally watch your route's traffic patterns emerge over time.</p>
+    </div>
+
+    <div class="step-card">
+        <span class="step-num">4</span><h3>Roads glow on the Traffic Map</h3>
+        <p>The map (formerly the wildlife heatmap) now draws your own routes as colored lines and blends in anonymous data from every DriveSight driver as a glowing road layer. Pan anywhere to see how busy roads are where you're headed.</p>
+    </div>
+
+    <h2>Anonymous By Design</h2>
+
+    <p>The Traffic Map was built privacy-first. Everyone sees the road data; nobody sees whose it is.</p>
+
+    <div class="feature-grid">
+        <div class="feature-item">
+            <div class="icon">&#128274;</div>
+            <h4>No identity attached</h4>
+            <p>Shared records contain only a location, a vehicles-per-mile number, and a timestamp. No account ID, device ID, or trip ID — the server rejects anything more.</p>
+        </div>
+        <div class="feature-item">
+            <div class="icon">&#127968;</div>
+            <h4>Home &amp; work stay private</h4>
+            <p>Road segments near where your trips start and end are never uploaded. Where you live and park stays on your phone.</p>
+        </div>
+        <div class="feature-item">
+            <div class="icon">&#128260;</div>
+            <h4>No route reconstruction</h4>
+            <p>Segments are coarsened to a ~110&nbsp;m grid and uploaded in random order, so individual journeys can't be pieced back together.</p>
+        </div>
+        <div class="feature-item">
+            <div class="icon">&#128241;</div>
+            <h4>Your data stays yours</h4>
+            <p>Your full-detail trips, routes, and history live only on your device. You always see your own data; the community only sees the roads.</p>
+        </div>
+    </div>
+
+    <h2>Why Vehicles Per Mile?</h2>
+
+    <p>A raw car count would make every long highway drive look "busy" and every short school run look quiet. Dividing by distance normalizes it: 40 vehicles over 2 miles of stop-and-go city driving scores <strong>20 veh/mi (Heavy)</strong>, while 40 vehicles spread over 30 highway miles scores <strong>1.3 veh/mi (Light)</strong>. That's the difference you actually feel behind the wheel.</p>
+
+    <h2>Get On the Map</h2>
+
+    <p>Update to DriveSight v2.6.0, drive with vehicle detection on, and your first trip starts building your road history — and quietly making every DriveSight driver's map a little smarter.</p>
+
+    <div class="cta-box">
+        <h3>Every drive makes the map better</h3>
+        <p style="color:var(--text-dim);">Free download. No account needed. Anonymous by design.</p>
+        <a href="https://play.google.com/store/apps/details?id=com.deerdash" class="btn-primary" target="_blank" rel="noopener">Get DriveSight on Google Play</a>
+    </div>
+
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+        <h3>Is this live traffic like a navigation app?</h3>
+        <p>No — it's something navigation apps don't have. Instead of current speed, the Traffic Map shows measured road busyness: how many vehicles dashcams actually saw per mile, built up over days and months of real driving.</p>
+    </div>
+    <div class="faq-item">
+        <h3>Does it work if I'm the first DriveSight driver in my area?</h3>
+        <p>Yes. Your own routes draw immediately from your local data. The community layer fills in as more drivers cover your region.</p>
+    </div>
+    <div class="faq-item">
+        <h3>Does counting vehicles use extra battery?</h3>
+        <p>No extra cost — it reuses the vehicle detections DriveSight's AI is already making for the driving overlay. The counting itself is a rounding error.</p>
+    </div>
+    <div class="faq-item">
+        <h3>Can I opt out of the community layer?</h3>
+        <p>The community layer can be toggled off on the map, and contribution only happens when vehicle detection is enabled during a trip.</p>
+    </div>
+
+</article>
+
+<footer>
+    <p>&copy; 2026 <a href="/">DriveSight</a> by Cyberlab Automation. All rights reserved.</p>
+    <p style="margin-top:8px;"><a href="/">Home</a> &middot; <a href="/blog">Blog</a> &middot; <a href="/best-dash-cam-app-android">Best Dash Cam App</a> &middot; <a href="/android-dash-cam">Android Dash Cam</a> &middot; <a href="/turn-old-phone-into-dashcam">Old Phone as Dashcam</a> &middot; <a href="/best-speed-camera-apps-2026">Speed Camera Apps</a> &middot; <a href="/phone-dashcam-vs-real-dashcam">Phone vs Real Dashcam</a> &middot; <a href="/phone-dashcam-features-2026">All Features</a> &middot; <a href="/privacy-policy.html">Privacy Policy</a> &middot; <a href="https://play.google.com/store/apps/details?id=com.deerdash" target="_blank">Google Play</a></p>
+</footer>
+
+</body>
+</html>

@@ -75,6 +75,7 @@ The only features that use internet: Google Drive backup (syncs over WiFi at hom
 
 - [Homepage](https://phonedashcam.com/): App overview, features, pricing, FAQ, and download link
 - [Features](https://phonedashcam.com/phone-dashcam-features-2026): Full feature breakdown for all dashcam capabilities
+- [Traffic Map](https://phonedashcam.com/traffic-map): New crowd-sourced road-busyness map — dashcam AI counts vehicles per mile; anonymous community data makes roads glow by traffic level
 - [Android Dash Cam App](https://phonedashcam.com/android-dash-cam): Guide to using an Android phone as a dash cam; comparison vs hardware dashcams
 - [Turn an Old Phone into a Dashcam](https://phonedashcam.com/turn-old-phone-into-dashcam): Step-by-step setup guide with mount and charger recommendations
 - [Best Dash Cam App for Android](https://phonedashcam.com/best-dash-cam-app-android): Comprehensive comparison of phone dashcam apps; includes feature table
