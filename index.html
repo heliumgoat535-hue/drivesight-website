@@ -1667,9 +1667,9 @@
             left: 0;
             right: 0;
             z-index: 999;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(8, 10, 14, 0.92);
             backdrop-filter: blur(20px);
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid rgba(0, 245, 160, 0.18);
             padding: 12px 24px;
         }
         .sticky-cta .btn-primary {
@@ -2098,9 +2098,9 @@
         }
         .nav-links a.nav-cta,
         .nav-cta {
-            background: linear-gradient(#ffffff, #ffffff) padding-box,
-                        radial-gradient(80px circle at var(--x, 50%) var(--y, 50%), rgba(0, 245, 160, 0.8), rgba(0, 210, 255, 0.3) 60%, rgba(255, 255, 255, 0.15) 100%) border-box !important;
-            color: #020204 !important;
+            background: linear-gradient(135deg, #00f5a0 0%, #00d2ff 130%) padding-box,
+                        radial-gradient(80px circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.85), rgba(0, 245, 160, 0.5) 60%, rgba(0, 210, 255, 0.3) 100%) border-box !important;
+            color: #04140f !important;
             border-radius: 99px !important;
             padding: 8px 18px !important;
             font-size: 0.8rem !important;
@@ -2156,42 +2156,47 @@
             font-weight: 700 !important;
         }
         .hero-subtitle {
-            font-size: clamp(0.95rem, 2.5vw, 1.15rem) !important;
+            font-size: clamp(0.95rem, 2.5vw, 1.12rem) !important;
             color: var(--text-normal) !important;
-            max-width: 760px;
+            max-width: 680px;
             line-height: 1.75 !important;
         }
         .btn-primary {
-            background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 100%) padding-box,
-                        radial-gradient(120px circle at var(--x, 50%) var(--y, 50%), rgba(0, 245, 160, 0.95), rgba(0, 210, 255, 0.45) 50%, rgba(255, 255, 255, 0.1) 100%) border-box !important;
-            color: #020204 !important;
+            background: linear-gradient(135deg, #00f5a0 0%, #00d2ff 130%) padding-box,
+                        radial-gradient(120px circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.9), rgba(0, 245, 160, 0.5) 60%, rgba(0, 210, 255, 0.3) 100%) border-box !important;
+            color: #04140f !important;
             border-radius: 99px !important;
-            padding: 14px 30px !important;
-            font-size: 0.95rem !important;
+            padding: 16px 34px !important;
+            font-size: 1.02rem !important;
             border: 1px solid transparent !important;
-            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
-            font-weight: 600 !important;
+            box-shadow: 0 8px 24px rgba(0, 245, 160, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.01em;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
         }
         .btn-primary:hover {
             transform: translateY(-2px) scale(1.02) !important;
-            box-shadow: 0 12px 24px rgba(0, 245, 160, 0.22), 0 0 40px rgba(0, 245, 160, 0.08) !important;
-            background: linear-gradient(#ffffff, #ffffff) padding-box,
-                        radial-gradient(120px circle at var(--x, 50%) var(--y, 50%), rgba(0, 245, 160, 1), rgba(0, 210, 255, 0.8) 40%, rgba(255, 255, 255, 0.25) 100%) border-box !important;
+            box-shadow: 0 14px 32px rgba(0, 245, 160, 0.35), 0 0 60px rgba(0, 245, 160, 0.12) !important;
+            background: linear-gradient(135deg, #1cffb0 0%, #22dcff 130%) padding-box,
+                        radial-gradient(120px circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 1), rgba(0, 245, 160, 0.7) 50%, rgba(0, 210, 255, 0.4) 100%) border-box !important;
+        }
+        .btn-primary:focus-visible, .btn-secondary:focus-visible, .nav-cta:focus-visible {
+            outline: 2px solid #00f5a0 !important;
+            outline-offset: 3px !important;
         }
         .btn-secondary {
             border-radius: 99px !important;
-            padding: 14px 28px !important;
-            font-size: 0.95rem !important;
+            padding: 15px 30px !important;
+            font-size: 0.98rem !important;
             border: 1px solid transparent !important;
-            background: rgba(255, 255, 255, 0.015) padding-box,
-                        radial-gradient(120px circle at var(--x, 50%) var(--y, 50%), rgba(0, 245, 160, 0.4), rgba(0, 210, 255, 0.2) 60%, rgba(255, 255, 255, 0.15) 100%) border-box !important;
+            background: linear-gradient(rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.045)) padding-box,
+                        radial-gradient(120px circle at var(--x, 50%) var(--y, 50%), rgba(0, 245, 160, 0.55), rgba(0, 210, 255, 0.35) 60%, rgba(255, 255, 255, 0.28) 100%) border-box !important;
             color: #ffffff !important;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
         }
         .btn-secondary:hover {
             border-color: transparent !important;
-            background: rgba(255, 255, 255, 0.06) padding-box,
+            background: linear-gradient(rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.07)) padding-box,
                         radial-gradient(120px circle at var(--x, 50%) var(--y, 50%), rgba(0, 245, 160, 0.7), rgba(0, 210, 255, 0.5) 40%, rgba(255, 255, 255, 0.25) 100%) border-box !important;
             transform: translateY(-2px) !important;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 0 30px rgba(0, 245, 160, 0.05) !important;
