@@ -2,22 +2,43 @@
 <html lang="en-US">
 <head>  
   <script defer src="https://analytics-v2.kleap.co/script.js" data-website-id="d0e4d1a9-fd6b-4fcd-9359-074e04bb795d"></script> <!-- nosemgrep: missing-integrity -->
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7R95MFY0PM"></script> <!-- nosemgrep: missing-integrity -->
+<!-- Google tag (gtag.js) + GTM + AdSense: deferred until first interaction or 3.5s.
+     Events queue in dataLayer meanwhile, so no analytics are lost. -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-7R95MFY0PM');
+  (function(){
+    var done = false;
+    function loadTags(){
+      if (done) return; done = true;
+      var g = document.createElement('script'); g.async = true;
+      g.src = 'https://www.googletagmanager.com/gtag/js?id=G-7R95MFY0PM';
+      document.head.appendChild(g);
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-WNK22QM3');
+      var a = document.createElement('script'); a.async = true; a.crossOrigin = 'anonymous';
+      a.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2177114511441377';
+      document.head.appendChild(a);
+    }
+    function onFirstInput(){
+      // Ignore synthetic events fired during page setup / scroll restoration
+      if (performance.now() < 800) return;
+      loadTags();
+      ['wheel','touchstart','mousedown','keydown'].forEach(function(e){
+        removeEventListener(e, onFirstInput);
+      });
+    }
+    ['wheel','touchstart','mousedown','keydown'].forEach(function(e){
+      addEventListener(e, onFirstInput, {passive:true});
+    });
+    setTimeout(loadTags, 3500);
+  })();
 </script>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-WNK22QM3');</script>
-<!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DriveSight — Best Free Dash Cam App for Android</title>
@@ -3053,7 +3074,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             66%       { transform: translateY(20px) scale(0.96); }
         }
     </style>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2177114511441377" crossorigin="anonymous"></script> <!-- nosemgrep: missing-integrity -->
 </head>
 <body>
 <!-- Interactive Mesh Canvas -->
@@ -3840,8 +3860,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ============ PRICING ============ -->
 
 <!-- ============ REVIEWS ============ -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2177114511441377"
-     crossorigin="anonymous"></script>
 <!-- approvethewebsite -->
 <ins class="adsbygoogle"
      style="display:block"
