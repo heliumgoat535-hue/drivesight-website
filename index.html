@@ -397,7 +397,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             --border-color-hover: rgba(255, 255, 255, 0.15);
             --text-bright: #ffffff;
             --text-normal: #9ca3af;
-            --text-dim: #6b7280;
+            --text-dim: #8b95a8;
             --text-light: #4b5563;
             --font-title: 'Outfit', 'Inter', -apple-system, sans-serif;
             --font-body: 'Inter', -apple-system, sans-serif;
@@ -1484,12 +1484,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         }
         #parking-mode div[style*="position:absolute; top:14px"] {
             background: var(--color-secondary) !important;
+            color: #06283a !important; /* dark on cyan — 4.5:1+ WCAG AA */
             font-family: var(--font-title);
             font-weight: 700 !important;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        #parking-mode div[style*="background:#a855f7"] {
-            background: var(--color-purple) !important;
+        #parking-mode div[style*="background:#7e22ce"] {
+            background: #7e22ce !important; /* darker purple keeps white text AA-compliant */
+            color: #fff !important;
         }
         #parking-mode ul {
             padding-left: 20px !important;
@@ -3440,7 +3442,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="feat-callout">
             <div class="feat-stat"><span class="num">17</span><span class="lbl">Features included free</span></div>
-            <div class="feat-stat" style="opacity:0.5;"><span class="num">17</span><span class="lbl">Pro upgrades available</span></div>
+            <div class="feat-stat" style="opacity:0.85;"><span class="num">17</span><span class="lbl" style="color:#a8b2c4;">Pro upgrades available</span></div>
         </div>
 
         <div class="feat-legend">
@@ -3599,7 +3601,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                              alt="DriveSight parking mode button — tap P icon to enable parking mode"
                              loading="lazy">
                     </div>
-                    <div style="position:absolute; top:14px; left:14px; background:#3b82f6; color:#fff; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px; z-index: 10;">Step 1</div>
+                    <div style="position:absolute; top:14px; left:14px; background:#1d4ed8; color:#fff; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px; z-index: 10;">Step 1</div>
                 </div>
                 <div style="padding:22px 0;">
                     <div style="font-size:1.05rem; font-weight:700; color:var(--text-bright); margin-bottom:8px;">Enable Parking Mode</div>
@@ -3615,7 +3617,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                              alt="DriveSight Dog Mode — screen shows DOG MODE IS ON with Parking Mode Active and 7 motion events"
                              loading="lazy">
                     </div>
-                    <div style="position:absolute; top:14px; left:14px; background:#a855f7; color:#fff; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px; z-index: 10;">Step 2</div>
+                    <div style="position:absolute; top:14px; left:14px; background:#7e22ce; color:#fff; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px; z-index: 10;">Step 2</div>
                 </div>
                 <div style="padding:22px 0;">
                     <div style="font-size:1.05rem; font-weight:700; color:var(--text-bright); margin-bottom:8px;">Dog Mode Stays On Screen</div>
@@ -3631,7 +3633,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                              alt="DriveSight remote viewer controls — Talk/Listen, Rotate Image, Front/Rear camera, Flashlight, Fullscreen"
                              loading="lazy">
                     </div>
-                    <div style="position:absolute; top:14px; left:14px; background:#3b82f6; color:#fff; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px; z-index: 10;">Step 3</div>
+                    <div style="position:absolute; top:14px; left:14px; background:#1d4ed8; color:#fff; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px; z-index: 10;">Step 3</div>
                 </div>
                 <div style="padding:22px 0;">
                     <div style="font-size:1.05rem; font-weight:700; color:var(--text-bright); margin-bottom:8px;">Watch From Anywhere</div>
