@@ -380,7 +380,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <!-- Preload fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+    <link rel="preload" as="image" href="assets/aiobjects-opt.webp" fetchpriority="high">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet"></noscript>
 
     <style>
         /* ============ FONTS & SYSTEM VARIABLES ============ */
@@ -3142,7 +3144,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="hero-mockup-stack fade-up">
             <div class="glow-orb orb-emerald" style="top: 10%; left: 15%; width: 400px; height: 300px; opacity: 0.15; filter: blur(80px);"></div>
             <div class="device-mockup-landscape">
-                <img decoding="async" loading="lazy" src="assets/aiobjects-opt.webp" alt="DriveSight AI object detection dashboard view showing bounding boxes on vehicles" width="1280" height="576" fetchpriority="high">
+                <img decoding="async" loading="eager" src="assets/aiobjects-opt.webp" alt="DriveSight AI object detection dashboard view showing bounding boxes on vehicles" width="1280" height="576" fetchpriority="high">
             </div>
             <div class="device-mockup-portrait">
                 <img decoding="async" loading="lazy" src="assets/real-chicago-police-map-opt.webp" alt="DriveSight active map showing speed camera and speed trap alerts" width="800" height="1777">
