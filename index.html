@@ -294,7 +294,6 @@
     <!-- Preload fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="image" href="assets/aiobjects-opt.webp" imagesrcset="assets/aiobjects-640.webp 640w, assets/aiobjects-960.webp 960w, assets/aiobjects-opt.webp 1280w" imagesizes="(max-width: 900px) 92vw, 620px" fetchpriority="high">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet"></noscript>
 
@@ -523,11 +522,10 @@
 
         /* ============ HERO ============ */
         .hero {
-            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 120px 24px 80px;
+            padding: 110px 24px 48px;
             position: relative;
             overflow: hidden;
             background-color: var(--color-bg-main);
@@ -875,7 +873,7 @@
         }
 
         /* ============ SECTIONS COMMON ============ */
-        section { padding: 100px 24px; position: relative; }
+        section { padding: 56px 24px; position: relative; }
         .section-inner { max-width: 1200px; margin: 0 auto; }
         .section-label {
             display: inline-block;
@@ -910,7 +908,7 @@
             margin-bottom: 40px;
         }
         section { 
-            padding: 100px 24px; 
+            padding: 56px 24px; 
             position: relative; 
             border-top: 1px solid rgba(255, 255, 255, 0.03);
         }
@@ -1521,7 +1519,7 @@
         footer {
             background: var(--color-bg-card) !important;
             border-top: 1px solid var(--border-color) !important;
-            padding: 80px 24px 48px !important;
+            padding: 48px 24px 32px !important;
         }
         .footer-inner {
             display: grid;
@@ -1676,7 +1674,7 @@
                 gap: 20px !important;
                 z-index: 1001;
             }
-            .hero { min-height: auto; padding: 120px 20px 60px; }
+            .hero { min-height: auto; padding: 90px 20px 40px; }
             .hero h1 { font-size: 2.5rem !important; }
             .hero-subtitle { margin-bottom: 28px !important; }
             .feature-grid { grid-template-columns: 1fr !important; gap: 20px !important; }
@@ -1699,7 +1697,7 @@
         @media (max-width: 480px) {
             .hero h1 { font-size: 2rem !important; }
             .hero-subtitle { font-size: 0.95rem; }
-            section { padding: 80px 16px !important; }
+            section { padding: 44px 16px !important; }
             .feature-card { padding: 32px 24px !important; }
             .screenshot-gallery {
                 grid-template-columns: 1fr !important;
@@ -2188,7 +2186,7 @@
         section {
             border-top: 1px solid var(--border-color) !important;
             background-color: var(--color-bg-main) !important;
-            padding: 100px 24px !important;
+            padding: 56px 24px !important;
             position: relative;
             z-index: 1;
         }
@@ -3058,18 +3056,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 Works on Any Android
             </span>
         </div>
-
-        <!-- Hero Graphic — Overlapping 3D Mockup Stack -->
-        <div class="hero-mockup-stack fade-up">
-            <div class="glow-orb orb-emerald" style="top: 10%; left: 15%; width: 400px; height: 300px; opacity: 0.15; filter: blur(80px);"></div>
-            <div class="device-mockup-landscape">
-                <img decoding="async" loading="eager" src="assets/aiobjects-opt.webp" srcset="assets/aiobjects-640.webp 640w, assets/aiobjects-960.webp 960w, assets/aiobjects-opt.webp 1280w" sizes="(max-width: 900px) 92vw, 620px" alt="DriveSight AI object detection dashboard view showing bounding boxes on vehicles" width="1280" height="576" fetchpriority="high">
-            </div>
-            <div class="device-mockup-portrait">
-                <img decoding="async" loading="lazy" src="assets/real-chicago-police-map-opt.webp" srcset="assets/real-chicago-police-map-300.webp 300w, assets/real-chicago-police-map-500.webp 500w, assets/real-chicago-police-map-opt.webp 800w" sizes="(max-width: 900px) 34vw, 260px" alt="DriveSight active map showing speed camera and speed trap alerts" width="800" height="1777">
-            </div>
-        </div>
-    </div>
+</div>
 </section>
 
 <!-- ============ SOCIAL PROOF ============ -->
