@@ -2915,51 +2915,136 @@
             justify-content: center !important;
         }
 
-<<<<<<< HEAD
-        /* ============ CUSTOM CURSOR ============ */
-        @media (pointer: fine) {
-            body { cursor: none !important; }
-            a, button, [role="button"] { cursor: none !important; }
+/* ============ RECOMMENDED GEAR CARDS ============ */
+        .gear-subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--text-bright);
+            margin-top: 48px;
+            margin-bottom: 4px;
         }
-        .cursor-pointer {
-            position: fixed;
-            top: 0; left: 0;
-            width: 8px; height: 8px;
-            border-radius: 50%;
-            background: #00f5a0;
-            pointer-events: none;
-            z-index: 99999;
-            transform: translate(-50%, -50%);
-            transition: width 0.2s ease, height 0.2s ease, background 0.2s ease, opacity 0.2s ease;
-            mix-blend-mode: normal;
-            will-change: transform;
+        .gear-products {
+            display: grid;
+            gap: 24px;
+            margin-left: auto;
+            margin-right: auto;
         }
-        .cursor-pointer.hovering {
-            width: 14px; height: 14px;
-            background: #00d2ff;
+        .gear-3col {
+            grid-template-columns: repeat(3, 1fr);
+            max-width: 1100px;
         }
-        .cursor-glow {
-            position: fixed;
-            top: 0; left: 0;
-            width: 36px; height: 36px;
-            border-radius: 50%;
-            border: 1px solid rgba(0, 245, 160, 0.35);
-            pointer-events: none;
-            z-index: 99998;
-            transform: translate(-50%, -50%);
-            transition: width 0.35s cubic-bezier(0.16,1,0.3,1),
-                        height 0.35s cubic-bezier(0.16,1,0.3,1),
-                        border-color 0.3s ease,
-                        opacity 0.3s ease;
-            will-change: transform;
+        .gear-2col {
+            grid-template-columns: repeat(2, 1fr);
+            max-width: 740px;
         }
-        .cursor-glow.hovering {
-            width: 56px; height: 56px;
-            border-color: rgba(0, 210, 255, 0.5);
-            background: rgba(0, 245, 160, 0.03);
+        /* unused now but kept for flexibility */
+        .gear-card-inner {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 32px;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
-=======
->>>>>>> 1578ae8 (chore: remove custom cursor — revert to default browser cursor)
+        .gear-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: var(--green);
+            color: #0a0e17;
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .gear-image {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .gear-image img {
+            width: 100%;
+            max-width: 260px;
+            margin: 0 auto;
+            border-radius: 12px;
+            background: #fff;
+            padding: 12px;
+            transition: transform 0.3s ease;
+        }
+        .gear-image img:hover {
+            transform: scale(1.03);
+        }
+        .gear-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .gear-details h3 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--text-bright);
+            margin-bottom: 8px;
+        }
+        .gear-price-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+        .gear-price {
+            color: var(--green);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .gear-stars {
+            color: #f59e0b;
+            font-size: 0.85rem;
+        }
+        .gear-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 16px 0;
+        }
+        .gear-features li {
+            color: var(--text);
+            font-size: 0.88rem;
+            padding: 4px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .gear-features li .check {
+            color: var(--green);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .gear-desc {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+        .gear-details .btn-primary {
+            display: inline-flex;
+            font-size: 0.9rem;
+            padding: 10px 24px;
+            align-self: flex-start;
+        }
+        @media (max-width: 900px) {
+            .gear-3col, .gear-2col {
+                grid-template-columns: 1fr;
+                max-width: 420px;
+            }
+            .gear-card-inner { padding: 24px 20px; }
+        }
+
         /* ============ GLOW ORBS ============ */
         .glow-orb {
             position: fixed;
@@ -3217,6 +3302,74 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </section>
 
 <!-- ============ USE CASES ============ -->
+<!-- ============ RECOMMENDED GEAR ============ -->
+<section class="recommended-gear" id="gear" style="padding: 80px 24px;">
+    <div class="section-inner" style="text-align:center;">
+        <span class="section-label">Recommended Gear</span>
+        <h2 class="section-title">Everything You Need for a Dedicated Dashcam</h2>
+        <p class="section-subtitle">Add a second recording angle and keep your phone powered 24/7. All tested with DriveSight.</p>
+
+        <div class="gear-products gear-2col fade-up" style="margin-top:40px; text-align:left;">
+            <!-- USB Second Camera -->
+            <div class="gear-card">
+                <div class="gear-card-inner">
+                    <div class="gear-badge">Dual Camera</div>
+                    <div class="gear-image">
+                        <a href="https://amzn.to/4wVcIDv" target="_blank" rel="noopener sponsored">
+                            <img src="assets/usb-second-camera.webp" alt="1080p USB dash cam camera with adhesive windshield mount for use as a second camera with DriveSight" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="gear-details">
+                        <h3>USB Second Camera</h3>
+                        <div class="gear-price-row">
+                            <span class="gear-price">$25.99</span>
+                            <span class="gear-stars">&#9733;&#9733;&#9733;&#9733;&#9734; 4.4</span>
+                        </div>
+                        <ul class="gear-features">
+                            <li><span class="check">&#10003;</span> Adds a second recording angle to DriveSight</li>
+                            <li><span class="check">&#10003;</span> 1080p wide-angle lens</li>
+                            <li><span class="check">&#10003;</span> Plugs straight into your phone's USB port</li>
+                            <li><span class="check">&#10003;</span> Low-profile adhesive mount</li>
+                            <li><span class="check">&#10003;</span> 64GB SD card included</li>
+                        </ul>
+                        <p class="gear-desc">Turn DriveSight into a dual-camera setup. Stick this on your rear window — or anywhere you want a second angle — plug it into your phone, and DriveSight records it alongside your phone's camera.</p>
+                        <a href="https://amzn.to/4wVcIDv" class="btn-primary" target="_blank" rel="noopener sponsored">View on Amazon</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OBD Power Cable with Voltmeter -->
+            <div class="gear-card">
+                <div class="gear-card-inner">
+                    <div class="gear-badge" style="background:#f59e0b;">24/7 Power</div>
+                    <div class="gear-image">
+                        <a href="https://amzn.to/4bS79xg" target="_blank" rel="noopener sponsored">
+                            <img src="assets/obd-power-voltmeter.webp" alt="OBD dash cam power cable with USB-C, ACC detection, LED voltmeter and low voltage protection for parking mode" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="gear-details">
+                        <h3>OBD Power Cable with Voltmeter</h3>
+                        <div class="gear-price-row">
+                            <span class="gear-price">$16.49</span>
+                            <span class="gear-stars">&#9733;&#9733;&#9733;&#9733;&#9734; 4.4</span>
+                        </div>
+                        <ul class="gear-features">
+                            <li><span class="check">&#10003;</span> Plugs into your OBD port — no wiring</li>
+                            <li><span class="check">&#10003;</span> USB-C output, 11.5ft cable</li>
+                            <li><span class="check">&#10003;</span> Live LED battery voltage readout</li>
+                            <li><span class="check">&#10003;</span> 4-level low-voltage cutoff protects your battery</li>
+                            <li><span class="check">&#10003;</span> ACC detection for engine-on or 24/7 modes</li>
+                        </ul>
+                        <p class="gear-desc">Keeps your phone charged around the clock so parking mode never stops. Plug it into the OBD port, tuck the cable behind the trim, and the built-in voltmeter shows your battery level — the cutoff stops drawing power before your car can't start.</p>
+                        <a href="https://amzn.to/4bS79xg" class="btn-primary" target="_blank" rel="noopener sponsored">View on Amazon</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a href="/accessories" class="btn-primary" style="margin-top:40px;">Browse All Accessories</a>
+    </div>
+</section>
 
 <!-- ============ PRICING ============ -->
 
