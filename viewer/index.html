@@ -186,6 +186,20 @@
         }
         .temp-readout.hot { color: #ef4444; }
 
+        /* Push-notification status. Every failure path in the FCM handshake
+           used to return silently, so "no push arrived" was undiagnosable
+           without a desktop debugger attached. This surfaces the actual
+           reason on the device itself; tapping retries the handshake. */
+        .push-status {
+            font-size: 12px;
+            font-weight: 600;
+            color: #999;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .push-status.on { color: #34d399; }
+        .push-status.off { color: #f59e0b; }
+
         /* Video container */
         .video-container {
             position: relative;
@@ -409,6 +423,7 @@
                 <span class="status-text" id="statusText">Initializing...</span>
             </div>
             <span class="temp-readout" id="tempReadout"></span>
+            <span class="push-status" id="pushStatus" onclick="setupPushNotifications()" title="Push notification status — tap to retry"></span>
             <span class="logo-text">DriveSight</span>
         </div>
 
@@ -822,38 +837,90 @@
         }
 
         // ─── FCM Web Push ──────────────────────────────────────────────
+        let fcmToken = null;
+
+        function setPushStatus(state, label, detail) {
+            const el = document.getElementById('pushStatus');
+            if (!el) return;
+            el.className = 'push-status ' + state;
+            el.textContent = label;
+            el.title = detail || label;
+        }
+
+        // Write the token to wherever the Cloud Function will look for it.
+        // The dashcam mints a NEW session document every time Parking Mode
+        // arms, so this must run again on every session switch — a token
+        // saved only on the first session is invisible to later alerts.
+        async function saveFcmToken() {
+            if (!fcmToken) return;
+            let saved = false;
+            if (sessionId) {
+                try {
+                    await db.collection('webrtc_sessions').doc(sessionId)
+                        .update({ viewerFcmToken: fcmToken });
+                    saved = true;
+                } catch (e) {
+                    console.warn('Could not save FCM token to session doc:', e.message);
+                }
+            }
+            if (deviceId) {
+                try {
+                    await db.collection('devices').doc(deviceId)
+                        .set({ viewerFcmToken: fcmToken }, { merge: true });
+                    saved = true;
+                } catch (e) {
+                    console.warn('Could not save FCM token to device doc:', e.message);
+                }
+            }
+            if (saved) {
+                console.log('FCM token saved for push notifications');
+                setPushStatus('on', '🔔 Push on', 'Alerts will reach this device even with the viewer closed.');
+            } else {
+                setPushStatus('off', '🔕 Push not saved', 'Got a push token but could not store it. Tap to retry.');
+            }
+        }
+
         async function setupPushNotifications() {
             try {
-                if (!('Notification' in window) || !('serviceWorker' in navigator)) return;
+                if (!('Notification' in window) || !('serviceWorker' in navigator)) {
+                    setPushStatus('off', '🔕 Push unsupported',
+                        'This browser cannot receive push. On iPhone, add this page to your Home Screen and open it from there.');
+                    return;
+                }
 
                 // Register service worker for background push
                 const swReg = await navigator.serviceWorker.register('firebase-messaging-sw.js')
-                    .catch(e => { console.log('SW registration failed:', e.message); return null; });
-                if (!swReg) return;
+                    .catch(e => { console.log('SW registration failed:', e.message); return e; });
+                if (!swReg || !swReg.scope) {
+                    setPushStatus('off', '🔕 Push blocked', 'Background service worker failed to register: ' + (swReg && swReg.message));
+                    return;
+                }
 
                 const permission = await Notification.requestPermission();
-                if (permission !== 'granted') return;
+                if (permission !== 'granted') {
+                    setPushStatus('off', '🔕 Push ' + permission,
+                        permission === 'denied'
+                            ? 'Notifications are blocked for this site. Allow them in site settings, then reload.'
+                            : 'Tap here and choose Allow to receive alerts when the viewer is closed.');
+                    return;
+                }
 
                 const messaging = firebase.messaging();
-                const token = await messaging.getToken({
-                    serviceWorkerRegistration: swReg
-                }).catch(() => null);
-
-                if (token) {
-                    // Save FCM token to session document (QR code flow)
-                    if (sessionId) {
-                        await db.collection('webrtc_sessions').doc(sessionId).update({
-                            viewerFcmToken: token
-                        }).catch(() => {});
-                    }
-                    // Save FCM token to devices document (PIN flow — persistent across sessions)
-                    if (deviceId) {
-                        await db.collection('devices').doc(deviceId).set({
-                            viewerFcmToken: token
-                        }, { merge: true }).catch(() => {});
-                    }
-                    console.log('FCM token saved for push notifications');
+                let token = null;
+                try {
+                    token = await messaging.getToken({ serviceWorkerRegistration: swReg });
+                } catch (e) {
+                    console.warn('getToken failed:', e.code || '', e.message);
+                    setPushStatus('off', '🔕 Push failed', 'Could not get a push token: ' + e.message);
+                    return;
                 }
+                if (!token) {
+                    setPushStatus('off', '🔕 Push failed', 'Push service returned no token. Tap to retry.');
+                    return;
+                }
+
+                fcmToken = token;
+                await saveFcmToken();
 
                 // Handle foreground messages
                 messaging.onMessage((payload) => {
@@ -870,6 +937,7 @@
                 });
             } catch (err) {
                 console.log('Push notification setup skipped:', err.message);
+                setPushStatus('off', '🔕 Push error', err.message);
             }
         }
 
@@ -921,6 +989,9 @@
 
                     sessionId = newSessionId;
                     sessionSecret = newSecret;
+
+                    // Re-point push at the new session document (see saveFcmToken).
+                    saveFcmToken();
 
                     // Now try to connect to the WebRTC session
                     await tryConnectSession();
