@@ -1193,11 +1193,11 @@
             if (currentCameraMode === 'rear') {
                 rearRotation = (rearRotation + 90) % 360;
                 update.rearRotation = rearRotation;
-                rotateLabel.textContent = rearRotation + '°';
+                if (rotateLabel) rotateLabel.textContent = rearRotation + '°';
             } else {
                 frontRotation = (frontRotation + 90) % 360;
                 update.frontRotation = frontRotation;
-                rotateLabel.textContent = frontRotation + '°';
+                if (rotateLabel) rotateLabel.textContent = frontRotation + '°';
             }
             db.collection('webrtc_sessions').doc(sessionId)
                 .update(update)
@@ -1215,7 +1215,10 @@
             const idx = cameraModes.indexOf(currentCameraMode);
             currentCameraMode = cameraModes[(idx + 1) % cameraModes.length];
             camLabel.textContent = cameraModeLabels[currentCameraMode];
-            rotateLabel.textContent = (currentCameraMode === 'rear' ? rearRotation : frontRotation) + '°';
+            // rotateLabel's button was removed from the page; a bare .textContent on
+            // the null lookup threw here and killed the Firestore write below, which
+            // is why the camera-switch button changed its label but did nothing.
+            if (rotateLabel) rotateLabel.textContent = (currentCameraMode === 'rear' ? rearRotation : frontRotation) + '°';
             db.collection('webrtc_sessions').doc(sessionId)
                 .update({ cameraMode: currentCameraMode })
                 .catch(err => console.error('Failed to set camera mode:', err));
