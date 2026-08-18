@@ -328,6 +328,13 @@
             background: #450a0a;
         }
 
+        .threat-alert-hint {
+            padding: 8px 16px;
+            font-size: 11px;
+            color: #fca5a5;
+            text-align: center;
+        }
+
         /* Bottom bar */
         .bottom-bar {
             position: fixed;
@@ -741,6 +748,10 @@
                 photo.onerror = () => photo.remove();
                 card.appendChild(photo);
             }
+            const hint = document.createElement('div');
+            hint.className = 'threat-alert-hint';
+            hint.textContent = 'Tap to dismiss';
+            card.appendChild(hint);
             card.addEventListener('click', () => card.remove());
             alertContainer.innerHTML = '';
             alertContainer.appendChild(card);
@@ -751,11 +762,13 @@
                     icon: '../assets/icon-512.png',
                     image: imageUrl || undefined,
                     tag: 'threat-alert',
-                    renotify: true
+                    renotify: true,
+                    requireInteraction: true
                 });
             }
 
-            setTimeout(() => { card.remove(); }, 30000);
+            // No auto-hide: a threat is the one alert worth interrupting for,
+            // and the photo deserves a proper look. Stays until tapped.
         }
 
         // ─── Cabin temperature (Parking Mode) ───────────────────────────
