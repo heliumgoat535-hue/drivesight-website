@@ -328,12 +328,27 @@
             background: #450a0a;
         }
 
-        .threat-alert-hint {
-            padding: 8px 16px;
-            font-size: 11px;
-            color: #fca5a5;
-            text-align: center;
+        .threat-alert-footer {
+            display: flex;
+            border-top: 1px solid rgba(239,68,68,0.4);
         }
+
+        .threat-alert-btn {
+            flex: 1;
+            padding: 12px 8px;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .threat-alert-btn + .threat-alert-btn {
+            border-left: 1px solid rgba(239,68,68,0.4);
+        }
+
+        .threat-alert-btn.dismiss { color: #fca5a5; }
 
         /* Bottom bar */
         .bottom-bar {
@@ -748,10 +763,23 @@
                 photo.onerror = () => photo.remove();
                 card.appendChild(photo);
             }
-            const hint = document.createElement('div');
-            hint.className = 'threat-alert-hint';
-            hint.textContent = 'Tap to dismiss';
-            card.appendChild(hint);
+            const footer = document.createElement('div');
+            footer.className = 'threat-alert-footer';
+            if (imageUrl) {
+                const saveBtn = document.createElement('button');
+                saveBtn.className = 'threat-alert-btn';
+                saveBtn.textContent = 'Save photo';
+                saveBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    saveThreatPhoto(imageUrl, saveBtn);
+                });
+                footer.appendChild(saveBtn);
+            }
+            const dismissBtn = document.createElement('button');
+            dismissBtn.className = 'threat-alert-btn dismiss';
+            dismissBtn.textContent = 'Dismiss';
+            footer.appendChild(dismissBtn);
+            card.appendChild(footer);
             card.addEventListener('click', () => card.remove());
             alertContainer.innerHTML = '';
             alertContainer.appendChild(card);
@@ -769,6 +797,35 @@
 
             // No auto-hide: a threat is the one alert worth interrupting for,
             // and the photo deserves a proper look. Stays until tapped.
+        }
+
+        // Download the threat photo to the device. The storage URL is only as
+        // permanent as the clip cleanup that owns it, so "save" means a local
+        // copy, not a bookmark. Falls back to opening the image in a new tab
+        // if the fetch fails (e.g. offline mid-save).
+        async function saveThreatPhoto(imageUrl, btn) {
+            const prev = btn.textContent;
+            btn.textContent = 'Saving…';
+            try {
+                const resp = await fetch(imageUrl);
+                if (!resp.ok) throw new Error('HTTP ' + resp.status);
+                const blob = await resp.blob();
+                const url = URL.createObjectURL(blob);
+                const ts = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'DriveSight_threat_' + ts + '.jpg';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                setTimeout(() => URL.revokeObjectURL(url), 1000);
+                btn.textContent = 'Saved!';
+                setTimeout(() => { btn.textContent = prev; }, 1500);
+            } catch (e) {
+                console.warn('Threat photo save failed:', e.message);
+                btn.textContent = prev;
+                window.open(imageUrl, '_blank');
+            }
         }
 
         // ─── Cabin temperature (Parking Mode) ───────────────────────────
