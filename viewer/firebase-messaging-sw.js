@@ -5,12 +5,12 @@ importScripts('firebase-app-compat.js');
 importScripts('firebase-messaging-compat.js');
 
 firebase.initializeApp({
-    apiKey: "AIzaSyBn6SRgwVvcNkP9sUoHep_iShLFC-pJSIk",
+    apiKey: "AIzaSyAx1dWh8cc_1wohB-3Be94GgbyELiOxuY0",
     authDomain: "deer-dash.firebaseapp.com",
     projectId: "deer-dash",
     storageBucket: "deer-dash.firebasestorage.app",
     messagingSenderId: "834190963152",
-    appId: "1:834190963152:web:viewer"
+    appId: "1:834190963152:web:9d0cfa99a65c81f25889d5"
 });
 
 const messaging = firebase.messaging();
