@@ -98,6 +98,13 @@
         footer a:hover { color: #fff; }
         @media (max-width: 640px) { .hero { padding: 50px 0 40px; } .hero h1 { font-size: 2rem; } .hero p.lead { font-size: 1.05rem; } h2 { font-size: 1.7rem; margin-bottom: 36px; } section { padding: 50px 0; } }
     </style>
+    <script type="module">
+        import { analytics } from 'https://esm.sh/@heycatch/sdk@0.7.0';
+        analytics.init({
+            projectKey: 'hck_pk_c_ndUBR5_kFIOrh8tgXhS2KEYYKv2ISd',
+            install: { framework: 'web', agent: 'claude-code' },
+        });
+    </script>
 </head>
 <body>
 
