@@ -2116,6 +2116,111 @@
             color: var(--text-bright) !important;
         }
 
+        /* ============ HERO UGC CLIPS ============ */
+        .hero-clips {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            max-width: 760px;
+            margin: 44px auto 0;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-clip {
+            position: relative;
+            margin: 0;
+            aspect-ratio: 608 / 1094;
+            border-radius: 22px;
+            overflow: hidden;
+            background: #0b0d10;
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            box-shadow: 0 18px 44px rgba(0, 0, 0, 0.45);
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                        border-color 0.35s ease,
+                        box-shadow 0.35s ease;
+        }
+        .hero-clip:hover {
+            transform: translateY(-4px);
+            border-color: rgba(0, 245, 160, 0.28);
+            box-shadow: 0 22px 54px rgba(0, 0, 0, 0.55), 0 0 40px rgba(0, 245, 160, 0.08);
+        }
+        .hero-clip-video {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: #0b0d10;
+        }
+        .hero-clip-sound {
+            position: absolute;
+            right: 8px;
+            bottom: 8px;
+            width: 34px;
+            height: 34px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            border-radius: 50%;
+            cursor: pointer;
+            color: #ffffff;
+            background: rgba(8, 12, 16, 0.66);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+        .hero-clip-sound:hover {
+            background: rgba(8, 12, 16, 0.85);
+            border-color: rgba(0, 245, 160, 0.45);
+        }
+        .hero-clip-sound:focus-visible {
+            outline: 2px solid #00f5a0;
+            outline-offset: 2px;
+        }
+        .hero-clip-sound svg { width: 17px; height: 17px; pointer-events: none; }
+        .hero-clip-sound .icon-on { display: none; }
+        .hero-clip-sound[aria-pressed="true"] .icon-on { display: block; }
+        .hero-clip-sound[aria-pressed="true"] .icon-off { display: none; }
+        .hero-clip-srtext {
+            position: absolute;
+            width: 1px; height: 1px;
+            padding: 0; margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        @media (max-width: 640px) {
+            /* Three side-by-side clips get too small to read on a phone —
+               bleed to the screen edges and let the row swipe instead. */
+            .hero-clips {
+                display: flex;
+                grid-template-columns: none;
+                max-width: none;
+                gap: 12px;
+                margin: 32px -20px 0;
+                padding: 0 20px 6px;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            .hero-clips::-webkit-scrollbar { display: none; }
+            /* .hero-content is a flex item; without this it grows to the
+               row's intrinsic width and the hero clips the overflow. */
+            .hero-content { min-width: 0; max-width: 100%; }
+            .hero-clip {
+                flex: 0 0 62vw;
+                max-width: 260px;
+                scroll-snap-align: center;
+                border-radius: 18px;
+            }
+            .hero-clip:hover { transform: none; }
+            .hero-clip-sound { width: 30px; height: 30px; right: 7px; bottom: 7px; }
+            .hero-clip-sound svg { width: 15px; height: 15px; }
+        }
+
         /* 3D Overlapping mockup stack */
         .hero-mockup-stack {
             position: relative;
@@ -3148,6 +3253,49 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 Works on Any Android
             </span>
         </div>
+
+    <!-- ============ HERO UGC CLIPS ============ -->
+    <div class="hero-clips">
+        <figure class="hero-clip">
+            <video class="hero-clip-video" muted loop playsinline controls preload="none"
+                   width="608" height="1094"
+                   poster="assets/hero-ugc-poster.webp"
+                   aria-label="Driver at a night-time traffic stop explaining how DriveSight turns a phone into an AI dash cam">
+                <source src="assets/hero-ugc.mp4" type="video/mp4">
+            </video>
+            <button class="hero-clip-sound" type="button" hidden aria-pressed="false">
+                <span class="hero-clip-srtext">Toggle sound</span>
+                <svg class="icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+                <svg class="icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+            </button>
+        </figure>
+        <figure class="hero-clip">
+            <video class="hero-clip-video" muted loop playsinline controls preload="none"
+                   width="608" height="1094"
+                   poster="assets/hero-ugc-2-poster.webp"
+                   aria-label="Short clip about using DriveSight to stay aware of speed cameras and tickets">
+                <source src="assets/hero-ugc-2.mp4" type="video/mp4">
+            </video>
+            <button class="hero-clip-sound" type="button" hidden aria-pressed="false">
+                <span class="hero-clip-srtext">Toggle sound</span>
+                <svg class="icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+                <svg class="icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+            </button>
+        </figure>
+        <figure class="hero-clip">
+            <video class="hero-clip-video" muted loop playsinline controls preload="none"
+                   width="608" height="1094"
+                   poster="assets/hero-ugc-3-poster.webp"
+                   aria-label="Two drivers in a parking garage talking about recording with a phone dash cam">
+                <source src="assets/hero-ugc-3.mp4" type="video/mp4">
+            </video>
+            <button class="hero-clip-sound" type="button" hidden aria-pressed="false">
+                <span class="hero-clip-srtext">Toggle sound</span>
+                <svg class="icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+                <svg class="icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+            </button>
+        </figure>
+    </div>
 </div>
 </section>
 
@@ -3719,6 +3867,79 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     animate();
+})();
+</script>
+
+<!-- Hero UGC clips: defer loading until after page load, autoplay muted in view -->
+<script>
+(function () {
+    var clips = Array.prototype.slice.call(
+        document.querySelectorAll('.hero-clips .hero-clip-video')
+    );
+    if (!clips.length) return;
+
+    // No JS / reduced motion: the native controls above stay, nothing autoplays.
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!('IntersectionObserver' in window)) return;
+
+    function handBackToNativeControls() {
+        clips.forEach(function (v) {
+            v.controls = true;
+            v.preload = 'metadata';
+            var b = v.parentNode.querySelector('.hero-clip-sound');
+            if (b) b.hidden = true;
+        });
+    }
+
+    clips.forEach(function (v) {
+        v.controls = false;
+        var btn = v.parentNode.querySelector('.hero-clip-sound');
+        if (!btn) return;
+        btn.hidden = false;
+        btn.addEventListener('click', function () {
+            var turnOn = v.muted;
+            clips.forEach(function (other) {
+                other.muted = true;
+                var b = other.parentNode.querySelector('.hero-clip-sound');
+                if (b) b.setAttribute('aria-pressed', 'false');
+            });
+            v.muted = !turnOn;
+            btn.setAttribute('aria-pressed', turnOn ? 'true' : 'false');
+            if (turnOn && v.paused) v.play().catch(function () {});
+        });
+        v.addEventListener('click', function () {
+            if (v.paused) { v.play().catch(function () {}); } else { v.pause(); }
+        });
+    });
+
+    function start() {
+        var observerAlive = false;
+        var io = new IntersectionObserver(function (entries) {
+            observerAlive = true;
+            entries.forEach(function (entry) {
+                var v = entry.target;
+                if (entry.isIntersecting) {
+                    if (v.preload !== 'auto') v.preload = 'auto';
+                    v.play().catch(function () {});
+                } else if (!v.paused) {
+                    v.pause();
+                }
+            });
+        }, { threshold: 0.25 });
+        clips.forEach(function (v) { io.observe(v); });
+
+        // If the observer never reports (some embedded/headless views never
+        // composite), the clips would sit on their posters with no way to play.
+        setTimeout(function () {
+            if (!observerAlive) {
+                io.disconnect();
+                handBackToNativeControls();
+            }
+        }, 2000);
+    }
+
+    if (document.readyState === 'complete') start();
+    else window.addEventListener('load', start);
 })();
 </script>
 
