@@ -27,7 +27,11 @@ messaging.onBackgroundMessage((payload) => {
         icon: '../assets/icon-512.png',
         badge: '../assets/icon-192.png',
         vibrate: [200, 100, 200],
-        tag: 'motion-alert',
+        // Per-type tag: a shared tag would let a later motion push REPLACE a
+        // threat notification the user hasn't acted on yet.
+        tag: (payload.data && payload.data.type === 'threat_alert') ? 'threat-alert'
+           : (payload.data && payload.data.type === 'temp_alert') ? 'temp-alert'
+           : 'motion-alert',
         renotify: true,
         requireInteraction: true,
         data: payload.data || {},

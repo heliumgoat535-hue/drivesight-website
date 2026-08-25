@@ -570,9 +570,35 @@
         let currentOffer = null; // track current SDP offer to detect dashcam reconnects
         let unsubOfferWatch = null;
         let connectingInProgress = false; // prevent re-entrant connection attempts
+        let connectingSince = 0;          // when the in-flight attempt started
+        let reconnectTimer = null;        // pending auto-reconnect
+        // An "in progress" attempt older than this is a corpse (tab was frozen
+        // mid-handshake) — reset it instead of letting it block reconnects.
+        const CONNECT_ATTEMPT_STALE_MS = 20000;
+
+        function scheduleReconnect(delayMs) {
+            if (reconnectTimer) return;
+            reconnectTimer = setTimeout(() => {
+                reconnectTimer = null;
+                if (peerConnection && peerConnection.connectionState === 'connected') return;
+                console.log('Auto-reconnect: cleaning up dead connection and retrying');
+                cleanup();
+                tryConnectSession();
+            }, delayMs);
+        }
 
         // ─── Single-viewer lock ─────────────────────────────────────────
-        const viewerId = Math.random().toString(36).substr(2, 12) + Date.now();
+        // Persisted: the id must survive tab eviction (screen off) or the same
+        // phone reopening the viewer trips its OWN stale lock ("Already in Use")
+        // for up to 90s. Same id = instant take-over of our own lock.
+        const viewerId = (() => {
+            let id = localStorage.getItem('drivesight_viewer_id');
+            if (!id) {
+                id = Math.random().toString(36).substr(2, 12) + Date.now();
+                localStorage.setItem('drivesight_viewer_id', id);
+            }
+            return id;
+        })();
         let heartbeatInterval = null;
 
         // ─── ICE config ────────────────────────────────────────────────
@@ -728,19 +754,25 @@
                 </svg>
                 Motion Detected!
             `;
-            alertContainer.innerHTML = '';
-            alertContainer.appendChild(alert);
+            // A threat card outranks a motion toast — never let the toast's
+            // container-clear wipe it before the user hits Save/Dismiss. (This
+            // was exactly how threat cards kept vanishing: the person triggers
+            // more motion seconds after the verdict.)
+            if (!alertContainer.querySelector('.threat-alert')) {
+                alertContainer.innerHTML = '';
+                alertContainer.appendChild(alert);
+                setTimeout(() => { alert.remove(); }, 5000);
+            }
 
             if (Notification.permission === 'granted') {
                 new Notification('DriveSight', {
                     body: 'Motion detected on your dashcam!',
                     icon: '../assets/icon-512.png',
                     tag: 'motion-alert',
-                    renotify: true
+                    renotify: true,
+                    requireInteraction: true
                 });
             }
-
-            setTimeout(() => { alert.remove(); }, 5000);
         }
 
         // Smart Parking Guard threat card — richer than the motion toast:
@@ -785,6 +817,10 @@
             const dismissBtn = document.createElement('button');
             dismissBtn.className = 'threat-alert-btn dismiss';
             dismissBtn.textContent = 'Dismiss';
+            dismissBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                card.remove();
+            });
             footer.appendChild(dismissBtn);
             card.appendChild(footer);
             card.addEventListener('click', () => card.remove());
@@ -858,8 +894,12 @@
                 </svg>
                 Cabin Heat: ${formatTemp(celsius || 0, false)}
             `;
-            alertContainer.innerHTML = '';
-            alertContainer.appendChild(alert);
+            // Same priority rule as the motion toast: never wipe a threat card.
+            if (!alertContainer.querySelector('.threat-alert')) {
+                alertContainer.innerHTML = '';
+                alertContainer.appendChild(alert);
+                setTimeout(() => { alert.remove(); }, 8000);
+            }
 
             if (Notification.permission === 'granted') {
                 new Notification('DriveSight', {
@@ -869,8 +909,6 @@
                     renotify: true
                 });
             }
-
-            setTimeout(() => { alert.remove(); }, 8000);
         }
 
         function toggleFullscreen() {
@@ -1036,11 +1074,15 @@
             // ── Live-listen on the device doc so we auto-connect when dashcam comes online ──
             unsubDevice = db.collection('devices').doc(deviceId)
                 .onSnapshot(async (deviceSnap) => {
-                    // Ignore if we're already connected, mid-handshake, or connection in progress
-                    if (connectingInProgress) return;
-                    if (peerConnection && (peerConnection.connectionState === 'connected' ||
-                        peerConnection.connectionState === 'connecting' ||
-                        peerConnection.connectionState === 'new')) return;
+                    // Ignore if we're already connected or a FRESH attempt is
+                    // in flight. A stale attempt (tab frozen mid-handshake) or a
+                    // peer stuck in 'connecting'/'new' must NOT block reconnect.
+                    if (peerConnection && peerConnection.connectionState === 'connected') return;
+                    if (connectingInProgress) {
+                        if (Date.now() - connectingSince < CONNECT_ATTEMPT_STALE_MS) return;
+                        console.log('Stale connection attempt — resetting');
+                        cleanup();
+                    }
 
                     if (!deviceSnap.exists) {
                         setStatus('connecting', 'Waiting for dashcam...');
@@ -1081,11 +1123,16 @@
         }
 
         async function tryConnectSession() {
-            // Already in a WebRTC session or mid-setup — skip
-            if (connectingInProgress) return;
+            // Already in a WebRTC session or mid-setup — skip. Stale attempts
+            // (frozen tab) are reset rather than honored.
             if (peerConnection && peerConnection.connectionState === 'connected') return;
+            if (connectingInProgress) {
+                if (Date.now() - connectingSince < CONNECT_ATTEMPT_STALE_MS) return;
+                cleanup();
+            }
 
             connectingInProgress = true;
+            connectingSince = Date.now();
             setStatus('connecting', 'Connecting...');
             showOverlay('Connecting to Dashcam...', 'Establishing secure peer-to-peer connection', true, false);
 
@@ -1140,6 +1187,7 @@
 
         async function startWebRtc(sdpOffer) {
             connectingInProgress = true;
+            connectingSince = Date.now();
             setStatus('connecting', 'Connecting...');
             showOverlay('Connecting to Dashcam...', 'Setting up peer-to-peer video stream', true, false);
 
@@ -1219,6 +1267,7 @@
                 switch (state) {
                     case 'connected':
                         connectingInProgress = false;
+                        if (reconnectTimer) { clearTimeout(reconnectTimer); reconnectTimer = null; }
                         setStatus('connected', 'Connected');
                         hideOverlay();
                         startViewerHeartbeat();
@@ -1229,11 +1278,14 @@
                         connectingInProgress = false;
                         setStatus('connecting', 'Reconnecting...');
                         showOverlay('Reconnecting...', 'The connection was lost. Trying to reconnect automatically.', true, true);
+                        // Give ICE a window to self-heal, then rebuild from scratch.
+                        scheduleReconnect(10000);
                         break;
                     case 'failed':
                         connectingInProgress = false;
-                        setStatus('failed', 'Connection failed');
-                        showOverlay('Connection Failed', 'Could not establish a direct connection. Try switching to a different network.', false, true);
+                        setStatus('connecting', 'Reconnecting...');
+                        showOverlay('Reconnecting...', 'Connection failed — retrying automatically.', true, true);
+                        scheduleReconnect(2000);
                         break;
                     case 'closed':
                         connectingInProgress = false;
@@ -1578,7 +1630,17 @@
         }
 
         document.addEventListener('visibilitychange', () => {
-            if (document.visibilityState === 'visible') requestWakeLock();
+            if (document.visibilityState !== 'visible') return;
+            requestWakeLock();
+            // Screen-off kills the peer without firing state events the frozen
+            // tab could act on. On return, anything not connected/connecting is
+            // dead — rebuild now rather than waiting for a listener to fire.
+            const st = peerConnection ? peerConnection.connectionState : 'none';
+            if (sessionId && st !== 'connected' && st !== 'connecting') {
+                console.log('Tab visible with dead connection (' + st + ') — reconnecting');
+                cleanup();
+                tryConnectSession();
+            }
         });
 
         // ─── Start ─────────────────────────────────────────────────────
