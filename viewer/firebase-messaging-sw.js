@@ -35,6 +35,7 @@ messaging.onBackgroundMessage((payload) => {
         renotify: true,
         requireInteraction: true,
         data: payload.data || {},
+        image: (payload.data && payload.data.imageUrl) || undefined,
         actions: [
             { action: 'view', title: 'View Live' },
             { action: 'dismiss', title: 'Dismiss' }

@@ -744,7 +744,35 @@
             centerOverlay.classList.add('hidden');
         }
 
-        function showMotionAlert() {
+        // Page-context `new Notification()` THROWS on Android Chrome — OS
+        // notifications must go through the service worker there. Falls back
+        // to the constructor for browsers without an active SW registration.
+        function osNotify(title, options) {
+            if (Notification.permission !== 'granted') return;
+            if (navigator.serviceWorker && navigator.serviceWorker.ready) {
+                navigator.serviceWorker.ready
+                    .then(reg => reg.showNotification(title, options))
+                    .catch(() => { try { new Notification(title, options); } catch (_) {} });
+            } else {
+                try { new Notification(title, options); } catch (_) {}
+            }
+        }
+
+        function showMotionAlert(imageUrl) {
+            // With a snapshot, motion gets the persistent card (photo +
+            // Save/Dismiss) — a picture is worth keeping on screen.
+            if (imageUrl) {
+                showAlertCard('Motion Detected', 'Movement near your vehicle.', imageUrl);
+                osNotify('DriveSight', {
+                    body: 'Motion detected on your dashcam!',
+                    icon: '../assets/icon-512.png',
+                    image: imageUrl,
+                    tag: 'motion-alert',
+                    renotify: true,
+                    requireInteraction: true
+                });
+                return;
+            }
             const alert = document.createElement('div');
             alert.className = 'motion-alert';
             alert.innerHTML = `
@@ -764,15 +792,13 @@
                 setTimeout(() => { alert.remove(); }, 5000);
             }
 
-            if (Notification.permission === 'granted') {
-                new Notification('DriveSight', {
-                    body: 'Motion detected on your dashcam!',
-                    icon: '../assets/icon-512.png',
-                    tag: 'motion-alert',
-                    renotify: true,
-                    requireInteraction: true
-                });
-            }
+            osNotify('DriveSight', {
+                body: 'Motion detected on your dashcam!',
+                icon: '../assets/icon-512.png',
+                tag: 'motion-alert',
+                renotify: true,
+                requireInteraction: true
+            });
         }
 
         // Smart Parking Guard threat card — richer than the motion toast:
@@ -780,8 +806,10 @@
         // when the phone's upload beat the alert, and sticks around until
         // tapped (or 30 s). The FCM push is the out-of-page channel; this is
         // the in-page mirror of the same alert.
-        function showThreatAlert(kind, imageUrl) {
-            const behavior = kind === 'approaching' ? 'approaching' : 'lingering at';
+        // Persistent alert card: photo when available, Save/Dismiss footer,
+        // tap-anywhere-to-dismiss. No auto-hide — cards with actions stay until
+        // acted on (toasts wiping these was exactly the disappearing-alert bug).
+        function showAlertCard(title, subtitle, imageUrl) {
             const card = document.createElement('div');
             card.className = 'threat-alert';
             card.innerHTML = `
@@ -790,14 +818,14 @@
                         <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
                         <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
                     </svg>
-                    Person at your car
+                    ${title}
                 </div>
-                <div class="threat-alert-sub">Someone is ${behavior} your vehicle. Recording started.</div>
+                <div class="threat-alert-sub">${subtitle}</div>
             `;
             if (imageUrl) {
                 const photo = document.createElement('img');
                 photo.className = 'threat-alert-photo';
-                photo.alt = 'Person detected by dashcam';
+                photo.alt = 'Snapshot from dashcam';
                 photo.src = imageUrl;
                 photo.onerror = () => photo.remove();
                 card.appendChild(photo);
@@ -826,20 +854,19 @@
             card.addEventListener('click', () => card.remove());
             alertContainer.innerHTML = '';
             alertContainer.appendChild(card);
+        }
 
-            if (Notification.permission === 'granted') {
-                new Notification('⚠️ Person at your car', {
-                    body: `Someone is ${behavior} your vehicle. Recording started.`,
-                    icon: '../assets/icon-512.png',
-                    image: imageUrl || undefined,
-                    tag: 'threat-alert',
-                    renotify: true,
-                    requireInteraction: true
-                });
-            }
-
-            // No auto-hide: a threat is the one alert worth interrupting for,
-            // and the photo deserves a proper look. Stays until tapped.
+        function showThreatAlert(kind, imageUrl) {
+            const behavior = kind === 'approaching' ? 'approaching' : 'lingering at';
+            showAlertCard('Person at your car', `Someone is ${behavior} your vehicle. Recording started.`, imageUrl);
+            osNotify('\u26a0\ufe0f Person at your car', {
+                body: `Someone is ${behavior} your vehicle. Recording started.`,
+                icon: '../assets/icon-512.png',
+                image: imageUrl || undefined,
+                tag: 'threat-alert',
+                renotify: true,
+                requireInteraction: true
+            });
         }
 
         // Download the threat photo to the device. The storage URL is only as
@@ -901,14 +928,12 @@
                 setTimeout(() => { alert.remove(); }, 8000);
             }
 
-            if (Notification.permission === 'granted') {
-                new Notification('DriveSight', {
-                    body: `Cabin temp ${formatTemp(celsius || 0, false)} — check your vehicle.`,
-                    icon: '../assets/icon-512.png',
-                    tag: 'temp-alert',
-                    renotify: true
-                });
-            }
+            osNotify('DriveSight', {
+                body: `Cabin temp ${formatTemp(celsius || 0, false)} — check your vehicle.`,
+                icon: '../assets/icon-512.png',
+                tag: 'temp-alert',
+                renotify: true
+            });
         }
 
         function toggleFullscreen() {
@@ -1041,7 +1066,7 @@
                 messaging.onMessage((payload) => {
                     console.log('FCM message received:', payload);
                     if (payload.data && payload.data.type === 'motion_alert') {
-                        showMotionAlert();
+                        showMotionAlert(payload.data.imageUrl || '');
                     }
                     if (payload.data && payload.data.type === 'threat_alert') {
                         showThreatAlert(payload.data.kind, payload.data.imageUrl);
@@ -1387,7 +1412,7 @@
                             if (data.motionAlert.type === 'threat_detected') {
                                 showThreatAlert(data.motionAlert.kind, data.motionAlert.imageUrl);
                             } else {
-                                showMotionAlert();
+                                showMotionAlert(data.motionAlert.imageUrl);
                             }
                         }
                     }
