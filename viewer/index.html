@@ -266,10 +266,6 @@
 
         /* Motion alert banner */
         .motion-alert {
-            position: fixed;
-            top: 60px;
-            left: 50%;
-            transform: translateX(-50%);
             background: #ef4444;
             color: #fff;
             padding: 10px 20px;
@@ -288,12 +284,27 @@
 
         /* Threat alert card (Smart Parking Guard) — bigger, sticky, shows the
            uploaded photo of the person. Tap anywhere on it to dismiss. */
-        .threat-alert {
+        #alertContainer {
             position: fixed;
             top: 60px;
             left: 50%;
             transform: translateX(-50%);
             width: min(340px, calc(100vw - 32px));
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            pointer-events: none; /* container never eats taps; children re-enable */
+        }
+        #alertContainer > * {
+            pointer-events: auto;
+        }
+
+        .threat-alert {
+            width: 100%;
             background: #7f1d1d;
             border: 1px solid #ef4444;
             color: #fff;
@@ -762,7 +773,7 @@
             // With a snapshot, motion gets the persistent card (photo +
             // Save/Dismiss) — a picture is worth keeping on screen.
             if (imageUrl) {
-                showAlertCard('Motion Detected', 'Movement near your vehicle.', imageUrl);
+                showAlertCard('Motion Detected', 'Movement near your vehicle.', imageUrl, 'motion');
                 osNotify('DriveSight', {
                     body: 'Motion detected on your dashcam!',
                     icon: '../assets/icon-512.png',
@@ -787,7 +798,7 @@
             // was exactly how threat cards kept vanishing: the person triggers
             // more motion seconds after the verdict.)
             if (!alertContainer.querySelector('.threat-alert')) {
-                alertContainer.innerHTML = '';
+                alertContainer.querySelectorAll('.motion-alert').forEach(el => el.remove());
                 alertContainer.appendChild(alert);
                 setTimeout(() => { alert.remove(); }, 5000);
             }
@@ -809,7 +820,7 @@
         // Persistent alert card: photo when available, Save/Dismiss footer,
         // tap-anywhere-to-dismiss. No auto-hide — cards with actions stay until
         // acted on (toasts wiping these was exactly the disappearing-alert bug).
-        function showAlertCard(title, subtitle, imageUrl) {
+        function showAlertCard(title, subtitle, imageUrl, priority) {
             const card = document.createElement('div');
             card.className = 'threat-alert';
             card.innerHTML = `
@@ -852,19 +863,40 @@
             footer.appendChild(dismissBtn);
             card.appendChild(footer);
             card.addEventListener('click', () => card.remove());
-            alertContainer.innerHTML = '';
-            alertContainer.appendChild(card);
+
+            // Alerts STACK — a second incident must never wipe an unacted first
+            // one. Threats ride on top, motion cards below them, newest first
+            // within each group.
+            card.dataset.kind = priority;
+            if (priority === 'threat') {
+                alertContainer.prepend(card);
+            } else {
+                const firstMotion = alertContainer.querySelector('.threat-alert[data-kind="motion"]');
+                if (firstMotion) alertContainer.insertBefore(card, firstMotion);
+                else alertContainer.appendChild(card);
+            }
+            // Cap the pile so a busy hour can't fill the screen: evict oldest
+            // motion cards first; only then the oldest threat.
+            const MAX_CARDS = 4;
+            let cards = alertContainer.querySelectorAll('.threat-alert');
+            while (cards.length > MAX_CARDS) {
+                const motions = alertContainer.querySelectorAll('.threat-alert[data-kind="motion"]');
+                (motions.length ? motions[motions.length - 1] : cards[cards.length - 1]).remove();
+                cards = alertContainer.querySelectorAll('.threat-alert');
+            }
         }
 
         function showThreatAlert(kind, imageUrl) {
             const behavior = kind === 'approaching' ? 'approaching' : 'lingering at';
-            showAlertCard('Person at your car', `Someone is ${behavior} your vehicle. Recording started.`, imageUrl);
+            showAlertCard('Person at your car', `Someone is ${behavior} your vehicle. Recording started.`, imageUrl, 'threat');
             osNotify('\u26a0\ufe0f Person at your car', {
                 body: `Someone is ${behavior} your vehicle. Recording started.`,
                 icon: '../assets/icon-512.png',
                 image: imageUrl || undefined,
-                tag: 'threat-alert',
-                renotify: true,
+                // Unique tag per incident: threats are rare and each one
+                // matters, so they pile up in the shade instead of replacing
+                // each other. Motion keeps a single collapsing tag.
+                tag: 'threat-alert-' + Date.now(),
                 requireInteraction: true
             });
         }
@@ -875,25 +907,46 @@
         // if the fetch fails (e.g. offline mid-save).
         async function saveThreatPhoto(imageUrl, btn) {
             const prev = btn.textContent;
-            btn.textContent = 'Saving…';
+            btn.textContent = 'Saving\u2026';
             try {
                 const resp = await fetch(imageUrl);
                 if (!resp.ok) throw new Error('HTTP ' + resp.status);
                 const blob = await resp.blob();
-                const url = URL.createObjectURL(blob);
                 const ts = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+                const file = new File([blob], 'DriveSight_' + ts + '.jpg', { type: 'image/jpeg' });
+
+                // Phones: the share sheet is the only path that can land the
+                // photo in the gallery (Photos/Files) instead of a Downloads
+                // folder the user never looks in.
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    try {
+                        await navigator.share({ files: [file], title: 'DriveSight snapshot' });
+                        btn.textContent = 'Saved!';
+                        setTimeout(() => { btn.textContent = prev; }, 1500);
+                        return;
+                    } catch (e) {
+                        if (e.name === 'AbortError') { btn.textContent = prev; return; }
+                        // Sheet unavailable — fall through to plain download.
+                    }
+                }
+
+                const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = 'DriveSight_threat_' + ts + '.jpg';
+                a.download = file.name;
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
                 setTimeout(() => URL.revokeObjectURL(url), 1000);
-                btn.textContent = 'Saved!';
-                setTimeout(() => { btn.textContent = prev; }, 1500);
+                btn.textContent = 'Saved to Downloads';
+                setTimeout(() => { btn.textContent = prev; }, 2000);
             } catch (e) {
-                console.warn('Threat photo save failed:', e.message);
-                btn.textContent = prev;
+                // fetch() here fails only if the bucket's CORS regresses — the
+                // origin allowlist lives on deer-dash.firebasestorage.app. Say
+                // what to do instead of failing silently into a mystery tab.
+                console.warn('Photo save failed:', e.message);
+                btn.textContent = 'Long-press image to save';
+                setTimeout(() => { btn.textContent = prev; }, 2500);
                 window.open(imageUrl, '_blank');
             }
         }
@@ -923,7 +976,7 @@
             `;
             // Same priority rule as the motion toast: never wipe a threat card.
             if (!alertContainer.querySelector('.threat-alert')) {
-                alertContainer.innerHTML = '';
+                alertContainer.querySelectorAll('.motion-alert').forEach(el => el.remove());
                 alertContainer.appendChild(alert);
                 setTimeout(() => { alert.remove(); }, 8000);
             }

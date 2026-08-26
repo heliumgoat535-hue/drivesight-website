@@ -29,7 +29,10 @@ messaging.onBackgroundMessage((payload) => {
         vibrate: [200, 100, 200],
         // Per-type tag: a shared tag would let a later motion push REPLACE a
         // threat notification the user hasn't acted on yet.
-        tag: (payload.data && payload.data.type === 'threat_alert') ? 'threat-alert'
+        // Threats: unique tag per incident so a second person's alert never
+        // replaces an unacted first one. Motion/temp collapse to the latest.
+        tag: (payload.data && payload.data.type === 'threat_alert')
+               ? 'threat-alert-' + (payload.data.timestamp || Date.now())
            : (payload.data && payload.data.type === 'temp_alert') ? 'temp-alert'
            : 'motion-alert',
         renotify: true,
