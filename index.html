@@ -733,24 +733,6 @@
             font-size: var(--fs-base);
             margin-bottom: 2px;
         }
-        /* placeholder look — delete this rule once real images are in */
-        .shot-frame[data-placeholder]::after {
-            content: attr(data-placeholder);
-            position: absolute;
-            inset: 0;
-            display: grid;
-            place-items: center;
-            padding: 16px;
-            text-align: center;
-            font-family: var(--font-title);
-            font-size: var(--fs-micro);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--text-light);
-            background:
-                repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0 10px, transparent 10px 20px),
-                var(--color-bg-card);
-        }
 
         /* ============ UGC CLIPS (social proof) ============ */
         .social-proof { padding: var(--sp-12) var(--sp-3); }
@@ -2983,40 +2965,38 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 
     <!-- ============ SCREENSHOT STRIP ============
-         Placeholders until the original Play Store capture PNGs are exported
-         to WebP at 540x1170 into /assets/shots/. Then delete each
-         data-placeholder attribute and uncomment the <img>. Do NOT hotlink
-         play-lh.googleusercontent.com — the path rotates. -->
+         Play-listing capture cards, exported to WebP at 540x1170 (2x the
+         270px display width). Source PNGs: Desktop/screenshotsdrivesight. -->
     <div class="hero-shots fade-up">
         <figure class="shot">
-            <div class="shot-frame" data-placeholder="camera-alert.webp">
-                <!-- <img src="/assets/shots/camera-alert.webp" alt="DriveSight alerting to a speed camera ahead with the street name and distance" width="540" height="1170" loading="lazy" decoding="async"> -->
+            <div class="shot-frame">
+                <img src="/assets/shots/police-aircraft.webp" alt="DriveSight police map tracking a police helicopter with tail number, altitude and heading" width="540" height="1170" loading="lazy" decoding="async">
             </div>
-            <figcaption><b>Camera alerts</b>Street name and distance, before you reach it</figcaption>
+            <figcaption><b>Police &amp; aircraft</b>Live reports, down to tail number and altitude</figcaption>
         </figure>
         <figure class="shot">
-            <div class="shot-frame" data-placeholder="police-map.webp">
-                <!-- <img src="/assets/shots/police-map.webp" alt="The DriveSight camera map showing Flock readers and live police locations" width="540" height="1170" loading="lazy" decoding="async"> -->
+            <div class="shot-frame">
+                <img src="/assets/shots/camera-map.webp" alt="DriveSight camera map heat-mapping hundreds of speed cameras and Flock readers across a city" width="540" height="1170" loading="lazy" decoding="async">
             </div>
-            <figcaption><b>Camera map</b>Flock readers, police, and aircraft</figcaption>
+            <figcaption><b>Camera map</b>Flock readers and speed cams, block by block</figcaption>
         </figure>
         <figure class="shot">
-            <div class="shot-frame" data-placeholder="ai-detection.webp">
-                <!-- <img src="/assets/shots/ai-detection.webp" alt="Live AI bounding boxes drawn around cars and people in the DriveSight viewfinder" width="540" height="1170" loading="lazy" decoding="async"> -->
+            <div class="shot-frame">
+                <img src="/assets/shots/live-recording.webp" alt="DriveSight recording screen with live map, street name, speed and speed limit" width="540" height="1170" loading="lazy" decoding="async">
             </div>
-            <figcaption><b>AI detection</b>Live bounding boxes, entirely on-device</figcaption>
+            <figcaption><b>Live recording</b>Street, speed and limit right on screen</figcaption>
         </figure>
         <figure class="shot">
-            <div class="shot-frame" data-placeholder="parking-mode.webp">
-                <!-- <img src="/assets/shots/parking-mode.webp" alt="DriveSight parking mode armed, guarding a parked car" width="540" height="1170" loading="lazy" decoding="async"> -->
+            <div class="shot-frame">
+                <img src="/assets/shots/dash-cam.webp" alt="DriveSight dash cam view at night with trip overlay and live map" width="540" height="1170" loading="lazy" decoding="async">
             </div>
-            <figcaption><b>Parking mode</b>Motion alerts while you're away</figcaption>
+            <figcaption><b>Dash cam</b>Trip overlay with a live map while you drive</figcaption>
         </figure>
         <figure class="shot">
-            <div class="shot-frame" data-placeholder="remote-view.webp">
-                <!-- <img src="/assets/shots/remote-view.webp" alt="Live remote viewing of a parked car streamed to a web browser" width="540" height="1170" loading="lazy" decoding="async"> -->
+            <div class="shot-frame">
+                <img src="/assets/shots/traffic-map.webp" alt="DriveSight traffic map scoring road busyness in vehicles per mile" width="540" height="1170" loading="lazy" decoding="async">
             </div>
-            <figcaption><b>Remote viewing</b>Watch your car from any browser</figcaption>
+            <figcaption><b>Traffic map</b>Roads scored in vehicles per mile</figcaption>
         </figure>
     </div>
 </section>
