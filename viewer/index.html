@@ -331,6 +331,28 @@
             color: #fecaca;
         }
 
+        /* Stacked cards accordion: only one card expanded at a time; the rest
+           collapse to their header line so a pile of alerts can't bury the
+           buttons or blanket the video. */
+        .threat-alert.collapsed .threat-alert-sub,
+        .threat-alert.collapsed .threat-alert-photo,
+        .threat-alert.collapsed .threat-alert-footer {
+            display: none;
+        }
+
+        .alert-stack-bar {
+            width: 100%;
+            text-align: center;
+            background: rgba(15, 15, 20, 0.9);
+            border: 1px solid #666;
+            color: #eee;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 0;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
         .threat-alert-photo {
             display: block;
             width: 100%;
@@ -859,30 +881,70 @@
             dismissBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 card.remove();
+                refreshAlertStack();
             });
             footer.appendChild(dismissBtn);
             card.appendChild(footer);
-            card.addEventListener('click', () => card.remove());
+            // Collapsed card: tap expands it (accordion). Expanded card: tap
+            // anywhere dismisses, as before.
+            card.addEventListener('click', () => {
+                if (card.classList.contains('collapsed')) {
+                    alertContainer.querySelectorAll('.threat-alert').forEach(c => c.classList.add('collapsed'));
+                    card.classList.remove('collapsed');
+                } else {
+                    card.remove();
+                    refreshAlertStack();
+                }
+            });
 
             // Alerts STACK — a second incident must never wipe an unacted first
             // one. Threats ride on top, motion cards below them, newest first
-            // within each group.
+            // within each group. Existing cards collapse to header lines so the
+            // pile never buries anyone's buttons; the newest arrives expanded.
+            alertContainer.querySelectorAll('.threat-alert').forEach(c => c.classList.add('collapsed'));
             card.dataset.kind = priority;
+            const bar = alertContainer.querySelector('.alert-stack-bar');
             if (priority === 'threat') {
-                alertContainer.prepend(card);
+                alertContainer.insertBefore(card, bar ? bar.nextSibling : alertContainer.firstChild);
             } else {
                 const firstMotion = alertContainer.querySelector('.threat-alert[data-kind="motion"]');
                 if (firstMotion) alertContainer.insertBefore(card, firstMotion);
                 else alertContainer.appendChild(card);
             }
-            // Cap the pile so a busy hour can't fill the screen: evict oldest
-            // motion cards first; only then the oldest threat.
-            const MAX_CARDS = 4;
+            // Cap the pile: evict oldest motion cards first; only then the
+            // oldest threat. Two keeps both cards' buttons on screen even with
+            // one expanded (user-chosen limit).
+            const MAX_CARDS = 2;
             let cards = alertContainer.querySelectorAll('.threat-alert');
             while (cards.length > MAX_CARDS) {
                 const motions = alertContainer.querySelectorAll('.threat-alert[data-kind="motion"]');
                 (motions.length ? motions[motions.length - 1] : cards[cards.length - 1]).remove();
                 cards = alertContainer.querySelectorAll('.threat-alert');
+            }
+            refreshAlertStack();
+        }
+
+        // Keeps the stack livable: a Dismiss-all bar whenever 2+ cards are up,
+        // and always exactly one expanded card (dismissing the open one
+        // auto-expands the next).
+        function refreshAlertStack() {
+            const cards = alertContainer.querySelectorAll('.threat-alert');
+            let bar = alertContainer.querySelector('.alert-stack-bar');
+            if (cards.length >= 2 && !bar) {
+                bar = document.createElement('div');
+                bar.className = 'alert-stack-bar';
+                bar.addEventListener('click', () => {
+                    alertContainer.querySelectorAll('.threat-alert').forEach(c => c.remove());
+                    refreshAlertStack();
+                });
+                alertContainer.prepend(bar);
+            } else if (cards.length < 2 && bar) {
+                bar.remove();
+                bar = null;
+            }
+            if (bar) bar.textContent = `Dismiss all (${cards.length})`;
+            if (cards.length && !alertContainer.querySelector('.threat-alert:not(.collapsed)')) {
+                cards[0].classList.remove('collapsed');
             }
         }
 
