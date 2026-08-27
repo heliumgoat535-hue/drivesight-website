@@ -893,6 +893,8 @@
             transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
         }
         .feature-card:hover { transform: translateY(-3px); border-color: var(--border-color-hover); }
+        /* A card count of 3n+1 orphans the last desktop row — full-width it */
+        .feature-grid > .feature-card:last-child:nth-child(3n+1) { grid-column: 1 / -1; }
         .feature-icon {
             width: 42px;
             height: 42px;
@@ -960,8 +962,8 @@
             .hero-shots { grid-template-columns: repeat(3, 1fr); }
             .hero-shots .shot:nth-child(n+4) { display: none; }
             .feature-grid { grid-template-columns: repeat(2, 1fr); }
-            /* 9 cards into 2 columns orphans the last row — full-width it */
-            .feature-grid > .feature-card:last-child { grid-column: 1 / -1; }
+            /* An odd card count into 2 columns orphans the last row — full-width it */
+            .feature-grid > .feature-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
             .stats-grid { grid-template-columns: repeat(2, 1fr); gap: var(--sp-6) var(--sp-3); }
             .stat-item:nth-child(2n) { border-right: 0; }
         }
@@ -3103,6 +3105,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </div>
                 <h3>Aircraft alerts <span class="tag tag-pro">Pro</span></h3>
                 <p>Police helicopters and surveillance aircraft tracked from live ADS-B feeds and surfaced on the same map. The other thing no windshield camera will ever tell you.</p>
+            </article>
+            <article class="feature-card fade-up">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17.5 17a4 4 0 0 0 .5-8 6 6 0 0 0-11.4 1.5A3.5 3.5 0 0 0 7 17"/><path d="m13 11-2.5 4h3L11 19.5"/></svg>
+                </div>
+                <h3>Severe weather alerts <span class="tag tag-new">New</span></h3>
+                <p>Tornado, severe thunderstorm and flash flood warnings from each country's official weather service, announced out loud when your GPS position is inside one — with an on-screen banner until the warning ends. Free for everyone, in the US, Canada, UK, Mexico, Brazil and 29 European countries.</p>
             </article>
             <article class="feature-card fade-up">
                 <div class="feature-icon">
