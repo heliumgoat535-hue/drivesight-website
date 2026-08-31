@@ -13,6 +13,11 @@ export default {
       return new Response("Not available", { status: 403 });
     }
     const url = new URL(request.url);
+    // Internal files must never be served publicly (business docs, build config,
+    // the worker source itself). 404 them regardless of the asset directory.
+    if (/\.(md|toml|yml|yaml|lock)$|^\/(package(-lock)?\.json|redirect-worker\.js)$|^\/(COMPETITOR|SEO|GEO|SEMRUSH)/i.test(url.pathname)) {
+      return new Response("Not found", { status: 404 });
+    }
     const m = url.pathname.match(/^\/([a-z0-9])$/);
     if (m) {
       return Response.redirect(

@@ -1,8 +1,11 @@
-.git
-node_modules
+# Internal files — never deploy to the public site
 *.md
-CNAME
+*.toml
+*.lock
+package.json
+package-lock.json
+redirect-worker.js
 _config.yml
-wrangler.toml
-.gitignore
-.claude
+_headers
+_redirects
+scripts/
