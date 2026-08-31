@@ -39,4 +39,31 @@ Content-Signal: ai-train=no, search=yes, ai-input=yes
 User-agent: *
 Disallow: /cdn-cgi/
 
+# ── China-origin crawlers — disallowed (site is US-focused; declines Chinese
+# search indexing and blocks the aggressive scrapers). Enforced at the edge in
+# redirect-worker.js too, since these largely ignore robots.txt. ──
+User-agent: Baiduspider
+Disallow: /
+
+User-agent: Sogou web spider
+Disallow: /
+
+User-agent: Sogou inst spider
+Disallow: /
+
+User-agent: 360Spider
+Disallow: /
+
+User-agent: HaosouSpider
+Disallow: /
+
+User-agent: YisouSpider
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
 Sitemap: https://phonedashcam.com/sitemap.xml
