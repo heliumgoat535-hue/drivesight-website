@@ -4,9 +4,12 @@ compatibility_date = "2024-01-01"
 [assets]
 directory = "."
 binding = "ASSETS"
-# /api/* must reach the worker BEFORE asset handling — the platform's asset
-# layer 405s non-GET requests on its own otherwise (the TURN proxy is a POST).
-run_worker_first = ["/api/*"]
+# Run the worker on every request (boolean form — the ["/api/*"] array form
+# needs newer wrangler). Without this the platform asset layer answers first:
+# non-GET requests get 405ed before the /api/turn TURN proxy can run, and the
+# bot-UA block never applied to real pages either. Normal paths still serve
+# assets via env.ASSETS.fetch at the end of the worker.
+run_worker_first = true
 
 [build]
 command = ""

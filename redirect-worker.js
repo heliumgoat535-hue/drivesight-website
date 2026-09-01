@@ -23,14 +23,24 @@ export default {
     // can't call the turnCredentials function directly. Same-origin /api/turn
     // forwards to it instead (no CSP change, no CORS preflight). The function
     // itself does all auth/rate-limiting.
-    if (url.pathname === "/api/turn" && request.method === "POST") {
+    if (url.pathname === "/api/turn" &&
+        (request.method === "POST" || request.method === "GET")) {
       try {
+        // GET variant carries the session proof in headers (never in the URL)
+        // because the asset layer only falls through to the worker for GETs
+        // unless run_worker_first is honored; support both so either works.
+        const body = request.method === "POST"
+          ? request.body
+          : JSON.stringify({
+              sessionId: request.headers.get("x-session-id") || "",
+              secret: request.headers.get("x-session-secret") || "",
+            });
         const upstream = await fetch(
           "https://us-central1-deer-dash.cloudfunctions.net/turnCredentials",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: request.body,
+            body,
           },
         );
         return new Response(upstream.body, {

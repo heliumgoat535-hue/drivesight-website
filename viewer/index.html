@@ -678,10 +678,13 @@
             // the handshake past the connect watchdog.
             if (cachedIceServers && Date.now() < cachedIceServersUntil) return cachedIceServers;
             try {
+                // GET + headers (not POST): the asset layer reliably falls
+                // through to the worker for GET misses; secrets ride headers,
+                // never the URL.
                 const resp = await fetch(TURN_CRED_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ sessionId: sessionId, secret: sessionSecret }),
+                    method: 'GET',
+                    headers: { 'X-Session-Id': sessionId, 'X-Session-Secret': sessionSecret },
+                    cache: 'no-store',
                     signal: (typeof AbortSignal !== 'undefined' && AbortSignal.timeout)
                         ? AbortSignal.timeout(3000) : undefined
                 });
