@@ -1,5 +1,9 @@
 name = "drivesight-website"
-compatibility_date = "2024-01-01"
+# main is REQUIRED for the worker script to deploy at all — without it wrangler
+# treats this as an assets-only project, silently never deploying
+# redirect-worker.js (bot block, /api/turn proxy, short links were all dead).
+main = "redirect-worker.js"
+compatibility_date = "2025-06-01"
 
 [assets]
 directory = "."
