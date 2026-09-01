@@ -63,12 +63,17 @@ self.addEventListener('notificationclick', (event) => {
         url = `/viewer/?s=${data.sessionId}`;
     }
 
-    // Focus existing tab or open new one
+    // Focus an existing tab AND navigate it to the deep link — a bare focus()
+    // left dead tabs sitting on the code-entry screen instead of the feed.
     event.waitUntil(
         clients.matchAll({ type: 'window', includeUncontrolled: true }).then((windowClients) => {
             for (const client of windowClients) {
-                if (client.url.includes('/viewer/') && 'focus' in client) {
-                    return client.focus();
+                if (client.url.includes('/viewer') && 'focus' in client) {
+                    const focused = client.focus();
+                    if (data.deviceId && 'navigate' in client) {
+                        return focused.then(c => (c || client).navigate(url)).catch(() => focused);
+                    }
+                    return focused;
                 }
             }
             return clients.openWindow(url);
