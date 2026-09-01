@@ -9,3 +9,7 @@ _config.yml
 _headers
 _redirects
 scripts/
+.git
+.gitignore
+.assetsignore
+node_modules
