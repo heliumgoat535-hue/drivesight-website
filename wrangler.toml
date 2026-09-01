@@ -3,6 +3,10 @@ compatibility_date = "2024-01-01"
 
 [assets]
 directory = "."
+binding = "ASSETS"
+# /api/* must reach the worker BEFORE asset handling — the platform's asset
+# layer 405s non-GET requests on its own otherwise (the TURN proxy is a POST).
+run_worker_first = ["/api/*"]
 
 [build]
 command = ""
