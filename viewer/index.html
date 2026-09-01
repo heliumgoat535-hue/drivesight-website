@@ -666,7 +666,10 @@
         // authenticated by the live session's secret. A relay on the viewer
         // side alone bridges every NAT combination. On any failure we fall
         // back to STUN-only (the old behavior).
-        const TURN_CRED_URL = 'https://us-central1-deer-dash.cloudfunctions.net/turnCredentials';
+        // Same-origin proxy (redirect-worker /api/turn -> Cloud Function):
+        // the edge CSP's connect-src doesn't allow cloudfunctions.net, and
+        // 'self' needs no CORS preflight anyway.
+        const TURN_CRED_URL = '/api/turn';
         let cachedIceServers = null;
         let cachedIceServersUntil = 0;
         async function fetchIceServers() {

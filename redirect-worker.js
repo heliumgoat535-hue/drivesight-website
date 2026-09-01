@@ -18,6 +18,35 @@ export default {
     if (/\.(md|toml|yml|yaml|lock)$|^\/(package(-lock)?\.json|redirect-worker\.js)$|^\/(COMPETITOR|SEO|GEO|SEMRUSH)/i.test(url.pathname)) {
       return new Response("Not found", { status: 404 });
     }
+    // TURN credential proxy: the edge CSP restricts connect-src to 'self' plus
+    // an allowlist that doesn't include cloudfunctions.net, so the viewer page
+    // can't call the turnCredentials function directly. Same-origin /api/turn
+    // forwards to it instead (no CSP change, no CORS preflight). The function
+    // itself does all auth/rate-limiting.
+    if (url.pathname === "/api/turn" && request.method === "POST") {
+      try {
+        const upstream = await fetch(
+          "https://us-central1-deer-dash.cloudfunctions.net/turnCredentials",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: request.body,
+          },
+        );
+        return new Response(upstream.body, {
+          status: upstream.status,
+          headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "private, no-store",
+          },
+        });
+      } catch (e) {
+        return new Response(JSON.stringify({ error: "proxy error" }), {
+          status: 502,
+          headers: { "Content-Type": "application/json" },
+        });
+      }
+    }
     const m = url.pathname.match(/^\/([a-z0-9])$/);
     if (m) {
       return Response.redirect(
