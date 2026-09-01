@@ -605,6 +605,19 @@
         let connectingInProgress = false; // prevent re-entrant connection attempts
         let connectingSince = 0;          // when the in-flight attempt started
         let reconnectTimer = null;        // pending auto-reconnect
+        // Attempt token: every startWebRtc invocation takes a fresh number and
+        // its async continuations bail if a newer attempt (or cleanup) bumped
+        // it. Without this, overlapping attempts interleaved on the shared
+        // peerConnection global and threw from un-awaited call sites, wedging
+        // the UI on "Connecting to Dashcam..." forever.
+        let currentAttempt = 0;
+        let connectWatchdog = null;       // handshake-completion timeout
+        // Consecutive-failure counter: drives exponential backoff and, past the
+        // cap, a terminal overlay with the Retry button — an unbounded retry
+        // loop against a dead dashcam would otherwise churn Firestore writes
+        // every cycle all night. Reset on: connected, session change, Retry.
+        let retryCount = 0;
+        const MAX_AUTO_RETRIES = 8;
         // An "in progress" attempt older than this is a corpse (tab was frozen
         // mid-handshake) — reset it instead of letting it block reconnects.
         const CONNECT_ATTEMPT_STALE_MS = 20000;
@@ -644,6 +657,48 @@
             ],
             sdpSemantics: 'unified-plan'
         };
+
+        // ─── TURN relay credentials ────────────────────────────────────
+        // STUN alone cannot cross carrier CGNAT (viewer on cellular data vs
+        // dashcam on home wifi leaves zero viable ICE pairs — the "Connecting
+        // to Dashcam" hang with flashlight still working). Short-lived TURN
+        // credentials are minted by the turnCredentials Cloud Function,
+        // authenticated by the live session's secret. A relay on the viewer
+        // side alone bridges every NAT combination. On any failure we fall
+        // back to STUN-only (the old behavior).
+        const TURN_CRED_URL = 'https://us-central1-deer-dash.cloudfunctions.net/turnCredentials';
+        let cachedIceServers = null;
+        let cachedIceServersUntil = 0;
+        async function fetchIceServers() {
+            // Cache for 1h (creds live 6h) so reconnect cycles skip the round
+            // trip; hard 3s timeout so a slow/hung function can never starve
+            // the handshake past the connect watchdog.
+            if (cachedIceServers && Date.now() < cachedIceServersUntil) return cachedIceServers;
+            try {
+                const resp = await fetch(TURN_CRED_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ sessionId: sessionId, secret: sessionSecret }),
+                    signal: (typeof AbortSignal !== 'undefined' && AbortSignal.timeout)
+                        ? AbortSignal.timeout(3000) : undefined
+                });
+                if (!resp.ok) {
+                    console.log('TURN unavailable (' + resp.status + ') — STUN only');
+                    return rtcConfig.iceServers;
+                }
+                const data = await resp.json();
+                const turn = (Array.isArray(data.iceServers) ? data.iceServers : [data.iceServers])
+                    .filter(s => s && typeof s === 'object' && s.urls);
+                if (!turn.length) return rtcConfig.iceServers;
+                console.log('TURN relay credentials loaded');
+                cachedIceServers = rtcConfig.iceServers.concat(turn);
+                cachedIceServersUntil = Date.now() + 60 * 60 * 1000;
+                return cachedIceServers;
+            } catch (e) {
+                console.log('TURN fetch failed — STUN only:', e.message);
+                return rtcConfig.iceServers;
+            }
+        }
 
         // ─── PIN Input Handling ───────────────────────────────────────
         const pinInput = document.getElementById('pinInput');
@@ -1245,6 +1300,11 @@
                         console.log('Session changed — reconnecting');
                         cleanup();
                     }
+                    // Fresh session = fresh retry budget (and fresh TURN creds)
+                    if (newSessionId !== sessionId) {
+                        retryCount = 0;
+                        cachedIceServers = null;
+                    }
 
                     sessionId = newSessionId;
                     sessionSecret = newSecret;
@@ -1326,14 +1386,58 @@
         }
 
         async function startWebRtc(sdpOffer) {
+            const attempt = ++currentAttempt;
             connectingInProgress = true;
             connectingSince = Date.now();
             setStatus('connecting', 'Connecting...');
             showOverlay('Connecting to Dashcam...', 'Setting up peer-to-peer video stream', true, false);
 
+            // Watchdog: a handshake that hasn't reached 'connected' in 30s is
+            // dead. Previously there was NO timeout on the connecting state at
+            // all — the page could sit on "Connecting to Dashcam..." forever.
+            if (connectWatchdog) clearTimeout(connectWatchdog);
+            connectWatchdog = setTimeout(() => {
+                connectWatchdog = null;
+                if (attempt !== currentAttempt) return;
+                if (peerConnection && peerConnection.connectionState === 'connected') return;
+                retryCount++;
+                if (retryCount > MAX_AUTO_RETRIES) {
+                    console.log('Connect watchdog: giving up after ' + MAX_AUTO_RETRIES + ' attempts');
+                    cleanup();
+                    showOverlay('Dashcam Unreachable', 'Could not establish the video connection. Tap Retry when the dashcam is back online.', false, true);
+                    setStatus('failed', 'Unreachable');
+                    return;
+                }
+                console.log('Connect watchdog: handshake stalled — rebuilding (attempt ' + retryCount + ')');
+                cleanup();
+                tryConnectSession();
+            }, 30000 + Math.min(retryCount * 15000, 90000));
+
+            try {
+                await startWebRtcInner(sdpOffer, attempt);
+            } catch (err) {
+                // startWebRtc is invoked un-awaited from snapshot listeners; an
+                // exception here previously wedged connectingInProgress=true
+                // with every watcher dead — the frozen "Connecting" screen.
+                if (attempt !== currentAttempt) return;
+                console.error('startWebRtc failed:', err);
+                connectingInProgress = false;
+                retryCount++;
+                if (retryCount > MAX_AUTO_RETRIES) {
+                    if (connectWatchdog) { clearTimeout(connectWatchdog); connectWatchdog = null; }
+                    showOverlay('Connection Trouble', 'Automatic reconnect keeps failing. Tap Retry to try again.', false, true);
+                    setStatus('failed', 'Reconnect failed');
+                    return;
+                }
+                scheduleReconnect(Math.min(3000 * Math.pow(2, retryCount - 1), 60000));
+            }
+        }
+
+        async function startWebRtcInner(sdpOffer, attempt) {
             // ── Check if another viewer is already connected ──
             try {
                 const lockCheck = await db.collection('webrtc_sessions').doc(sessionId).get();
+                if (attempt !== currentAttempt) return;
                 const lockData = lockCheck.data();
                 if (lockData && lockData.viewerConnected && lockData.viewerConnected !== viewerId) {
                     const heartbeat = lockData.viewerHeartbeat || lockData.viewerConnectedAt || 0;
@@ -1342,6 +1446,7 @@
                         showOverlay('Already in Use', 'Another device is already viewing this dashcam. Only one viewer can connect at a time.', false, true);
                         setStatus('failed', 'Already in use');
                         connectingInProgress = false;
+                        if (connectWatchdog) { clearTimeout(connectWatchdog); connectWatchdog = null; }
                         return;
                     }
                     console.log('Previous viewer lock is stale (' + Math.round(age / 1000) + 's) — taking over');
@@ -1349,6 +1454,7 @@
             } catch (lockErr) {
                 console.warn('Viewer lock check failed:', lockErr.message);
             }
+            if (attempt !== currentAttempt) return;
 
             requestNotificationPermission();
             setupPushNotifications();
@@ -1369,8 +1475,13 @@
             } catch (cleanErr) {
                 console.warn('Failed to clear stale data (may be first connection):', cleanErr.message);
             }
+            if (attempt !== currentAttempt) return;
 
-            peerConnection = new RTCPeerConnection(rtcConfig);
+            // TURN relay creds (falls back to STUN-only on any failure)
+            const iceServers = await fetchIceServers();
+            if (attempt !== currentAttempt) return;
+
+            peerConnection = new RTCPeerConnection(Object.assign({}, rtcConfig, { iceServers: iceServers }));
 
             peerConnection.ontrack = (event) => {
                 console.log('Got remote track:', event.track.kind);
@@ -1408,6 +1519,8 @@
                     case 'connected':
                         connectingInProgress = false;
                         if (reconnectTimer) { clearTimeout(reconnectTimer); reconnectTimer = null; }
+                        if (connectWatchdog) { clearTimeout(connectWatchdog); connectWatchdog = null; }
+                        retryCount = 0;
                         setStatus('connected', 'Connected');
                         hideOverlay();
                         startViewerHeartbeat();
@@ -1442,10 +1555,16 @@
             // which is why push-to-talk was silent.
             const offer = new RTCSessionDescription({ type: 'offer', sdp: sdpOffer });
             await peerConnection.setRemoteDescription(offer);
+            if (attempt !== currentAttempt) return;
 
             // Mic for push-to-talk — attach to the existing audio transceiver
             try {
                 localMicStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                if (attempt !== currentAttempt) {
+                    localMicStream.getTracks().forEach(t => t.stop());
+                    localMicStream = null;
+                    return;
+                }
                 const audioTrack = localMicStream.getAudioTracks()[0];
                 // Keep enabled=true so RTP packets actually flow as soon as
                 // the transceiver is sendrecv. We mute/unmute via the SENDER
@@ -1482,7 +1601,9 @@
             }
 
             const answer = await peerConnection.createAnswer();
+            if (attempt !== currentAttempt) return;
             await peerConnection.setLocalDescription(answer);
+            if (attempt !== currentAttempt) return;
             // Sanity check — log the direction the answer claims for m=audio.
             try {
                 const audioSection = answer.sdp.split(/^m=/m).find(s => s.startsWith('audio'));
@@ -1497,6 +1618,7 @@
                     viewerConnectedAt: Date.now(),
                     viewerHeartbeat: Date.now()
                 });
+            if (attempt !== currentAttempt) return;
 
             // Listen for dashcam ICE candidates
             unsubCandidates = db.collection('webrtc_sessions').doc(sessionId)
@@ -1580,6 +1702,7 @@
 
         function retryConnection() {
             cleanup();
+            retryCount = 0;
             sessionId = null;
             sessionSecret = null;
             connectToSession();
@@ -1587,6 +1710,12 @@
 
         function cleanup() {
             connectingInProgress = false;
+            // Invalidate in-flight attempts and kill pending timers — a zombie
+            // reconnect timer surviving cleanup used to fire mid-handshake and
+            // tear down the NEXT attempt's PeerConnection.
+            currentAttempt++;
+            if (reconnectTimer) { clearTimeout(reconnectTimer); reconnectTimer = null; }
+            if (connectWatchdog) { clearTimeout(connectWatchdog); connectWatchdog = null; }
             stopViewerHeartbeat();
             // Clear viewer lock in Firestore
             if (sessionId) {
@@ -1776,7 +1905,11 @@
             // tab could act on. On return, anything not connected/connecting is
             // dead — rebuild now rather than waiting for a listener to fire.
             const st = peerConnection ? peerConnection.connectionState : 'none';
-            if (sessionId && st !== 'connected' && st !== 'connecting') {
+            // 'connecting' is only alive if the attempt is fresh — a pc wedged
+            // in 'connecting' for longer than the stale window is a corpse too.
+            const stuckConnecting = st === 'connecting' &&
+                (Date.now() - connectingSince > CONNECT_ATTEMPT_STALE_MS);
+            if (sessionId && st !== 'connected' && (st !== 'connecting' || stuckConnecting)) {
                 console.log('Tab visible with dead connection (' + st + ') — reconnecting');
                 cleanup();
                 tryConnectSession();
