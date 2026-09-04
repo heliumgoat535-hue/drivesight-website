@@ -3756,8 +3756,38 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Sound: the post's track is licensed through TikTok, so play it in TikTok's own player.
+    // The site's CSP is set by a Cloudflare zone rule; if it doesn't allow tiktok.com frames
+    // yet, the embed would render blank, so fall back to opening the post on TikTok instead.
+    var POST_URL = 'https://www.tiktok.com/@drivesight3/photo/7681181018530925854';
+    function embedAllowed() {
+        return fetch(location.pathname, { method: 'HEAD', cache: 'no-store' }).then(function (r) {
+            var csp = r.headers.get('content-security-policy') || '';
+            if (!csp) return true; // no CSP at all (e.g. local preview): nothing blocks the frame
+            var dirs = ['frame-src', 'child-src', 'default-src'];
+            for (var d = 0; d < dirs.length; d++) {
+                var m = csp.match(new RegExp('(?:^|;)\\s*' + dirs[d] + '\\s+([^;]*)'));
+                if (!m) continue;
+                var v = ' ' + m[1].trim() + ' ';
+                return / (https:\/\/)?(\*\.|www\.)?tiktok\.com\/? /.test(v) || / https: /.test(v) || / \* /.test(v);
+            }
+            return true; // no directive governs frames
+        }).catch(function () { return false; });
+    }
     if (sound) {
         sound.addEventListener('click', function () {
+            if (sound.disabled) return;
+            sound.disabled = true;
+            embedAllowed().then(function (ok) {
+                if (!ok) {
+                    sound.disabled = false;
+                    window.open(POST_URL, '_blank', 'noopener');
+                    return;
+                }
+                mountEmbed();
+            });
+        });
+    }
+    function mountEmbed() {
             embedded = true;
             stop();
             var f = document.createElement('iframe');
@@ -3770,7 +3800,6 @@ document.addEventListener('DOMContentLoaded', function() {
             while (stage.firstChild) stage.removeChild(stage.firstChild);
             stage.appendChild(f);
             dots.hidden = true;
-        });
     }
 
     sync();
