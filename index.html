@@ -738,34 +738,52 @@
             margin-bottom: 2px;
         }
 
-        /* ============ UGC CLIPS (social proof) ============ */
+        /* ============ TIKTOK POST (social proof) ============ */
         .social-proof { padding: var(--sp-12) var(--sp-3); }
         .social-proof .section-title { margin-bottom: var(--sp-6); }
-        .hero-clips {
+        .tt-post {
             position: relative;
             z-index: 1;
             max-width: 860px;
-            margin: 0;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: var(--sp-3);
-        }
-        .hero-clip {
-            position: relative;
             margin: 0;
             border-radius: 18px;
             overflow: hidden;
             background: var(--color-bg-card);
             border: 1px solid var(--border-color);
-            aspect-ratio: 9 / 16;
         }
-        .hero-clip-video { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .hero-clip-sound {
+        .tt-carousel {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior-x: contain;
+            background: #0b0d10;
+            aspect-ratio: 2.2 / 1;
+            outline: none;
+        }
+        .tt-carousel::-webkit-scrollbar { display: none; }
+        .tt-carousel:focus-visible { box-shadow: inset 0 0 0 2px var(--color-primary); }
+        .tt-slide {
+            flex: 0 0 100%;
+            margin: 0;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .tt-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .tt-slide-portrait img { width: auto; object-fit: contain; }
+        .tt-stage { position: relative; background: #0b0d10; }
+        .tt-stage.is-embed { display: flex; justify-content: center; padding: 12px 0 4px; }
+        .tt-stage iframe { width: 100%; max-width: 605px; height: 724px; border: 0; display: block; }
+        .tt-arrow {
             position: absolute;
-            right: 10px;
-            bottom: 10px;
-            width: 34px;
-            height: 34px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             display: grid;
             place-items: center;
@@ -775,20 +793,52 @@
             border: 1px solid rgba(255, 255, 255, 0.16);
             color: #ffffff;
             cursor: pointer;
+            transition: background 0.18s ease, opacity 0.18s ease;
+        }
+        .tt-arrow:hover { background: rgba(0, 0, 0, 0.8); }
+        .tt-arrow[disabled] { opacity: 0.3; cursor: default; }
+        .tt-arrow svg { width: 20px; height: 20px; pointer-events: none; }
+        .tt-prev { left: 12px; }
+        .tt-next { right: 12px; }
+        .tt-sound {
+            position: absolute;
+            right: 12px;
+            bottom: 12px;
+            height: 36px;
+            padding: 0 14px 0 10px;
+            border-radius: 99px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            color: #ffffff;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
             transition: background 0.18s ease;
         }
-        .hero-clip-sound:hover { background: rgba(0, 0, 0, 0.78); }
-        .hero-clip-sound svg { width: 15px; height: 15px; pointer-events: none; }
-        .hero-clip-sound .icon-on { display: none; }
-        .hero-clip-sound[aria-pressed="true"] .icon-on { display: block; }
-        .hero-clip-sound[aria-pressed="true"] .icon-off { display: none; }
-        .hero-clip-srtext {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            overflow: hidden;
-            clip: rect(0 0 0 0);
-            white-space: nowrap;
+        .tt-sound:hover { background: rgba(0, 0, 0, 0.85); }
+        .tt-sound svg { width: 16px; height: 16px; pointer-events: none; }
+        .tt-meta { padding: 16px 20px 20px; }
+        .tt-dots { display: flex; gap: 6px; justify-content: center; margin-bottom: 14px; min-height: 6px; }
+        .tt-dots span {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: var(--text-dim); opacity: 0.35;
+            transition: opacity 0.18s ease, transform 0.18s ease;
+        }
+        .tt-dots span.is-active { opacity: 1; background: var(--color-primary); transform: scale(1.25); }
+        .tt-author {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-weight: 700; font-size: 0.9rem; color: var(--text-bright);
+        }
+        .tt-author:hover { color: var(--color-primary); }
+        .tt-caption { margin: 8px 0 12px; color: var(--text-dim); font-size: 0.95rem; line-height: 1.55; }
+        .tt-link {
+            display: inline-block; font-size: 0.85rem; font-weight: 600;
+            color: var(--color-primary); border-bottom: 1px solid currentColor; padding-bottom: 1px;
         }
 
         /* ============ STATS BAND ============ */
@@ -975,8 +1025,12 @@
             .hero { padding: 88px var(--sp-3) var(--sp-6); }
             .hero-shots { grid-template-columns: repeat(2, 1fr); gap: var(--sp-2); margin-top: var(--sp-6); }
             .hero-shots .shot:nth-child(n+3) { display: none; }
-            .hero-clips { grid-template-columns: 1fr; max-width: 340px; }
-            .hero-clips .hero-clip:nth-child(n+2) { display: none; }
+            .tt-arrow { width: 36px; height: 36px; }
+            .tt-arrow svg { width: 16px; height: 16px; }
+            .tt-sound { height: 32px; font-size: 0.75rem; right: 8px; bottom: 8px; }
+            .tt-prev { left: 8px; }
+            .tt-next { right: 8px; }
+            .tt-meta { padding: 14px 16px 18px; }
             .feature-grid { grid-template-columns: 1fr; }
             .features { padding: var(--sp-8) var(--sp-3); }
             .stat-figure { min-height: 0; }
@@ -3081,45 +3135,39 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ============ REAL DRIVERS (UGC clips) ============ -->
 <section class="social-proof">
     <div class="section-inner">
-        <span class="section-label">Real drivers</span>
-        <h2 class="section-title">Filmed on the app, <em>not by us</em></h2>
-        <div class="hero-clips fade-up">
-            <figure class="hero-clip">
-                <video class="hero-clip-video" autoplay muted loop playsinline preload="metadata"
-                       width="608" height="1094" poster="assets/hero-ugc-poster.webp"
-                       aria-label="Driver at a night-time traffic stop explaining how DriveSight turns a phone into an AI dash cam">
-                    <source src="assets/hero-ugc.mp4" type="video/mp4">
-                </video>
-                <button class="hero-clip-sound" type="button" aria-pressed="false">
-                    <span class="hero-clip-srtext">Toggle sound</span>
-                    <svg class="icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-                    <svg class="icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
-                </button>
-            </figure>
-            <figure class="hero-clip">
-                <video class="hero-clip-video" autoplay muted loop playsinline preload="metadata"
-                       width="608" height="1094" poster="assets/hero-ugc-2-poster.webp"
-                       aria-label="Short clip about using DriveSight to stay aware of speed cameras and tickets">
-                    <source src="assets/hero-ugc-2.mp4" type="video/mp4">
-                </video>
-                <button class="hero-clip-sound" type="button" aria-pressed="false">
-                    <span class="hero-clip-srtext">Toggle sound</span>
-                    <svg class="icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-                    <svg class="icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
-                </button>
-            </figure>
-            <figure class="hero-clip">
-                <video class="hero-clip-video" autoplay muted loop playsinline preload="metadata"
-                       width="608" height="1094" poster="assets/hero-ugc-3-poster.webp"
-                       aria-label="Two drivers in a parking garage talking about recording with a phone dash cam">
-                    <source src="assets/hero-ugc-3.mp4" type="video/mp4">
-                </video>
-                <button class="hero-clip-sound" type="button" aria-pressed="false">
-                    <span class="hero-clip-srtext">Toggle sound</span>
-                    <svg class="icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-                    <svg class="icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
-                </button>
-            </figure>
+        <span class="section-label">From our TikTok</span>
+        <h2 class="section-title">The radar detector <em>for police helicopters</em></h2>
+        <div class="tt-post fade-up">
+          <div class="tt-stage" id="ttStage">
+            <div class="tt-carousel" id="ttCarousel" tabindex="0" aria-label="Photos from the DriveSight TikTok post. Swipe or use the arrow buttons to browse.">
+                <figure class="tt-slide"><img src="assets/tiktok/police-aircraft-post-1.webp" srcset="assets/tiktok/police-aircraft-post-1-sm.webp 720w, assets/tiktok/police-aircraft-post-1.webp 1440w" sizes="(max-width: 720px) 92vw, 860px" width="1440" height="647" alt="DriveSight drive screen at 53 mph with a Police Reported Ahead alert 1010 m away on South Mountain Road" loading="eager" decoding="async"></figure>
+                <figure class="tt-slide"><img src="assets/tiktok/police-aircraft-post-2.webp" srcset="assets/tiktok/police-aircraft-post-2-sm.webp 720w, assets/tiktok/police-aircraft-post-2.webp 1440w" sizes="(max-width: 720px) 92vw, 860px" width="1440" height="647" alt="DriveSight drive screen showing a Police Aircraft Overhead alert: Chicago Police Dept Bell 429 helicopter at 1000 ft" loading="eager" decoding="async"></figure>
+                <figure class="tt-slide"><img src="assets/tiktok/police-aircraft-post-3.webp" srcset="assets/tiktok/police-aircraft-post-3-sm.webp 720w, assets/tiktok/police-aircraft-post-3.webp 1440w" sizes="(max-width: 720px) 92vw, 860px" width="1440" height="647" alt="DriveSight drive screen showing a Government Aircraft Overhead alert for a United Nations DHC-8-100" loading="eager" decoding="async"></figure>
+                <figure class="tt-slide"><img src="assets/tiktok/police-aircraft-post-4.webp" srcset="assets/tiktok/police-aircraft-post-4-sm.webp 720w, assets/tiktok/police-aircraft-post-4.webp 1440w" sizes="(max-width: 720px) 92vw, 860px" width="1440" height="647" alt="DriveSight drive screen at 73 mph with AI detection boxes on a truck, a car and a motorcycle" loading="eager" decoding="async"></figure>
+                <figure class="tt-slide"><img src="assets/tiktok/police-aircraft-post-5.webp" srcset="assets/tiktok/police-aircraft-post-5-sm.webp 720w, assets/tiktok/police-aircraft-post-5.webp 1440w" sizes="(max-width: 720px) 92vw, 860px" width="1440" height="647" alt="DriveSight drive screen with a Flock Camera Ahead alert 396 m away and a USB rear camera streaming" loading="eager" decoding="async"></figure>
+                <figure class="tt-slide tt-slide-portrait"><img src="assets/tiktok/police-aircraft-post-6.webp" width="449" height="900" alt="DriveSight remote view alert: Person at your car, someone is lingering at your vehicle, recording started" loading="eager" decoding="async"></figure>
+                <figure class="tt-slide tt-slide-portrait"><img src="assets/tiktok/police-aircraft-post-7.webp" width="502" height="900" alt="DriveSight promo card: Ultimate peace of mind, police and speed camera alerts" loading="eager" decoding="async"></figure>
+            </div>
+            <button class="tt-arrow tt-prev" type="button" aria-label="Previous photo" data-dir="-1">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <button class="tt-arrow tt-next" type="button" aria-label="Next photo" data-dir="1">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+            <button class="tt-sound" id="ttSound" type="button" aria-label="Play this post with sound in TikTok's player">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+                <span>Play with sound</span>
+            </button>
+          </div>
+            <div class="tt-meta">
+                <div class="tt-dots" id="ttDots" aria-hidden="true"></div>
+                <a class="tt-author" href="https://www.tiktok.com/@drivesight3/photo/7681181018530925854" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+                    @drivesight3
+                </a>
+                <p class="tt-caption">This is Drivesight for android it is a dash cam app that alerts you to police aircraft above you in the sky. You also get a live map of known police locations and speed traps. Check it out!</p>
+                <a class="tt-link" href="https://www.tiktok.com/@drivesight3/photo/7681181018530925854" target="_blank" rel="noopener">View on TikTok</a>
+            </div>
         </div>
     </div>
 </section>
@@ -3648,28 +3696,85 @@ document.addEventListener('DOMContentLoaded', function() {
 })();
 </script>
 
-<!-- UGC clip sound toggle: one clip audible at a time -->
+<!-- TikTok post carousel: scroll-snap does the work; JS keeps dots/arrows in sync,
+     auto-advances like TikTok photo mode, and swaps in TikTok's player for sound -->
 <script>
 (function () {
-    document.querySelectorAll('.hero-clip').forEach(function (clip) {
-        var video = clip.querySelector('video');
-        var btn = clip.querySelector('.hero-clip-sound');
-        if (!video || !btn) return;
-        btn.addEventListener('click', function () {
-            var on = video.muted; // turning sound ON
-            document.querySelectorAll('.hero-clip video').forEach(function (v) {
-                v.muted = true;
-            });
-            document.querySelectorAll('.hero-clip-sound').forEach(function (b) {
-                b.setAttribute('aria-pressed', 'false');
-            });
-            if (on) {
-                video.muted = false;
-                btn.setAttribute('aria-pressed', 'true');
-                video.play();
-            }
-        });
+    var track = document.getElementById('ttCarousel');
+    var dots = document.getElementById('ttDots');
+    var stage = document.getElementById('ttStage');
+    var sound = document.getElementById('ttSound');
+    if (!track || !dots || !stage) return;
+    var slides = track.querySelectorAll('.tt-slide');
+    var n = slides.length;
+    for (var i = 0; i < n; i++) dots.appendChild(document.createElement('span'));
+    var prev = stage.querySelector('.tt-prev');
+    var next = stage.querySelector('.tt-next');
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var AUTO_MS = 3000;
+    var timer = null, ticking = false, embedded = false, held = false;
+
+    function index() { return Math.round(track.scrollLeft / track.clientWidth); }
+    function sync() {
+        ticking = false;
+        if (embedded) return;
+        var i = index();
+        for (var k = 0; k < n; k++) dots.children[k].classList.toggle('is-active', k === i);
+        prev.disabled = i <= 0;
+        next.disabled = i >= n - 1;
+    }
+    function goTo(i) {
+        track.scrollTo({ left: i * track.clientWidth, behavior: reduce ? 'auto' : 'smooth' });
+    }
+    function go(dir) { goTo(Math.max(0, Math.min(n - 1, index() + dir))); }
+    function step() { var i = index(); goTo(i >= n - 1 ? 0 : i + 1); }
+    function start() { if (reduce || embedded || held || timer || document.hidden) return; timer = setInterval(step, AUTO_MS); }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+    function restart() { stop(); start(); }
+
+    track.addEventListener('scroll', function () {
+        if (!ticking) { ticking = true; requestAnimationFrame(sync); }
+    }, { passive: true });
+    prev.addEventListener('click', function () { go(-1); restart(); });
+    next.addEventListener('click', function () { go(1); restart(); });
+    track.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); restart(); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); go(1); restart(); }
     });
+    // Hold while the visitor is looking closely or swiping; resume when they leave.
+    ['mouseenter', 'focusin', 'touchstart', 'pointerdown'].forEach(function (ev) {
+        stage.addEventListener(ev, function () { held = true; stop(); }, { passive: true });
+    });
+    ['mouseleave', 'focusout', 'touchend', 'touchcancel', 'pointerup'].forEach(function (ev) {
+        stage.addEventListener(ev, function () { held = false; start(); }, { passive: true });
+    });
+    document.addEventListener('visibilitychange', function () { document.hidden ? stop() : start(); });
+    if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+            entries[0].isIntersecting ? start() : stop();
+        }, { threshold: 0.35 }).observe(stage);
+    }
+
+    // Sound: the post's track is licensed through TikTok, so play it in TikTok's own player.
+    if (sound) {
+        sound.addEventListener('click', function () {
+            embedded = true;
+            stop();
+            var f = document.createElement('iframe');
+            f.src = 'https://www.tiktok.com/embed/v2/7681181018530925854';
+            f.title = 'DriveSight on TikTok: police aircraft alerts';
+            f.allow = 'autoplay; encrypted-media; fullscreen; picture-in-picture';
+            f.referrerPolicy = 'strict-origin-when-cross-origin';
+            f.setAttribute('allowfullscreen', '');
+            stage.classList.add('is-embed');
+            while (stage.firstChild) stage.removeChild(stage.firstChild);
+            stage.appendChild(f);
+            dots.hidden = true;
+        });
+    }
+
+    sync();
+    start();
 })();
 </script>
 
