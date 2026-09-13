@@ -13,3 +13,11 @@ scripts/
 .gitignore
 .assetsignore
 node_modules
+src/
+test/
+.dev.vars
+.dev.vars.*
+.env
+.env.*
+.claude/
+.wrangler/

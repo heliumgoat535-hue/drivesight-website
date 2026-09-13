@@ -3,9 +3,15 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "sync": "node --env-file=.env scripts/sync-blog.mjs",
-    "sync:once": "node scripts/sync-blog.mjs"
+    "sync:once": "node scripts/sync-blog.mjs",
+    "test": "node --test test/*.test.mjs",
+    "dev": "npx --yes wrangler@4 dev --port 8787 --ip 127.0.0.1",
+    "mock:opinly": "node scripts/mock-opinly.mjs",
+    "pixel:inject": "node scripts/inject-opinly-pixel.mjs"
   }
 }

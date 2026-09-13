@@ -15,6 +15,17 @@ binding = "ASSETS"
 # assets via env.ASSETS.fetch at the end of the worker.
 run_worker_first = true
 
+# Opinly blog (src/opinly/). Non-secret config lives here; secrets are set in
+# the dashboard (Workers & Pages → drivesight-website → Settings → Variables
+# and Secrets) or `wrangler secret put`:
+#   OPINLY_API_KEY                 sk-… content API key (required)
+#   OPINLY_WEBHOOK_SIGNING_SECRET  whsec_… from Opinly Settings → Developers (required for /api/opinly-webhook)
+#   CF_ZONE_ID + CF_PURGE_TOKEN    optional: zone-wide cache purge on webhook (token needs Zone → Cache Purge)
+#   OPINLY_PURCHASE_INGEST_TOKEN   optional: enables POST /api/opinly/purchase for server-side revenue
+# Local dev reads the same names from .dev.vars (gitignored).
+[vars]
+OPINLY_API_URL = "https://sdk.opinly.ai"
+
 [build]
 command = ""
 
