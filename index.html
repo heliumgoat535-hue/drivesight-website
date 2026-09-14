@@ -711,15 +711,15 @@
             max-width: var(--maxw);
             margin: var(--sp-8) auto 0;
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: var(--sp-3);
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--sp-4) var(--sp-3);
             align-items: start;
         }
         .shot { display: flex; flex-direction: column; gap: 12px; margin: 0; }
         .shot-frame {
             position: relative;
-            aspect-ratio: 9 / 19.5;
-            border-radius: 22px;
+            aspect-ratio: 1400 / 652;
+            border-radius: 16px;
             overflow: hidden;
             background: var(--color-bg-card);
             border: 1px solid var(--border-color);
@@ -1017,8 +1017,7 @@
 
         /* ============ REBUILT SECTIONS RESPONSIVE ============ */
         @media (max-width: 1024px) {
-            .hero-shots { grid-template-columns: repeat(3, 1fr); }
-            .hero-shots .shot:nth-child(n+4) { display: none; }
+            .hero-shots { gap: var(--sp-3) var(--sp-2); }
             .feature-grid { grid-template-columns: repeat(2, 1fr); }
             /* An odd card count into 2 columns orphans the last row — full-width it */
             .feature-grid > .feature-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
@@ -1027,8 +1026,7 @@
         }
         @media (max-width: 720px) {
             .hero { padding: 88px var(--sp-3) var(--sp-6); }
-            .hero-shots { grid-template-columns: repeat(2, 1fr); gap: var(--sp-2); margin-top: var(--sp-6); }
-            .hero-shots .shot:nth-child(n+3) { display: none; }
+            .hero-shots { grid-template-columns: 1fr; gap: var(--sp-4); margin-top: var(--sp-6); }
             .tt-arrow { width: 36px; height: 36px; }
             .tt-arrow svg { width: 16px; height: 16px; }
             .tt-sound { height: 32px; font-size: 0.75rem; right: 8px; bottom: 8px; }
@@ -3078,38 +3076,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 
     <!-- ============ SCREENSHOT STRIP ============
-         Play-listing capture cards, exported to WebP at 540x1170 (2x the
-         270px display width). Source PNGs: Desktop/screenshotsdrivesight. -->
+         Real in-app captures from a Pixel 7a in landscape, with the Android
+         status bar and nav strip cropped off, exported to WebP at 1400x652
+         (about 2.4x the 588px display width). Sources: ~/Downloads. -->
     <div class="hero-shots fade-up">
         <figure class="shot">
             <div class="shot-frame">
-                <img src="/assets/shots/police-aircraft.webp" alt="DriveSight police map tracking a police helicopter with tail number, altitude and heading" width="540" height="1170" loading="lazy" decoding="async">
+                <img src="/assets/shots/police-aircraft-alert.webp" alt="DriveSight drive screen showing a police aircraft overhead alert with the operator, tail number, aircraft type, distance and altitude" width="1400" height="652" loading="lazy" decoding="async">
             </div>
-            <figcaption><b>Police &amp; aircraft</b>Live reports, down to tail number and altitude</figcaption>
+            <figcaption><b>Police aircraft overhead</b>Operator, tail number, aircraft type, distance and altitude the moment one is near</figcaption>
         </figure>
         <figure class="shot">
             <div class="shot-frame">
-                <img src="/assets/shots/camera-map.webp" alt="DriveSight camera map heat-mapping hundreds of speed cameras and Flock readers across a city" width="540" height="1170" loading="lazy" decoding="async">
+                <img src="/assets/shots/flock-camera-ahead.webp" alt="DriveSight drive screen warning of a Flock license plate camera 396 metres ahead, with a USB rear camera feed in the corner" width="1400" height="652" loading="lazy" decoding="async">
             </div>
-            <figcaption><b>Camera map</b>Flock readers and speed cams, block by block</figcaption>
+            <figcaption><b>Flock camera ahead</b>Plate readers called out by street and distance, with a second USB camera running</figcaption>
         </figure>
         <figure class="shot">
             <div class="shot-frame">
-                <img src="/assets/shots/live-recording.webp" alt="DriveSight recording screen with live map, street name, speed and speed limit" width="540" height="1170" loading="lazy" decoding="async">
+                <img src="/assets/shots/severe-weather-warning.webp" alt="DriveSight drive screen in heavy rain showing a Severe Thunderstorm Warning banner with its expiry time" width="1400" height="652" loading="lazy" decoding="async">
             </div>
-            <figcaption><b>Live recording</b>Street, speed and limit right on screen</figcaption>
+            <figcaption><b>Severe weather warning</b>National Weather Service warnings on screen while you drive, no setup</figcaption>
         </figure>
         <figure class="shot">
             <div class="shot-frame">
-                <img src="/assets/shots/dash-cam.webp" alt="DriveSight dash cam view at night with trip overlay and live map" width="540" height="1170" loading="lazy" decoding="async">
+                <img src="/assets/shots/heavy-traffic-ahead.webp" alt="DriveSight drive screen showing a heavy traffic alert for US-51 North 281 metres ahead, with speed and speed limit" width="1400" height="652" loading="lazy" decoding="async">
             </div>
-            <figcaption><b>Dash cam</b>Trip overlay with a live map while you drive</figcaption>
-        </figure>
-        <figure class="shot">
-            <div class="shot-frame">
-                <img src="/assets/shots/traffic-map.webp" alt="DriveSight traffic map scoring road busyness in vehicles per mile" width="540" height="1170" loading="lazy" decoding="async">
-            </div>
-            <figcaption><b>Traffic map</b>Roads scored in vehicles per mile</figcaption>
+            <figcaption><b>Heavy traffic ahead</b>Congestion on your road, with the distance before you reach it</figcaption>
         </figure>
     </div>
 </section>
