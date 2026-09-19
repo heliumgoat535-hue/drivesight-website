@@ -9,6 +9,7 @@
     <xhtml:link rel="alternate" hreflang="ru" href="https://phonedashcam.com/ru/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://phonedashcam.com/de/"/>
     <xhtml:link rel="alternate" hreflang="nl" href="https://phonedashcam.com/nl/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://phonedashcam.com/pt/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://phonedashcam.com/"/>
   </url>
   <url>
@@ -20,6 +21,7 @@
     <xhtml:link rel="alternate" hreflang="ru" href="https://phonedashcam.com/ru/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://phonedashcam.com/de/"/>
     <xhtml:link rel="alternate" hreflang="nl" href="https://phonedashcam.com/nl/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://phonedashcam.com/pt/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://phonedashcam.com/"/>
   </url>
   <url>
@@ -31,6 +33,7 @@
     <xhtml:link rel="alternate" hreflang="ru" href="https://phonedashcam.com/ru/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://phonedashcam.com/de/"/>
     <xhtml:link rel="alternate" hreflang="nl" href="https://phonedashcam.com/nl/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://phonedashcam.com/pt/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://phonedashcam.com/"/>
   </url>
   <url>
@@ -42,6 +45,7 @@
     <xhtml:link rel="alternate" hreflang="ru" href="https://phonedashcam.com/ru/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://phonedashcam.com/de/"/>
     <xhtml:link rel="alternate" hreflang="nl" href="https://phonedashcam.com/nl/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://phonedashcam.com/pt/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://phonedashcam.com/"/>
   </url>
   <url><loc>https://phonedashcam.com/best-dash-cam-app-android</loc><lastmod>2026-04-28</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
@@ -103,5 +107,23 @@
     <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://phonedashcam.com/pt/</loc>
+    <lastmod>2026-09-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://phonedashcam.com/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://phonedashcam.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://phonedashcam.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://phonedashcam.com/nl/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://phonedashcam.com/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://phonedashcam.com/"/>
+  </url>
+  <url>
+    <loc>https://phonedashcam.com/pt/camera-veicular-pelo-celular</loc>
+    <lastmod>2026-09-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>
