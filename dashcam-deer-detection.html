@@ -26,7 +26,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>How DriveSight Detects Deer and Wildlife on the Road</title>
-    <meta name="description" content="DriveSight uses on-device AI to detect deer, animals, and large wildlife in real time. How the detection model works and why it catches what dashcams miss.">
+    <meta name="description" content="How DriveSight detects deer with on-device AI, when deer season peaks for drivers, and whether deer alerts and deer whistles really work. Honest limits included.">
     <meta name="keywords" content="dashcam deer detection, AI wildlife detection dashcam, detect deer on road, dashcam animal detection, deer accident dashcam, night animal detection dashcam, AI dashcam app, phone dashcam wildlife">
     <meta name="author" content="Cyberlab Automation">
     <meta name="robots" content="index, follow">
@@ -60,7 +60,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         "author": {"@type": "Organization", "name": "Cyberlab Automation", "url": "https://phonedashcam.com/about"},
         "publisher": {"@id": "https://phonedashcam.com/#organization"},
         "datePublished": "2026-04-04",
-        "dateModified": "2026-04-28",
+        "dateModified": "2026-09-20",
         "image": "https://phonedashcam.com/assets/real-ai-detection.jpg",
         "mainEntityOfPage": "https://phonedashcam.com/dashcam-deer-detection",
         "speakable": {
@@ -295,6 +295,70 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             install: { framework: 'web', agent: 'claude-code' },
         });
     </script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does DriveSight specifically identify deer or just large animals?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The underlying model identifies animals by their closest COCO class — horse, sheep, cow, dog, bird, and others. The app remaps all large-animal detections to a \"Deer\" alert because those classes are the most common misclassifications for deer at dashcam distance. The alert covers any large animal at the roadside, not only whitetail deer."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How far ahead does the AI detect animals?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Detection range depends on animal size and lighting. In practice, large animals (deer-sized and above) are typically detected at 30-80 meters. The adaptive two-pass scan helps with longer distances by zooming into the road-ahead zone for a second analysis."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this work at night?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Detection works at night within your headlight range. The model analyzes what the camera can see, so it is limited by your headlights and any ambient road lighting. In complete darkness beyond the lit zone, detection is unreliable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the AI detection always running?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AI detection is a Pro feature. It runs in the background while recording, analyzing frames in a separate processing thread so it does not interrupt the recording pipeline. The frame rate for detection adjusts dynamically based on phone temperature to prevent overheating."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When is deer season for drivers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "October, November and December. The rut moves deer at dusk and dawn, which is when most people commute, and November is the worst single month for deer strikes in the United States. One deer crossing usually means more are coming. Slow down, use high beams on empty roads, and brake in a straight line rather than swerving."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do deer alerts really work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It depends which kind. Deer whistles mounted on the bumper have not changed deer behavior in controlled tests, and there is no evidence they prevent collisions. DriveSight does two different things: it speaks a wildlife hotspot warning before you reach a reported crossing, which does not need to see the animal, and it detects animals the camera can see within headlight range and saves the clip. Neither replaces slowing down at dusk. The hotspot warning is the part to rely on; the detection is most useful afterward, when the clip with the box on it goes to your insurer."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there a deer whistle app?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Phone speakers cannot produce the ultrasonic tones deer whistles claim to make, and there is no evidence those tones work anyway, so DriveSight does not try. It warns the driver instead: a spoken hotspot warning before a reported crossing, and an on-screen alert with a saved clip when the camera sees an animal."
+      }
+    }
+  ]
+}
+    </script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -461,6 +525,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="faq-item">
         <h3>Is the AI detection always running?</h3>
         <p>AI detection is a Pro feature. It runs in the background while recording, analyzing frames in a separate processing thread so it does not interrupt the recording pipeline. The frame rate for detection adjusts dynamically based on phone temperature to prevent overheating.</p>
+    </div>
+
+    <div class="faq-item">
+        <h3>When is deer season for drivers?</h3>
+        <p>October, November and December. The rut moves deer at dusk and dawn, which is when most people commute, and November is the worst single month for deer strikes in the United States. One deer crossing usually means more are coming. Slow down, use high beams on empty roads, and brake in a straight line rather than swerving.</p>
+    </div>
+
+    <div class="faq-item">
+        <h3>Do deer alerts really work?</h3>
+        <p>It depends which kind. Deer whistles mounted on the bumper have not changed deer behavior in controlled tests, and there is no evidence they prevent collisions. DriveSight does two different things: it speaks a wildlife hotspot warning before you reach a reported crossing, which does not need to see the animal, and it detects animals the camera can see within headlight range and saves the clip. Neither replaces slowing down at dusk. The hotspot warning is the part to rely on; the detection is most useful afterward, when the clip with the box on it goes to your insurer.</p>
+    </div>
+
+    <div class="faq-item">
+        <h3>Is there a deer whistle app?</h3>
+        <p>Phone speakers cannot produce the ultrasonic tones deer whistles claim to make, and there is no evidence those tones work anyway, so DriveSight does not try. It warns the driver instead: a spoken hotspot warning before a reported crossing, and an on-screen alert with a saved clip when the camera sees an animal.</p>
     </div>
 
     <!-- ============================================ -->
