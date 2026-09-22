@@ -1692,6 +1692,21 @@
             grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
             gap: 40px;
         }
+        .footer-badge {
+            display: inline-block;
+            margin-top: 18px;
+            line-height: 0;
+            opacity: 0.75;
+            transition: opacity 0.2s ease;
+        }
+        .footer-badge:hover { opacity: 1; }
+        .footer-badge img {
+            display: block;
+            width: 168px;
+            height: auto;
+            border-radius: 10px;
+        }
+
         .footer-brand p {
             color: var(--text-dim) !important;
             font-size: 0.9rem !important;
@@ -3343,10 +3358,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <span style="font-weight:700;letter-spacing:-0.03em;text-transform:lowercase;background:linear-gradient(90deg, #ffffff 40%, #10b981 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">drivesight</span>
             </div>
             <p>The smartest AI dash cam app on Android. Parking mode, crash detection, cloud backup, and 336,000+ camera alerts. Built by Cyberlab Automation.</p>
-            </div>
-<a href="https://launchstag.com/p/drivesight-dash-cam-app" target="_blank" rel="noopener">
-  <img src="https://launchstag.com/badge-light.svg" alt="Featured on Launchstag" width="198" height="62" />
-</a>
+            <a class="footer-badge" href="https://launchstag.com/p/drivesight-dash-cam-app" target="_blank" rel="noopener">
+                <img src="https://launchstag.com/badge-dark.svg" alt="DriveSight featured on Launchstag" width="198" height="62" loading="lazy" decoding="async">
+            </a>
+        </div>
         <div class="footer-col">
             <p class="footer-col-head">Product</p>
             <a href="#features">App Features</a>
