@@ -25,8 +25,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YOLO Object Detection On-Device for Dashcams Real-Time</title>
-    <meta name="description" content="DriveSight runs YOLO AI on-device to detect deer, wildlife, vehicles, and people in real time - no cloud, no internet. Learn how it works.">
-    <meta name="keywords" content="dashcam AI detection, YOLO dashcam, dashcam deer detection, AI object detection dashcam, phone dashcam YOLO, real-time object detection android, dashcam animal detection, dashcam AI android">
+    <meta name="description" content="DriveSight runs YOLO AI on-device to detect vehicles, people and road hazards in real time - no cloud, no internet. Why it does not flag deer, and what it does instead.">
+    <meta name="keywords" content="dashcam AI detection, YOLO dashcam, AI object detection dashcam, phone dashcam YOLO, real-time object detection android, dashcam animal detection, dashcam AI android">
     <meta name="author" content="Cyberlab Automation">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://phonedashcam.com/yolo-dashcam-ai-detection">
@@ -34,7 +34,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <!-- Open Graph -->
     <meta property="og:type" content="article">
     <meta property="og:title" content="YOLO AI Object Detection in DriveSight">
-    <meta property="og:description" content="DriveSight runs a YOLO neural network on your phone to detect deer, animals, vehicles, and people in real time. Fully on-device — no internet, no cloud.">
+    <meta property="og:description" content="DriveSight runs a YOLO neural network on your phone to detect vehicles, people and road hazards in real time. Fully on-device — no internet, no cloud.">
     <meta property="og:image" content="https://phonedashcam.com/assets/hero-dashcam.jpg">
     <meta property="og:site_name" content="DriveSight">
     <meta property="og:url" content="https://phonedashcam.com/yolo-dashcam-ai-detection">
@@ -42,7 +42,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="YOLO AI Object Detection in DriveSight">
-    <meta name="twitter:description" content="Real-time deer, animal, vehicle, and person detection on your phone. No cloud. No internet. Runs at 7fps on any Android from 2019+.">
+    <meta name="twitter:description" content="On-device YOLO detects vehicles, people and road hazards. No cloud, no internet. Why it does not flag deer.">
 
     <link rel="icon" type="image/png" href="assets/icon-512.png">
     <link rel="apple-touch-icon" href="assets/icon-512.png">
@@ -52,8 +52,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     {
         "@context": "https://schema.org",
         "@type": "Article",
-        "headline": "YOLO AI Object Detection in DriveSight: Deer, Animals, Vehicles & People",
-        "description": "DriveSight uses an on-device YOLO neural network to detect deer, animals, vehicles, and people in real time at 7fps. Everything runs on the phone — no cloud, no internet, no data sent to any server.",
+        "headline": "YOLO AI Object Detection in DriveSight: Vehicles, People and Road Hazards",
+        "description": "DriveSight uses an on-device YOLO neural network to detect vehicles, people and road hazards in real time at 7fps. Everything runs on the phone — no cloud, no internet, no data sent to any server.",
         "author": {
             "@type": "Person",
             "name": "DriveSight Team",
@@ -74,7 +74,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             "cssSelector": [".article h1", ".article > p:first-of-type"]
         },
         "articleSection": "Features",
-        "keywords": ["YOLO dashcam", "AI object detection", "deer detection dashcam", "on-device AI", "phone dashcam YOLO", "real-time object detection android"],
+        "keywords": ["YOLO dashcam", "AI object detection", "on-device AI", "phone dashcam YOLO", "real-time object detection android"],
         "inLanguage": "en-US"
     }
     </script>
@@ -103,7 +103,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 "name": "What does the AI object detection in DriveSight detect?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "DriveSight's YOLO AI detects deer, animals (dogs, cats, horses, birds, and more), vehicles (cars, trucks, motorcycles, bicycles), and people. Detection runs in real time at approximately 7 frames per second with bounding boxes drawn around each detected object."
+                    "text": "DriveSight's YOLO AI detects vehicles (cars, trucks, motorcycles, bicycles), and people. Detection runs in real time at approximately 7 frames per second with bounding boxes drawn around each detected object."
                 }
             },
             {
@@ -378,18 +378,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="detection-grid">
         <div class="detection-card">
-            <div class="icon">🦌</div>
-            <h3>Wildlife</h3>
+            <div class="icon">🐕</div>
+            <h3>Animals</h3>
             <div class="tags">
-                <span class="tag">Deer</span>
                 <span class="tag">Dog</span>
                 <span class="tag">Cat</span>
-                <span class="tag">Horse</span>
-                <span class="tag">Bird</span>
-                <span class="tag">Cow</span>
-                <span class="tag">Sheep</span>
-                <span class="tag">Bear</span>
             </div>
+            <p style="font-size:0.85rem;opacity:0.75;margin-top:8px;">Wild-animal classes including deer, cow and bear were removed. They fired on trees, bushes and rubbish bags. <a href="/dashcam-deer-detection">Why</a>.</p>
         </div>
         <div class="detection-card">
             <div class="icon">🚗</div>
@@ -469,7 +464,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <p>This is the case for deer detection, and DriveSight does not make that claim. Wild-animal classes were removed from the model because they fired on trees and bushes, and a dedicated deer model was disabled after it labelled cats and whole rooms as deer. A warning you learn to ignore is worse than none.</p>
 
-    <p>This is different from the <a href="/dashcam-deer-detection">deer detection guide</a> which covers wildlife hotspot warnings based on geographic data — AI detection operates frame by frame on the live camera feed and flags actual animals in view, not just high-risk zones.</p>
+    <p>What DriveSight ships for deer season instead is the spoken wildlife hotspot warning, which works from reported sightings and your GPS position rather than the camera, so darkness and blind curves do not defeat it. The full reasoning is in the <a href="/dashcam-deer-detection">deer detection guide</a>.</p>
 
     <div class="ad-slot">
         <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2177114511441377" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
@@ -510,7 +505,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="faq-item">
         <h3>What does DriveSight's AI detect?</h3>
-        <p>Deer, animals (dogs, cats, horses, birds, and more), vehicles (cars, trucks, buses, motorcycles, bicycles), people, stop signs, and traffic lights. Detection runs in real time with bounding boxes drawn on the camera feed as objects are identified.</p>
+        <p>Vehicles (cars, trucks, buses, motorcycles, bicycles), people, dogs and cats, stop signs and traffic lights, plus the brake light state of the car ahead. It does not detect deer or other wildlife: those classes were removed because they produced false positives on roadside vegetation. Detection runs in real time with bounding boxes drawn on the camera feed.</p>
     </div>
 
     <div class="faq-item">
@@ -535,7 +530,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="faq-item">
         <h3>How is this different from the deer hotspot warnings?</h3>
-        <p>The deer/wildlife hotspot warnings are geography-based — they alert you when you're driving through a region statistically likely to have deer on the road, based on crash report data. AI object detection is camera-based — it runs YOLO on the live camera feed and flags actual animals visible in front of your car right now. Both features can run simultaneously.</p>
+        <p>The wildlife hotspot warnings are geography-based: they speak a warning as you approach a stretch of road with reported sightings, before you get there. That is the feature to rely on in deer season. AI object detection is camera-based and does not report wildlife at all.</p>
     </div>
 </article>
 
