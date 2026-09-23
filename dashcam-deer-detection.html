@@ -25,8 +25,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How DriveSight Detects Deer and Wildlife on the Road</title>
-    <meta name="description" content="How DriveSight detects deer with on-device AI, when deer season peaks for drivers, and whether deer alerts and deer whistles really work. Honest limits included.">
+    <title>Does DriveSight Detect Deer? The Honest Answer (2026)</title>
+    <meta name="description" content="We built deer detection into DriveSight and then switched it off. Why phone cameras cannot reliably spot deer, and the wildlife hotspot warning we shipped instead.">
     <meta name="keywords" content="dashcam deer detection, AI wildlife detection dashcam, detect deer on road, dashcam animal detection, deer accident dashcam, night animal detection dashcam, AI dashcam app, phone dashcam wildlife">
     <meta name="author" content="Cyberlab Automation">
     <meta name="robots" content="index, follow">
@@ -34,8 +34,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <!-- Open Graph -->
     <meta property="og:type" content="article">
-    <meta property="og:title" content="How DriveSight Detects Deer and Wildlife on the Road">
-    <meta property="og:description" content="On-device AI that identifies deer and large animals at night, in real-time, without cloud processing. Here's how it works.">
+    <meta property="og:title" content="We built deer detection, then turned it off">
+    <meta property="og:description" content="Why a phone camera cannot reliably spot a deer in time, what we shipped instead, and how the on-device detection actually works.">
     <meta property="og:image" content="https://phonedashcam.com/assets/real-ai-detection.jpg">
     <meta property="og:site_name" content="DriveSight">
     <meta property="og:url" content="https://phonedashcam.com/dashcam-deer-detection">
@@ -55,12 +55,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     {
         "@context": "https://schema.org",
         "@type": "Article",
-        "headline": "DriveSight's AI Wildlife Detection — How It Spots Deer on the Road",
+        "headline": "We built deer detection into DriveSight, then turned it off",
         "description": "DriveSight runs a YOLO26 AI model on-device to detect deer, large animals, and road hazards in real-time. This article explains the detection pipeline and why phone AI outperforms dedicated dashcams for wildlife detection.",
         "author": {"@type": "Organization", "name": "Cyberlab Automation", "url": "https://phonedashcam.com/about"},
         "publisher": {"@id": "https://phonedashcam.com/#organization"},
         "datePublished": "2026-04-04",
-        "dateModified": "2026-09-20",
+        "dateModified": "2026-09-22",
         "image": "https://phonedashcam.com/assets/real-ai-detection.jpg",
         "mainEntityOfPage": "https://phonedashcam.com/dashcam-deer-detection",
         "speakable": {
@@ -305,7 +305,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "name": "Does DriveSight specifically identify deer or just large animals?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The underlying model identifies animals by their closest COCO class — horse, sheep, cow, dog, bird, and others. The app remaps all large-animal detections to a \"Deer\" alert because those classes are the most common misclassifications for deer at dashcam distance. The alert covers any large animal at the roadside, not only whitetail deer."
+        "text": "Neither, as of today. The class remap that turned horse, sheep and cow detections into a \"Deer\" alert was removed because it fired on trees and bushes, and the dedicated deer model is disabled because it produced confident false positives. The active model reports people, vehicles, traffic lights, stop signs, cats and dogs. The deer feature in the app is the spoken wildlife hotspot warning, which is based on reported sightings rather than the camera."
       }
     },
     {
@@ -313,7 +313,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "name": "How far ahead does the AI detect animals?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Detection range depends on animal size and lighting. In practice, large animals (deer-sized and above) are typically detected at 30-80 meters. The adaptive two-pass scan helps with longer distances by zooming into the road-ahead zone for a second analysis."
+        "text": "It does not detect wild animals at all. For the objects it does report, such as vehicles and people, range depends on size and lighting, and a second zoom pass over the road-ahead region helps with smaller distant objects. For deer specifically, the useful warning is the hotspot alert, which fires on GPS position before you reach a stretch with reported sightings, not on anything the camera sees."
       }
     },
     {
@@ -321,7 +321,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "name": "Does this work at night?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Detection works at night within your headlight range. The model analyzes what the camera can see, so it is limited by your headlights and any ambient road lighting. In complete darkness beyond the lit zone, detection is unreliable."
+        "text": "The object detection works at night only within your headlight range, because the model can only analyse what the camera can see. This limit is a large part of why deer detection was abandoned: the animals that matter are usually at or beyond the edge of the lit zone. The hotspot warning is unaffected by darkness, since it works from GPS position and reported sightings."
       }
     },
     {
@@ -329,7 +329,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "name": "Is the AI detection always running?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "AI detection is a Pro feature. It runs in the background while recording, analyzing frames in a separate processing thread so it does not interrupt the recording pipeline. The frame rate for detection adjusts dynamically based on phone temperature to prevent overheating."
+        "text": "Object detection is a Pro feature and runs in a separate processing thread while recording, so it does not interrupt the recording pipeline, and its frame rate adjusts with phone temperature to prevent overheating. It reports people, vehicles, road furniture, cats and dogs. It does not report deer."
       }
     },
     {
@@ -378,11 +378,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <article class="article">
     <div class="breadcrumb">
-        <a href="/">DriveSight</a> &rsaquo; Deer and Wildlife Detection
+        <a href="/">DriveSight</a> &rsaquo; Deer Detection: The Honest Answer
     </div>
 
-    <h1>DriveSight's AI Wildlife Detection — How It Spots Deer on the Road</h1>
-    <p class="article-meta">April 4, 2026 &middot; 7 min read</p>
+    <h1>We built deer detection into DriveSight. Then we turned it off.</h1>
+    <p class="article-meta">Updated September 22, 2026 &middot; 7 min read</p>
 
     <div class="article-byline">
         <img decoding="async" loading="lazy" width="1024" height="1024" src="/assets/icon-512.webp" alt="Cyberlab Automation">
@@ -397,15 +397,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <ul>
                 <li><a href="https://newsroom.statefarm.com/state-farm-deer-crash-report/" target="_blank" rel="noopener">Over 1.5 million deer-vehicle collisions</a> occur in the US annually, according to State Farm claims data.</li>
                 <li>The peak danger window is dusk and dawn in October–December, when deer are most active and visibility is lowest.</li>
-                <li>DriveSight uses YOLO object detection running at 7fps to identify large animals in the road and trigger an audible alert.</li>
-                <li>Detection works at speeds up to highway speeds — the alert fires when an animal enters the frame, typically giving 1–3 seconds of warning.</li>
-                <li>The system runs entirely on-device with no cloud dependency — offline in rural areas where deer collisions are most common.</li>
+                <li><strong>DriveSight does not detect deer.</strong> We shipped a deer model, watched it produce confident false positives, and disabled it. It is still switched off in the code today.</li>
+                <li>What we shipped instead is a spoken wildlife hotspot warning, built from reported sightings, that fires before you reach a stretch where animals have been seen.</li>
+                <li>The on-device object detection is real and still runs: people, cars, trucks, motorcycles and brake lights, at roughly 7 frames per second, entirely on your phone with no cloud.</li>
         </ul>
     </div>
 
     <p>Deer cause over <a href="https://newsroom.statefarm.com/state-farm-deer-crash-report/" target="_blank" rel="noopener">1.5 million vehicle collisions</a> in the United States every year. The vast majority happen at dusk and dawn, in the same 15-second window where your headlights illuminate the road but your eyes have not fully adjusted to the dark. By the time you register the animal, you have already closed most of the distance.</p>
 
-    <p>Standard dashcams record what happens. DriveSight tries to warn you before it does. Here is how the AI detection system works and what it actually looks for on the road ahead.</p>
+    <p>The obvious thing to build against that is a camera that spots the deer for you. We built it. It did not work well enough to ship honestly, so it is switched off, and this page explains why, because the question "do deer detection apps actually work" deserves a straight answer from someone who tried to make one.</p>
+
+    <p>What follows is what the detection genuinely does, what it cannot do, and the smaller feature that survived and is actually useful in deer season.</p>
 
     <img decoding="async" loading="lazy" width="1200" height="540" src="assets/real-ai-detection.jpg" alt="DriveSight AI detection identifying vehicles and objects on a highway at night" class="hero-img">
     <p class="img-caption">YOLO26 detection running in real-time on a live dashcam feed</p>
@@ -439,18 +441,44 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <h3>The COCO Class Problem</h3>
         <p>YOLO26 was trained on the COCO dataset, which contains 80 object classes. Deer is not one of them. COCO was built primarily from images of urban environments where deer do not appear.</p>
         <p>In practice, a deer standing at the side of a rural road gets classified as whichever animal it most closely resembles in the training data. At dashcam distance and resolution, that is often "horse," "sheep," or "cow." The shape is similar. The silhouette is similar. The algorithm does not know what a deer looks like, but it recognizes that a large four-legged animal is standing in the road.</p>
-        <p><strong>DriveSight remaps all of these classes</strong> — horse, sheep, and cow — to a single "Deer" alert. If the AI sees any large animal at the roadside, you get warned regardless of which COCO label it assigned internally.</p>
+        <p>For a while DriveSight did exactly what that suggests: it remapped horse, sheep, cow, elephant, zebra and giraffe to a single "Deer" alert, on the theory that any large four-legged shape at the roadside is worth warning about.</p>
+        <p><strong>We removed it.</strong> The note that replaced it in our source is blunt: mapping those classes was "producing tons of false positives on trees, bushes, and random shapes at low confidence." A warning that fires at roadside bushes is worse than no warning, because you learn to ignore it, and then it is worthless on the night it is right.</p>
     </div>
 
     <div class="feature-section">
         <h3>The Distance Problem</h3>
         <p>A deer standing 200 meters ahead on a rural highway appears as roughly 15 pixels tall in a 640×640 pixel model input. At that size, texture and color information is mostly lost. The model is working almost entirely from shape and position in the frame.</p>
-        <p>To help with this, DriveSight runs a second YOLO pass when no animal is detected in the primary scan. The second pass crops and zooms into the road-ahead region — the center horizontal band of the frame where animals would appear before you reach them — and re-analyzes it at double the effective resolution. This is called adaptive tiling, and it significantly improves detection of animals at longer range.</p>
+        <p>DriveSight does run a second YOLO pass when the primary scan finds nothing: it crops and zooms into the road-ahead region and re-analyzes it at double the effective resolution. That machinery is real and it still runs today, and it helps with small distant objects in general.</p>
+        <p>What it could not fix is the underlying problem. Doubling the resolution of a 15-pixel shape gives you a 30-pixel shape, and 30 pixels of a dark animal against a dark verge, lit only by your own headlights, is still not enough for a small model to tell a deer from a fence post with any confidence you would want to act on.</p>
     </div>
 
     <div class="callout">
         <p><strong>How the two-pass system works:</strong> Pass 1 analyzes the full frame at 640×640. If no animal is found, Pass 2 crops the road-ahead zone (the upper 65% of the frame, centered horizontally) and scales it back to 640×640. The same animal that measured 15px in Pass 1 now measures 30px in Pass 2 — twice the detail, same model, better chance of detection.</p>
     </div>
+
+    <!-- ============================================ -->
+    <h2>The Dedicated Deer Model, and Why It Is Switched Off</h2>
+
+    <p>The class remap was the first attempt. The second was a model trained specifically on deer, exported from Open Images V7, running alongside the general detector. A model with one class, whose only job is to find deer, should beat a general model guessing "horse."</p>
+
+    <p>It did not. It produced confident false positives indoors: whole-room bounding boxes labelled deer, and cats labelled deer. A model that calls a cat a deer on a sofa will call something a deer on a dark road, and it will do it with high confidence, which is the worst failure mode available.</p>
+
+    <div class="callout">
+        <p><strong>The model is still in the app, behind a disabled branch.</strong> The note in our source explains the decision in one line: leave it off "so the app doesn't lie to the driver." Until it is retrained with hard negatives, or replaced with something like MegaDetector, it stays off.</p>
+    </div>
+
+    <p>So, the honest summary: DriveSight has no working deer detection. Any dash cam app claiming otherwise on a phone camera is making a claim we could not make work with a model dedicated to the task.</p>
+
+    <!-- ============================================ -->
+    <h2>What We Shipped Instead: Wildlife Hotspot Warnings</h2>
+
+    <p>The feature that survived does not look at the road at all. It looks at where animals have already been.</p>
+
+    <p>Sightings are recorded and pooled, and stretches of road that accumulate them become hotspots. When your GPS position approaches one, DriveSight speaks a warning before you get there: wildlife hotspot ahead, slow down.</p>
+
+    <p>This is a much less impressive feature and a much more useful one. It does not need to see the animal, it does not depend on your headlights, it works around a blind curve, and it gives you the one thing that reliably prevents a deer collision, which is a reason to be going slower before you arrive. It is the part I would tell a rural driver to rely on.</p>
+
+    <p>The other half is what happens if you hit one anyway. Loop recording stamps speed and time on every clip, impact detection locks the clip so the loop cannot overwrite it, and the clip can back up to your own Google Drive. Deer collisions turn into insurance conversations, and that footage ends the argument about fault.</p>
 
     <!-- ============================================ -->
     <h2>Brake Light Detection</h2>
@@ -478,16 +506,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h2>What Gets Detected and What Does Not</h2>
 
     <div class="feature-section">
-        <h3>Animals the Model Identifies</h3>
-        <p>Through class remapping, the following COCO detections trigger a deer or wildlife alert in DriveSight:</p>
+        <h3>What the Active Model Reports</h3>
+        <p>These are the classes DriveSight actually surfaces today. Every wild-animal class has been removed from this list on purpose, for the reasons above:</p>
         <ul>
-            <li><strong>Horse (class 17):</strong> Deer from a dashcam angle are frequently classified as horses due to similar leg structure and proportions at distance</li>
-            <li><strong>Sheep (class 18):</strong> Smaller deer, fawns, and animals partially obscured by vegetation</li>
-            <li><strong>Cow (class 19):</strong> Full-grown deer, elk, and moose on rural roads</li>
-            <li><strong>Bird (class 14):</strong> Large birds on the road including turkey, geese, and hawks</li>
-            <li><strong>Dog / Cat (class 16, 15):</strong> Smaller roadside animals</li>
+            <li><strong>People</strong> &mdash; pedestrians and cyclists near the road</li>
+            <li><strong>Vehicles</strong> &mdash; cars, trucks, buses and motorcycles, with brake light state</li>
+            <li><strong>Road furniture</strong> &mdash; traffic lights and stop signs</li>
+            <li><strong>Cats and dogs</strong> &mdash; the two domestic animals the model identifies reliably enough to report</li>
         </ul>
-        <p>The detection threshold is set at 20% confidence, lower than the standard 25%, to prioritize catching fast-moving or partially visible animals at the cost of an occasional false positive on a poorly lit fence post.</p>
+        <p>Deer, elk, bear, moose and other wildlife are <strong>not</strong> in that list. The bear class was removed as well: real bears on roads are rare in the lower 48, and the COCO bear class is a false-positive magnet for tabby cats and rubbish bags.</p>
     </div>
 
     <div class="feature-section">
@@ -509,22 +536,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="faq-item">
         <h3>Does DriveSight specifically identify deer or just large animals?</h3>
-        <p>The underlying model identifies animals by their closest COCO class — horse, sheep, cow, dog, bird, and others. The app remaps all large-animal detections to a "Deer" alert because those classes are the most common misclassifications for deer at dashcam distance. The alert covers any large animal at the roadside, not only whitetail deer.</p>
+        <p>Neither, as of today. The class remap that turned horse, sheep and cow detections into a "Deer" alert was removed because it fired on trees and bushes, and the dedicated deer model is disabled because it produced confident false positives. The active model reports people, vehicles, traffic lights, stop signs, cats and dogs. The deer feature in the app is the spoken wildlife hotspot warning, which is based on reported sightings rather than the camera.</p>
     </div>
 
     <div class="faq-item">
         <h3>How far ahead does the AI detect animals?</h3>
-        <p>Detection range depends on animal size and lighting. In practice, large animals (deer-sized and above) are typically detected at 30-80 meters. The adaptive two-pass scan helps with longer distances by zooming into the road-ahead zone for a second analysis.</p>
+        <p>It does not detect wild animals at all. For the objects it does report, such as vehicles and people, range depends on size and lighting, and a second zoom pass over the road-ahead region helps with smaller distant objects. For deer specifically, the useful warning is the hotspot alert, which fires on GPS position before you reach a stretch with reported sightings, not on anything the camera sees.</p>
     </div>
 
     <div class="faq-item">
         <h3>Does this work at night?</h3>
-        <p>Detection works at night within your headlight range. The model analyzes what the camera can see, so it is limited by your headlights and any ambient road lighting. In complete darkness beyond the lit zone, detection is unreliable.</p>
+        <p>The object detection works at night only within your headlight range, because the model can only analyse what the camera can see. This limit is a large part of why deer detection was abandoned: the animals that matter are usually at or beyond the edge of the lit zone. The hotspot warning is unaffected by darkness, since it works from GPS position and reported sightings.</p>
     </div>
 
     <div class="faq-item">
         <h3>Is the AI detection always running?</h3>
-        <p>AI detection is a Pro feature. It runs in the background while recording, analyzing frames in a separate processing thread so it does not interrupt the recording pipeline. The frame rate for detection adjusts dynamically based on phone temperature to prevent overheating.</p>
+        <p>Object detection is a Pro feature and runs in a separate processing thread while recording, so it does not interrupt the recording pipeline, and its frame rate adjusts with phone temperature to prevent overheating. It reports people, vehicles, road furniture, cats and dogs. It does not report deer.</p>
     </div>
 
     <div class="faq-item">
@@ -545,7 +572,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- ============================================ -->
     <div class="cta-box">
         <h3>Try it on your phone</h3>
-        <p>DriveSight is free on Google Play. AI detection, brake light recognition, and wildlife alerts are included in the Pro version. Mount your phone, start a drive, and the AI runs in the background the entire time.</p>
+        <p>DriveSight is free on Google Play. Loop recording, crash detection and parking mode cost nothing. The wildlife hotspot warning rides on the same alert map as the police and camera alerts, which is the Pro part.</p>
         <a href="https://play.google.com/store/apps/details?id=com.deerdash&amp;referrer=utm_source%3Dphonedashcam.com%26utm_medium%3Dweb%26utm_campaign%3Ddashcam-deer-detection" class="btn-primary" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.302 2.302a1 1 0 0 1 0 1.38l-2.302 2.302L15.196 12l2.502-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302L5.864 2.658z"/></svg>
             Download DriveSight Free

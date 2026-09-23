@@ -345,7 +345,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="info-box">
         <div class="label">Quick Answer</div>
-        <p>DriveSight runs a YOLO neural network directly on your phone to detect deer, animals, vehicles, and people in real time while you drive. Bounding boxes appear on the dashcam feed as objects are detected. Everything runs on-device at approximately 7 frames per second — no internet, no cloud, no video ever sent anywhere.</p>
+        <p>DriveSight runs a YOLO neural network directly on your phone to detect vehicles, people and road hazards in real time while you drive. Bounding boxes appear on the dashcam feed as objects are detected. Everything runs on-device at approximately 7 frames per second — no internet, no cloud, no video ever sent anywhere.</p>
     </div>
 
     <p>Most "AI dashcam" features mean the footage gets sent to a server somewhere, analyzed remotely, and the results come back over the internet. DriveSight's AI detection works completely differently: the neural network runs on your phone, on your footage, without touching any server.</p>
@@ -463,11 +463,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <p>On phones with a dedicated neural processing unit (NPU) — like Snapdragon 8-series, Google Tensor, or Dimensity 9000+ chips — the model runs through the NPU rather than the CPU, which is faster and more power-efficient. On older hardware without an NPU, the model falls back to GPU or CPU inference. The detection still works; it's just slightly slower.</p>
 
-    <h2>Why Deer Detection Matters</h2>
+    <h2>Why It Does Not Flag Deer</h2>
 
     <p>Deer collisions cause roughly 1.5 million accidents in the US each year, with peak risk at dawn and dusk when visibility is lowest. A deer can cross a road faster than most drivers can react — from the moment a deer enters headlight range to impact is often under a second.</p>
 
-    <p>DriveSight's YOLO detection adds an extra layer of warning: the bounding box appears on-screen the moment the model detects an animal, even before it's fully lit by headlights. The visual alert can trigger earlier than human perception alone, especially when the animal is partially obscured by vegetation at the roadside.</p>
+    <p>This is the case for deer detection, and DriveSight does not make that claim. Wild-animal classes were removed from the model because they fired on trees and bushes, and a dedicated deer model was disabled after it labelled cats and whole rooms as deer. A warning you learn to ignore is worse than none.</p>
 
     <p>This is different from the <a href="/dashcam-deer-detection">deer detection guide</a> which covers wildlife hotspot warnings based on geographic data — AI detection operates frame by frame on the live camera feed and flags actual animals in view, not just high-risk zones.</p>
 
