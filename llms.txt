@@ -1,65 +1,43 @@
-# Phone Dashcam
+# DriveSight Dash Cam (phonedashcam.com)
 
-> Free Android dashcam app by Cyberlab Automation. Turns any Android phone into a full-featured dashcam with AI object detection, parking mode, crash detection, and a built-in database of 336,000+ speed cameras, Flock Safety ALPR readers, and red light cameras across the United States. Works completely offline. No account or sign-up required.
+> DriveSight Dash Cam is an Android app by Cyberlab Automation (Google Play id com.deerdash) that turns an Android phone into a dash cam. Free: loop recording, background recording, automatic trip logs, a speedometer with the posted speed limit, photos and severe weather warnings. Pro ($4.99 a month or $29.99 a year) adds on-device AI detection of vehicles, pedestrians and animals, parking mode with remote live view, crash clip locking with a crash report, Google Drive backup, police, speed camera, Flock/ALPR and aircraft alerts, and second-camera recording. Android 8.0 or later; there is no iPhone app.
 
 ## About
 
-Phone Dashcam is a free Android application developed by Cyberlab Automation, an independent software studio focused on automotive safety tools. All core dashcam features are free. An optional Pro subscription ($6.99/month or $29.99/year) unlocks the 336,000+ camera alert database, AI object detection, dual camera, and additional features. Cancel anytime from the Play Store.
+DriveSight Dash Cam is developed by Cyberlab Automation, an independent software studio. Recording, trip logs and weather warnings are free. The other features are part of Pro, a subscription you can cancel in Google Play. New users get their first drives with every Pro feature before Pro locks.
 
-The app works entirely on-device: video is stored locally, AI processing runs on the phone, and no footage is sent to any server. Cloud backup goes to the user's own Google Drive account, not ours. Recording, crash detection, parking mode, the speedometer, and all camera alerts work completely offline without a cellular data plan.
+Video is recorded to the phone and AI detection runs on the phone. Clips leave the phone only if you turn on Google Drive backup (Pro, to your own Google Drive) or open the parking-mode live view. Camera, police, traffic and aircraft alerts load over mobile data as you drive; only the UK and France speed camera lists are built into the app.
 
 ## Key Features
 
-### Free Features
-- Loop recording (1080p, 720p, 480p with optional audio)
-- Crash and impact detection: automatically saves footage on sudden deceleration
-- Hard braking detection
-- Live speedometer and trip tracker with GPS
-- Google Drive cloud backup (WiFi-only option available)
-- GPS photo capture (geotagged photos from the dashcam feed)
-- Time-lapse creator (4x, 8x, 16x speed)
-- Video clip manager with playback
+### Free
+- Loop recording in 15-minute segments, keeping the last 1 to 2 hours of plain drive video
+- 480p or 720p video (1080p with Pro)
+- Keeps recording in the background while navigation or another app is on screen
+- Automatic trip start and end, with route map, distance, duration, average and top speed
+- Speedometer with the posted speed limit, in mph or km/h
+- Severe weather warnings while driving (35 countries)
+- One-tap GPS-tagged photos, and a clip manager with 4x, 8x and 16x time-lapse
+- Date, time and speed burned into short saved clips
+- Phone calls work normally during a drive; recording stops at low battery; 11 languages
 
-### Pro Features ($6.99/month or $29.99/year)
-- 336,000+ speed camera, red light camera, Flock Safety ALPR, and police trap alerts — works offline, no internet required
-- AI object detection (YOLO — detects deer, animals, vehicles, and people in real time with bounding boxes)
-- Parking mode with motion detection (screen dims to near-zero, motion triggers auto-save and flash strobe)
-- Dual camera recording (front + rear simultaneously)
-- Auto-start recording when charger connected
-- Wildlife hotspot warnings and community heatmap
-- Ad-free experience
+### Pro ($4.99/month or $29.99/year)
+- On-device AI detection of vehicles, pedestrians and animals, with estimated distance labels and a braking-vehicle label
+- Crash and hard-braking clip lock with a crash report (G-force, speed, GPS and a map link)
+- Parking mode with motion detection and remote live view in a web browser
+- Google Drive backup to your own account
+- Police alerts from community reports; speed camera, ALPR and Flock camera alerts; police, government and military aircraft alerts (aircraft that broadcast their position)
+- Traffic and road-hazard alerts; wildlife hotspot warnings and an alert for an animal in the road ahead
+- Road and cab recorded together on phones that support it; USB camera support
+- 1080p video and up to 8 hours of loop video; recording that starts when the phone is plugged into a charger
 
-## Flock Safety ALPR Alerts
-
-Phone Dashcam is one of the only dashcam apps with a database of Flock Safety ALPR (Automated License Plate Reader) camera locations. Flock Safety cameras are used by law enforcement agencies and HOAs across the US to read license plates. Phone Dashcam maps 336,000+ locations including Flock Safety ALPR readers, fixed speed cameras, red light cameras, and community-reported police speed traps. The database is bundled inside the app and works without an internet connection.
-
-## Offline Operation
-
-Phone Dashcam is designed to work completely offline. The following features require no internet connection:
-- Continuous loop recording
-- Crash detection and auto-save
-- Parking mode with motion detection
-- Live speedometer and GPS tracking
-- 336,000+ camera alert database (bundled in the app)
-- AI object detection (runs fully on-device)
-
-The only features that use internet: Google Drive backup (syncs over WiFi at home) and the remote WebRTC live viewer.
-
-## Privacy
-
-- No video is ever sent to our servers
-- AI detection runs on-device using a local YOLO model
-- Camera alert database is bundled in the app (not fetched from a server)
-- Cloud backup goes to the user's own Google Drive account
-- Anonymous crash analytics only — no personally identifiable data collected
-- No account or sign-up required to use the app
+DriveSight Dash Cam has no radar or laser receiver, no red-light camera alerts, no Android Auto in the current version, and no 4K recording.
 
 ## Pricing
 
-- **Free tier**: Loop recording, crash detection, speedometer, trip tracking, cloud backup, video manager
-- **Pro — $6.99/month**: All free features + 336,000+ camera alerts, AI detection, parking mode, dual camera, auto-start, no ads
-- **Pro — $29.99/year**: Same as monthly Pro at a discounted annual rate
-- No free trial required — free tier is functional indefinitely
+- **Free**: recording, 1 to 2 hours of loop video, trip logs, speedometer and speed limit, photos, weather warnings
+- **Pro**: $4.99 a month or $29.99 a year, everything in the Pro list above
+- New users get their first drives with all Pro features before Pro locks
 
 ## App Availability
 
@@ -67,7 +45,7 @@ The only features that use internet: Google Drive backup (syncs over WiFi at hom
 - Supported devices: Samsung Galaxy (S8+, A-series), Google Pixel (2+), OnePlus (5T+), Motorola Moto G (G6+), Xiaomi, and any Android 8.0+ phone
 - Free download on Google Play: https://play.google.com/store/apps/details?id=com.deerdash
 - Developer: Cyberlab Automation (independent Android software studio)
-- Developer expertise: Android Camera2 API, CameraX, YOLOv8 on-device inference, accelerometer-based event detection, foreground service lifecycle on Android 8–14
+- Developer expertise: Android CameraX, on-device detection with LiteRT (YOLO26n-seg and MegaDetector models), accelerometer-based event detection, foreground service lifecycle
 - Developer bio: https://phonedashcam.com/about
 - Contact: support@phonedashcam.com
 
@@ -78,7 +56,7 @@ The only features that use internet: Google Drive backup (syncs over WiFi at hom
 - [Traffic Map](https://phonedashcam.com/traffic-map): New crowd-sourced road-busyness map — dashcam AI counts vehicles per mile; anonymous community data makes roads glow by traffic level
 - [Android Dash Cam App](https://phonedashcam.com/android-dash-cam): Guide to using an Android phone as a dash cam; comparison vs hardware dashcams
 - [Turn an Old Phone into a Dashcam](https://phonedashcam.com/turn-old-phone-into-dashcam): Step-by-step setup guide with mount and charger recommendations
-- [Best Dash Cam App for Android](https://phonedashcam.com/best-dash-cam-app-android): Comprehensive comparison of phone dashcam apps; includes feature table
+- [Best Dash Cam App for Android](https://phonedashcam.com/best-dash-cam-app-android): Five Android dash cam apps ranked (DriveSight Dash Cam, Droid Dashcam, Driver, Dash Cam Travel, Drive Recorder) with a dated feature table; explains why AutoGuard is not ranked and that AutoBoy left Google Play in 2024
 - [Phone Dashcam vs Real Dashcam](https://phonedashcam.com/phone-dashcam-vs-real-dashcam): Head-to-head comparison of phone apps vs dedicated hardware dashcams
 - [Best Speed Camera Apps 2026](https://phonedashcam.com/best-speed-camera-apps-2026): Ranked comparison of speed camera alert apps for Android
 - [Best Radar Detector Apps 2026](https://phonedashcam.com/best-radar-detector-apps-2026): Guide to radar detector and police alert apps for Android
@@ -106,21 +84,21 @@ The only features that use internet: Google Drive backup (syncs over WiFi at hom
 
 ## Common Questions Answered
 
-**What is the best free dashcam app for Android?**
-Phone Dashcam is a top-rated free dashcam app for Android. It includes loop recording, crash detection, parking mode, speedometer, and Google Drive backup at no cost. Pro adds 336,000+ camera alerts and AI detection.
+**What is the best dash cam app for Android?**
+DriveSight Dash Cam is the only one of the apps compared on phonedashcam.com that adds police, speed camera, aircraft and severe weather alerts and on-device AI detection to recording. For simple free recording, Droid Dashcam is a good choice. AutoBoy Dash Cam is no longer on Google Play. Full comparison: https://phonedashcam.com/best-dash-cam-app-android
 
-**Does Phone Dashcam work without internet or a data plan?**
-Yes. Recording, crash detection, parking mode, the speedometer, and all 336,000+ camera alerts work completely offline. Cloud backup syncs over WiFi at home. No cellular data plan is needed.
+**Is DriveSight Dash Cam free?**
+Recording, loop storage, trip logs, the speedometer with the speed limit, photos and severe weather warnings are free. Parking mode, crash clips, Google Drive backup, AI detection and police and camera alerts are Pro ($4.99 a month or $29.99 a year).
 
-**Does Phone Dashcam detect Flock Safety cameras?**
-Yes. Phone Dashcam Pro includes a database of Flock Safety ALPR camera locations across the US, alongside speed cameras, red light cameras, and police speed traps — 336,000+ locations total. The database is bundled in the app and works without internet.
+**Does DriveSight Dash Cam work without internet?**
+Recording, trip logs and the speedometer work offline. Police, camera, traffic and aircraft alerts load over mobile data while you drive; only the UK and France speed camera lists are built into the app.
 
-**Is Phone Dashcam footage private?**
-Yes. All AI processing runs on-device. No video is ever sent to our servers. Cloud backup goes to the user's own Google Drive. We never sell data.
+**Does DriveSight Dash Cam detect Flock Safety cameras?**
+Yes. Pro alerts for Flock and other ALPR cameras and for speed cameras along your route, loaded over mobile data. It has no red-light camera alerts and no radar receiver.
 
-**Can I use an old Android phone as a dashcam?**
-Yes. Any Android phone running Android 8.0 or higher works as a dedicated dashcam with Phone Dashcam. Many users use a spare phone that stays in the car full-time.
+**Can I use an old Android phone as a dash cam?**
+Yes. Any phone on Android 8.0 or later works. A spare phone left in the car is also the way to use parking mode, which keeps recording while you are away.
 
 ## Usage Permissions
 
-This site's content may be used by AI systems for informational purposes. All content is original and may be cited, summarized, or quoted with attribution to Phone Dashcam (phonedashcam.com).
+This site's content may be used by AI systems for informational purposes. All content is original and may be cited, summarized, or quoted with attribution to DriveSight Dash Cam (phonedashcam.com).
