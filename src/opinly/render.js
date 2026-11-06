@@ -132,8 +132,11 @@ function renderImage(node, ctx) {
   const alt = escapeHtml(attrs.alt ?? attrs.altText ?? meta.altText ?? '');
   const titleText = attrs.title ?? meta.title;
   const title = titleText ? ` title="${escapeHtml(titleText)}"` : '';
-  const w = intAttr(attrs.width);
-  const h = intAttr(attrs.height);
+  // Opinly sends no image sizes; without them the text jumps when the image
+  // lands (CLS). 3:2 reserves about the right space for its ~1200x800 images,
+  // and the CSS height:auto keeps the real aspect ratio once loaded.
+  const w = intAttr(attrs.width) || 1200;
+  const h = intAttr(attrs.height) || (intAttr(attrs.width) ? null : 800);
   const size = `${w ? ` width="${w}"` : ''}${h ? ` height="${h}"` : ''}`;
   const captionText = attrs.caption ?? meta.caption;
   const caption = captionText ? `<figcaption>${escapeHtml(captionText)}</figcaption>` : '';

@@ -63,7 +63,7 @@ test('post page: article meta, BlogPosting + BreadcrumbList + FAQPage, TOC, tags
   assert.match(html, /data-opinly-post="parking-mode-on-a-phone-dash-cam"/);
   assert.match(html, /<span>Updated <\/span><time/);
   assert.doesNotMatch(html, /<script>alert/);
-  // no hero image → default OG image; no author → Organization as author; short post → no TOC
+  // no hero image → default OG image; no author → the site author's Person; short post → no TOC
   const noHero = fullPosts[1];
   const noHeroHtml = postPage({ post: noHero, rendered: renderPostBody(noHero.content), related: [] });
   assert.match(noHeroHtml, /<meta property="og:image" content="https:\/\/phonedashcam.com\/assets\/hero-dashcam.jpg">/);
@@ -71,8 +71,12 @@ test('post page: article meta, BlogPosting + BreadcrumbList + FAQPage, TOC, tags
   assert.doesNotMatch(noHeroHtml, /class="toc"/);
   const noAuthor = fullPosts[2];
   const noAuthorHtml = postPage({ post: noAuthor, rendered: renderPostBody(noAuthor.content), related: [] });
-  assert.equal(jsonLdBlocks(noAuthorHtml)[0].author['@type'], 'Organization');
-  assert.doesNotMatch(noAuthorHtml, /class="author-card"/);
+  const fallback = jsonLdBlocks(noAuthorHtml)[0].author;
+  assert.equal(fallback['@type'], 'Person');
+  assert.equal(fallback.url, 'https://phonedashcam.com/author/cyberlab-automation');
+  assert.ok(fallback.sameAs.length >= 3);
+  assert.match(noAuthorHtml, /class="author-card"/);
+  assert.match(noAuthorHtml, /<a class="who" href="\/author\/cyberlab-automation" rel="author">/);
 });
 
 test('category, author, 404 and error pages', () => {

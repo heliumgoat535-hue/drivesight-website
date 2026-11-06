@@ -30,6 +30,26 @@ export const PIXEL_KEY = 'pk-x3Ndgpy8F7LYjLNTRlDHjHEGplgr8y8F0KBFqtR';
 export const PIXEL_SRC = 'https://static.opinly.ai/p.js';
 export const EVENTS_SCRIPT = '/assets/opinly-events.js';
 
+// Opinly files every post with no author, so the byline, author card and
+// BlogPosting author fall back to the person who runs the site. The profile page
+// itself is a static file (author/cyberlab-automation.html).
+export const SITE_AUTHOR = {
+  name: 'Cyberlab Automation',
+  path: '/author/cyberlab-automation',
+  bio: 'Independent Android developer who builds the DriveSight dash cam app.',
+  sameAs: [
+    'https://www.youtube.com/@drivesightapp',
+    'https://www.tiktok.com/@drivesight3',
+    'https://www.instagram.com/drivesightapp/',
+    'https://x.com/drivesightapp',
+    'https://play.google.com/store/apps/developer?id=Cyberlab+Automation',
+  ],
+};
+
+// Search results cut titles off past ~60 characters; the " | DriveSight" suffix
+// is dropped rather than letting it push a title over.
+export const TITLE_MAX = 60;
+
 export const PAGE_SIZE = 12;
 export const RSS_LIMIT = 20;
 

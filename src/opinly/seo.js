@@ -1,7 +1,7 @@
 // Head metadata and schema.org JSON-LD builders for the blog pages.
 
 import {
-  SITE_URL, SITE_NAME, ORG_NAME, ORG_ID, ORG_LOGO, DEFAULT_OG_IMAGE, RSS_PATH,
+  SITE_URL, SITE_NAME, ORG_NAME, ORG_ID, ORG_LOGO, DEFAULT_OG_IMAGE, RSS_PATH, SITE_AUTHOR, TITLE_MAX,
   absUrl, imageUrl, routePath,
 } from './config.js';
 import { escapeHtml } from './render.js';
@@ -21,7 +21,16 @@ export const publisherJsonLd = {
 
 export function pageTitle(title) {
   if (!title) return `${SITE_NAME} Blog`;
-  return new RegExp(`\\b${SITE_NAME}\\b`, 'i').test(title) ? title : `${title} | ${SITE_NAME}`;
+  if (new RegExp(`\\b${SITE_NAME}\\b`, 'i').test(title)) return title;
+  const suffixed = `${title} | ${SITE_NAME}`;
+  return suffixed.length <= TITLE_MAX ? suffixed : title;
+}
+
+// The site author as a Person node: the fallback author of every post Opinly
+// files without one, with the profiles that tie the byline to a real account.
+export function siteAuthorJsonLd() {
+  const url = absUrl(SITE_AUTHOR.path);
+  return { '@type': 'Person', '@id': `${url}#person`, name: SITE_AUTHOR.name, url, sameAs: SITE_AUTHOR.sameAs };
 }
 
 function isoDate(value) {
@@ -106,12 +115,12 @@ export function personJsonLd(author) {
   };
 }
 
-export function blogPostingJsonLd(post, { wordCount, bodyText } = {}) {
+export function blogPostingJsonLd(post, { wordCount, bodyText, inLanguage = 'en-US' } = {}) {
   const url = absUrl(routePath('post', post.slug));
   const hero = imageUrl(post.titleFile?.fileKey);
   const author = post.author
     ? { '@type': 'Person', name: post.author.name, url: absUrl(routePath('author', post.author.slug)) }
-    : { '@type': 'Organization', '@id': ORG_ID, name: ORG_NAME };
+    : siteAuthorJsonLd();
   return {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -126,7 +135,7 @@ export function blogPostingJsonLd(post, { wordCount, bodyText } = {}) {
     author,
     publisher: publisherJsonLd,
     isPartOf: { '@type': 'Blog', '@id': `${absUrl(routePath('home'))}#blog`, name: `${SITE_NAME} Blog` },
-    inLanguage: 'en-US',
+    inLanguage,
     ...(post.category ? { articleSection: post.category.name } : {}),
     ...(post.tags?.length ? { keywords: post.tags.map((t) => t.name).join(', ') } : {}),
     ...(wordCount ? { wordCount } : {}),

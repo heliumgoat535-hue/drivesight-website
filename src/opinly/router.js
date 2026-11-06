@@ -7,6 +7,7 @@ import {
 } from './config.js';
 import { createClient, OpinlyError, OpinlyConfigError } from './client.js';
 import { renderPostBody } from './render.js';
+import { relatedPosts } from './related.js';
 import {
   indexPage, postPage, categoryPage, categoriesPage, authorsPage, authorPage, tagPage,
   notFoundPage, errorPage, notConfiguredPage,
@@ -58,13 +59,19 @@ async function renderPost(client, slug) {
   if (!post) return { status: 404, markup: notFoundPage({ what: 'post' }) };
   const rendered = renderPostBody(post.content, { siteUrl: SITE_URL, images: post.images });
   let related = [];
-  if (post.category?.slug) {
-    try {
+  try {
+    if (post.category?.slug) {
       const list = await client.posts({ limit: 4, category: post.category.slug });
       related = (list.data || []).filter((p) => p.slug !== post.slug).slice(0, 3);
-    } catch (e) {
-      console.warn('[opinly] related posts failed', e?.message);
     }
+    // Uncategorised posts (all of them, as of 2026-11) would otherwise link to no
+    // other post: pick by language and shared topic words instead.
+    if (!related.length) {
+      const list = await client.posts({ limit: 50 });
+      related = relatedPosts(post, list.data || [], 4);
+    }
+  } catch (e) {
+    console.warn('[opinly] related posts failed', e?.message);
   }
   return { status: 200, markup: postPage({ post, rendered, related }) };
 }

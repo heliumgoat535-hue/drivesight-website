@@ -29,7 +29,9 @@ export function sitemapEntries(routes) {
   }
   // The category and author directories are indexable pages of ours that the
   // API's route list does not enumerate.
-  add(routePath('category'), homeMod);
+  // The category directory stays out until a post is filed under a category
+  // (empty, it is noindex).
+  if ((routes || []).some((r) => r.type === 'category')) add(routePath('category'), homeMod);
   add(routePath('author'), homeMod);
   return [...byLoc.values()];
 }

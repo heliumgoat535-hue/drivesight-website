@@ -3,13 +3,14 @@
 
 import {
   SITE_URL, SITE_NAME, BLOG_PREFIX, RSS_PATH, ARCHIVE_PATH, PIXEL_KEY, PIXEL_SRC, EVENTS_SCRIPT,
-  DEFAULT_OG_IMAGE, absUrl, imageUrl, routePath,
+  DEFAULT_OG_IMAGE, SITE_AUTHOR, absUrl, imageUrl, routePath,
 } from './config.js';
 import { escapeHtml } from './render.js';
 import {
   metaTags, jsonLdScript, breadcrumbJsonLd, blogPostingJsonLd, faqJsonLd, blogJsonLd,
   collectionPageJsonLd, personJsonLd,
 } from './seo.js';
+import { languageTag } from './related.js';
 
 const PLAY_URL = 'https://play.google.com/store/apps/details?id=com.deerdash';
 const FONTS_HREF = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&display=swap';
@@ -230,9 +231,9 @@ const ENHANCE_JS = `
   window.addEventListener('pageshow',function(){document.querySelectorAll('.pager a[aria-busy]').forEach(function(a){a.removeAttribute('aria-busy');if(a.dataset.label)a.textContent=a.dataset.label;});});
 })();`;
 
-export function shell({ head, body, jsonLd = [], isBlogIndex = false }) {
+export function shell({ head, body, jsonLd = [], isBlogIndex = false, lang = 'en' }) {
   return `<!DOCTYPE html>
-<html lang="en">
+<html lang="${escapeHtml(lang)}">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -380,8 +381,8 @@ export function indexPage({ posts, hasMore, nextCursor, cursor, sort, categories
   const selfUrl = cursor ? absUrl(`${BLOG_PREFIX}?cursor=${encodeURIComponent(cursor)}${sortQs}`) : canonical;
   return shell({
     head: metaTags({
-      title: 'Blog',
-      description: 'Dashcam guides, driving safety tips, and DriveSight product updates from the Cyberlab Automation team.',
+      title: 'DriveSight Blog: Phone Dash Cam Guides and Driving Tips',
+      description: 'Guides to using an Android phone as a dash cam: parking mode, speed camera and police alerts, crash footage and DriveSight updates, by Cyberlab Automation.',
       canonical: selfUrl,
       noindex: Boolean(cursor),
       nextUrl: hasMore && nextCursor ? absUrl(`${BLOG_PREFIX}?cursor=${encodeURIComponent(nextCursor)}${sortQs}`) : undefined,
@@ -410,11 +411,17 @@ export function postPage({ post, rendered, related = [] }) {
   const faqs = (post.faqs || []).filter((f) => f?.question && f?.answer);
   const faqHtml = faqs.length ? `<section class="faq" aria-labelledby="faq-heading"><h2 id="faq-heading">Frequently asked questions</h2>${faqs.map((f) => `<details><summary>${escapeHtml(f.question)}</summary><div class="answer">${escapeHtml(f.answer)}</div></details>`).join('')}</section>` : '';
   const tags = post.tags?.length ? `<ul class="tag-list" aria-label="Tags">${post.tags.map((t) => `<li><a class="chip" href="${escapeHtml(routePath('tag', t.slug))}">#${escapeHtml(t.name)}</a></li>`).join('')}</ul>` : '';
-  const authorCard = post.author ? `<aside class="author-card" aria-label="About the author">
-    ${avatar(post.author.fileKey, post.author.name, 'avatar lg')}
-    <div><h2>${escapeHtml(post.author.name)}</h2>${post.author.bio ? `<p>${escapeHtml(post.author.bio)}</p>` : ''}<a class="more" href="${escapeHtml(routePath('author', post.author.slug))}">More from ${escapeHtml(post.author.name)} →</a></div>
-  </aside>` : '';
-  const relatedHtml = related.length ? `<section class="related wrap" aria-labelledby="related-heading"><h2 id="related-heading">More in ${escapeHtml(post.category?.name || 'the blog')}</h2>${postGrid(related, 'h3')}</section>` : '';
+  // Opinly files the posts with no author; they fall back to the site author's profile page.
+  const author = post.author
+    ? { name: post.author.name, bio: post.author.bio, fileKey: post.author.fileKey, href: routePath('author', post.author.slug) }
+    : { name: SITE_AUTHOR.name, bio: SITE_AUTHOR.bio, fileKey: null, href: SITE_AUTHOR.path };
+  const authorCard = `<aside class="author-card" aria-label="About the author">
+    ${author.fileKey ? avatar(author.fileKey, author.name, 'avatar lg') : ''}
+    <div><h2>${escapeHtml(author.name)}</h2>${author.bio ? `<p>${escapeHtml(author.bio)}</p>` : ''}<a class="more" href="${escapeHtml(author.href)}" rel="author">More from ${escapeHtml(author.name)} →</a></div>
+  </aside>`;
+  const relatedTitle = post.category ? `More in ${post.category.name}` : 'Related posts';
+  const relatedHtml = related.length ? `<section class="related wrap" aria-labelledby="related-heading"><h2 id="related-heading">${escapeHtml(relatedTitle)}</h2>${postGrid(related, 'h3')}</section>` : '';
+  const lang = languageTag(post);
 
   const body = `
 <article class="post" data-opinly-post="${escapeHtml(post.slug)}"${post.category ? ` data-opinly-category="${escapeHtml(post.category.slug)}"` : ''}>
@@ -425,7 +432,7 @@ export function postPage({ post, rendered, related = [] }) {
       <h1>${escapeHtml(post.title)}</h1>
       ${post.description ? `<p class="lede">${escapeHtml(post.description)}</p>` : ''}
       <div class="post-meta">
-        ${post.author ? `<a class="who" href="${escapeHtml(routePath('author', post.author.slug))}">${avatar(post.author.fileKey, post.author.name)}${escapeHtml(post.author.name)}</a>` : ''}
+        <a class="who" href="${escapeHtml(author.href)}" rel="author">${author.fileKey ? avatar(author.fileKey, author.name) : ''}${escapeHtml(author.name)}</a>
         ${timeTag(published, '<span>Published </span>')}
         ${showUpdated ? timeTag(modified, '<span>Updated </span>') : ''}
         <span>${minutes} min read</span>
@@ -457,15 +464,16 @@ export function postPage({ post, rendered, related = [] }) {
       ogImageAlt: hero ? heroAlt : undefined,
       publishedTime: published,
       modifiedTime: modified,
-      authorUrl: post.author?.slug ? absUrl(routePath('author', post.author.slug)) : undefined,
+      authorUrl: absUrl(author.href),
       tags: (post.tags || []).map((t) => t.name),
     }),
     body,
     jsonLd: [
-      blogPostingJsonLd(post, { wordCount: rendered.words }),
+      blogPostingJsonLd(post, { wordCount: rendered.words, inLanguage: lang }),
       breadcrumbJsonLd(crumbs),
       faqJsonLd(faqs),
     ],
+    lang,
   });
 }
 
@@ -540,7 +548,13 @@ export function categoriesPage({ categories }) {
   </li>`).join('')}</ul>` : emptyState({ title: 'No categories yet', text: 'Categories appear once posts are filed under them.', showArchive: false });
   const body = `<div class="wrap"><header class="page-head">${breadcrumbs(crumbs)}<p class="eyebrow">Browse by topic</p><h1>Categories</h1><p class="lede">Every DriveSight article, grouped by what it covers.</p></header>${list}</div>`;
   return shell({
-    head: metaTags({ title: 'Blog categories', description: 'Browse DriveSight blog posts by topic.', canonical }),
+    head: metaTags({
+      title: 'DriveSight Blog Categories: Dash Cam Guides by Topic',
+      description: 'DriveSight blog posts grouped by topic, from parking mode to speed camera alerts. Topics appear once posts are filed under them; every post is on the blog index.',
+      canonical,
+      // An empty directory is not worth indexing; it becomes indexable once posts are filed.
+      noindex: !categories.length,
+    }),
     body,
     jsonLd: [breadcrumbJsonLd(crumbs)],
   });
@@ -554,10 +568,19 @@ export function authorsPage({ authors }) {
     <header>${avatar(a.image?.fileKey ?? a.fileKey, a.name, 'avatar lg')}<h2><a href="${escapeHtml(routePath('author', a.slug))}">${escapeHtml(a.name)}</a></h2></header>
     ${a.bio ? `<p>${escapeHtml(a.bio)}</p>` : ''}
     ${a.posts?.length ? `<ul aria-label="Latest by ${escapeHtml(a.name)}">${a.posts.slice(0, 5).map((p) => `<li><a href="${escapeHtml(routePath('post', p.slug))}">${escapeHtml(p.title)}</a></li>`).join('')}</ul>` : ''}
-  </li>`).join('')}</ul>` : emptyState({ title: 'No authors yet', text: 'Authors appear here once they have published a post.', showArchive: false });
-  const body = `<div class="wrap"><header class="page-head">${breadcrumbs(crumbs)}<p class="eyebrow">The people behind the posts</p><h1>Authors</h1></header>${list}</div>`;
+  </li>`).join('')}</ul>` : `<ul class="author-list"><li class="author-item">
+    <header><h2><a href="${escapeHtml(SITE_AUTHOR.path)}" rel="author">${escapeHtml(SITE_AUTHOR.name)}</a></h2></header>
+    <p>${escapeHtml(SITE_AUTHOR.bio)}</p>
+    <ul><li><a href="${escapeHtml(SITE_AUTHOR.path)}">Profile, background and every guide</a></li><li><a href="${BLOG_PREFIX}">All blog posts</a></li></ul>
+  </li></ul>`;
+  const intro = `<h2>Who writes the DriveSight blog?</h2><p class="lede">${escapeHtml(SITE_AUTHOR.name)} is the independent Android developer who builds the DriveSight dash cam app and writes this blog.</p>`;
+  const body = `<div class="wrap"><header class="page-head">${breadcrumbs(crumbs)}<p class="eyebrow">The people behind the posts</p><h1>Authors</h1>${authors.length ? '' : intro}</header>${list}</div>`;
   return shell({
-    head: metaTags({ title: 'Blog authors', description: 'Writers contributing to the DriveSight blog.', canonical }),
+    head: metaTags({
+      title: 'Who Writes the DriveSight Blog? Authors and Profiles',
+      description: 'The DriveSight blog is written by Cyberlab Automation, the independent Android developer who builds the DriveSight dash cam app. Profile, bio and links.',
+      canonical,
+    }),
     body,
     jsonLd: [breadcrumbJsonLd(crumbs)],
   });
