@@ -485,7 +485,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="feature-section">
         <span class="tech-tag pro">Pro</span>
         <h3>On-Device Re-Encoding with Media3 Transformer</h3>
-        <p>The time-lapse is created using Android's Media3 Transformer library, which applies a <code>SpeedChangeEffect</code> to the video during re-encoding. The entire process runs locally on your phone using hardware-accelerated video codecs.</p>
+        <p>The time-lapse is created using Android's <a href="https://developer.android.com/media/media3/transformer" rel="noopener" target="_blank">Media3 Transformer library</a>, which applies a <a href="https://github.com/androidx/media/blob/release/libraries/effect/src/main/java/androidx/media3/effect/SpeedChangeEffect.java" rel="noopener" target="_blank"><code>SpeedChangeEffect</code></a> to the video during re-encoding. The entire process runs locally on your phone using hardware-accelerated video codecs.</p>
         <p>Processing time depends on your phone's hardware and the clip length. A 10-minute clip at 8x typically takes 60-90 seconds to process on a mid-range Android phone from the last 3 years. Flagship phones with dedicated video encode hardware will be faster.</p>
         <p>The output file is saved as MP4 in the same folder as the original clip. If the original was named <code>clip_2026-04-04.mp4</code>, the 8x time-lapse is saved as <code>clip_2026-04-04_8x.mp4</code>. The original clip is not modified.</p>
     </div>

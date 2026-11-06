@@ -421,14 +421,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <ul style="margin-bottom:24px; padding-left:24px; line-height:2.2;">
         <li><strong>Monitor continuously</strong> — the camera stays on and analyzes motion with the screen dimmed to near-zero</li>
         <li><strong>Save clips on trigger</strong> — when motion is detected, the app saves the footage automatically</li>
-        <li><strong>Act as a deterrent</strong> — the phone's flashlight fires a strobe pattern when triggered to alert people that they're being recorded</li>
+        <li><strong>Act as a deterrent</strong> — the phone's <a href="https://developer.android.com/reference/android/hardware/camera2/CameraManager#setTorchMode(java.lang.String,%20boolean)" rel="noopener" target="_blank">flashlight</a> fires a strobe pattern when triggered to alert people that they're being recorded</li>
     </ul>
 
     <p>The screen goes dark so the phone isn't broadcasting its presence from your dashboard. From the outside, the car looks unmonitored. When someone approaches, the strobe fires — a visible signal that they've been caught on camera.</p>
 
     <h2>How Motion Detection Works</h2>
 
-    <p>DriveSight uses the phone's camera to detect motion through pixel-level analysis. The app compares successive frames from the camera feed and calculates the percentage of pixels that changed between frames. When that change crosses a threshold, it's flagged as a motion event.</p>
+    <p>DriveSight uses the phone's camera to detect motion through pixel-level analysis. The app compares <a href="https://developer.android.com/media/camera/camerax/analyze" rel="noopener" target="_blank">successive frames from the camera feed</a> and calculates the percentage of pixels that changed between frames. When that change crosses a threshold, it's flagged as a motion event.</p>
 
     <p>This approach is deliberately simple and reliable:</p>
 

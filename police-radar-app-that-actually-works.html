@@ -343,36 +343,36 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <h3>1. Radar detector apps</h3>
 
-    <p>These claim to detect a police radar gun pointed at your car. They show a sweeping radar sweep, a signal-strength meter, sometimes a band readout.</p>
+    <p>Radar detector apps claim to detect a police radar gun pointed at your car. They show a sweeping radar animation, a signal-strength meter, sometimes a band readout.</p>
 
     <div class="verdict bad">
         <span class="label">Does not work, and cannot</span>
         <p>There is no radar receiver in any phone. A radar gun transmits on K-band or Ka-band, roughly 24 and 34 GHz. Your phone's antennas are built for cellular, Wi-Fi, Bluetooth and GPS, and none of them can hear those frequencies. This is a hardware limit, not a software gap, so no update will ever fix it.</p>
     </div>
 
-    <p>Some of these apps listen through the microphone and present the noise as a &ldquo;signal&rdquo;. Others are pure animation with a random number generator behind it. Either way, what you are watching is a screensaver.</p>
+    <p>Some radar detector apps listen through the microphone and present the noise as a &ldquo;signal&rdquo;. Others are pure animation with a random number generator behind it. Either way, what you are watching is a screensaver.</p>
 
     <h3>2. Police scanner apps</h3>
 
-    <p>These stream public safety radio traffic, so you hear dispatch rather than detect enforcement. Search results constantly blend these in with radar apps, which is where a lot of the confusion comes from.</p>
+    <p>Police scanner apps stream public safety radio traffic, so you hear dispatch rather than detect enforcement. Search results constantly blend scanner apps in with radar apps, which is where a lot of the confusion comes from.</p>
 
     <div class="verdict mixed">
         <span class="label">Works, but solves a different problem</span>
-        <p>The audio is real. The catch is that it is usually delayed, it takes attention to listen to while driving, and a growing number of departments have encrypted their radio entirely, which takes them off these apps for good. Useful for following an incident, close to useless for knowing there is a camera a quarter mile ahead.</p>
+        <p>Scanner audio is real. The catch is that it is usually delayed, it takes attention to listen to while driving, and a growing number of departments have encrypted their radio entirely, which takes them off scanner apps for good. Useful for following an incident, close to useless for knowing there is a camera a quarter mile ahead.</p>
     </div>
 
     <h3>3. Radar gun apps</h3>
 
-    <p>These point the opposite direction: they claim to measure how fast another vehicle is moving, using the camera.</p>
+    <p>Radar gun apps point the opposite direction: they claim to measure how fast another vehicle is moving, using the camera.</p>
 
     <div class="verdict bad">
         <span class="label">Not police radar, and not reliable</span>
-        <p>They estimate speed from video frames rather than measuring a doppler shift, so accuracy depends on angle, distance, frame rate and lighting. Fine as a novelty. Nothing to do with being warned about enforcement ahead of you.</p>
+        <p>Radar gun apps estimate speed from video frames rather than measuring a doppler shift, so accuracy depends on angle, distance, frame rate and lighting. Fine as a novelty. Nothing to do with being warned about enforcement ahead of you.</p>
     </div>
 
     <h2>So what actually works?</h2>
 
-    <p>A fourth category, and it is the one that quietly does the job: <strong>alert apps built on data rather than detection</strong>. Instead of listening for a beam, they know in advance where enforcement sits, because most enforcement does not move and the parts that do move often announce themselves.</p>
+    <p>The category that does the job is a fourth one: <strong>alert apps built on data rather than detection</strong>. Instead of listening for a beam, alert apps know in advance where enforcement sits, because most enforcement does not move and the parts that do move often announce themselves.</p>
 
     <div class="compare-wrap">
     <table class="compare">
@@ -388,7 +388,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </table>
     </div>
 
-    <p>That last row covers fixed speed cameras and red light cameras, which never move and can simply be mapped. It covers ALPR plate readers on their poles. It covers patrol cars reported by other drivers. And in DriveSight's case it covers law enforcement aircraft, which broadcast their own identity and position over public ADS-B.</p>
+    <p>The alert and mapping category covers four kinds of enforcement:</p>
+
+    <ul>
+        <li>Fixed speed cameras and red light cameras, which never move and can simply be mapped.</li>
+        <li>ALPR plate readers on their poles, which OpenStreetMap contributors map with the <a href="https://wiki.openstreetmap.org/wiki/Tag:surveillance:type%3DALPR" rel="noopener" target="_blank">surveillance:type=ALPR tag</a>.</li>
+        <li>Patrol cars reported by other drivers.</li>
+        <li>In DriveSight's case, law enforcement aircraft, which broadcast their own identity and position over public ADS-B.</li>
+    </ul>
 
     <img decoding="async" width="1200" height="540" src="assets/real-flock-alert.webp" alt="A real DriveSight camera alert on the drive screen, naming the camera and the distance ahead" class="hero-img" loading="eager">
     <p class="img-caption">An alert that names what is ahead and how far. Distance is the difference between information and a buzz.</p>
@@ -399,12 +406,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="step-card">
         <span class="step-num">1</span><h3>Turn on airplane mode</h3>
-        <p>This one test settles most of it. A genuine alert app depends on data, so with no connection it should tell you it is offline or fall back to whatever it cached. A fake will cheerfully keep sweeping and &ldquo;detecting&rdquo; signals with no connection and no hardware, which tells you the animation was never connected to anything.</p>
+        <p>The airplane-mode test settles most of it. A genuine alert app depends on data, so with no connection it should tell you it is offline or fall back to whatever it cached. A fake will cheerfully keep sweeping and &ldquo;detecting&rdquo; signals with no connection and no hardware, which tells you the animation was never connected to anything.</p>
     </div>
 
     <div class="step-card">
         <span class="step-num">2</span><h3>Look for a named data source</h3>
-        <p>Open the map or the about screen and look for where the data comes from: public camera records, an ALPR map layer, ADS-B feeds, community reports. An app that never names a source usually does not have one.</p>
+        <p>Open the app's map or about screen and look for where its data comes from. Named sources look like this:</p>
+        <ul style="margin:12px 0 0;">
+            <li>public camera records</li>
+            <li>an ALPR map layer</li>
+            <li>ADS-B feeds</li>
+            <li>community reports</li>
+        </ul>
+        <p>An app that never names a source usually does not have one.</p>
     </div>
 
     <div class="step-card">
@@ -450,10 +464,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <p><strong>Community reports are only as fresh as the last driver</strong> who passed that spot. They are genuinely useful on busy roads and thin on quiet ones, and they live or die on expiry and false-report flagging.</p>
 
-    <p><strong>Aircraft positions are the most objective of the three</strong>, because the aircraft itself broadcasts its identity and position continuously over ADS-B. There is no crowd to trust and nothing to go stale. We covered that layer in detail in <a href="/police-aircraft-tracker-app">the police aircraft tracker write-up</a>.</p>
+    <p><strong>Aircraft positions are the most objective of the three</strong>, because the aircraft itself broadcasts its identity and position continuously over <a href="https://www.faa.gov/air_traffic/technology/adsb" rel="noopener" target="_blank">ADS-B</a>. There is no crowd to trust and nothing to go stale. We covered that layer in detail in <a href="/police-aircraft-tracker-app">the police aircraft tracker write-up</a>.</p>
 
     <img decoding="async" width="1400" height="652" src="assets/shots/police-aircraft-alert.webp" alt="DriveSight alert identifying a police aircraft overhead with operator, tail number, altitude and distance" class="hero-img" loading="lazy">
-    <p class="img-caption">The most verifiable alert of the three: you can look the tail number up in the FAA registry yourself</p>
+    <p class="img-caption">The most verifiable alert of the three: you can look the tail number up in the <a href="https://registry.faa.gov/aircraftinquiry/Search/NNumberInquiry" rel="noopener" target="_blank">FAA registry</a> yourself</p>
 
     <h2>What to install instead</h2>
 
@@ -475,7 +489,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="faq-item">
         <h3>How can I tell if a radar detector app is fake?</h3>
-        <p>Put the phone in airplane mode and open it. A real alert app needs data and will say it is offline. A fake keeps sweeping and detecting with no connection at all. Other giveaways are no named data source, alerts without distance, and no way to report that something has gone.</p>
+        <p>Put the phone in airplane mode and open the app. A real alert app needs data and will say it is offline. A fake keeps sweeping and detecting with no connection at all. Other giveaways are no named data source, alerts without distance, and no way to report that something has gone.</p>
     </div>
 
     <div class="faq-item">
@@ -490,12 +504,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="faq-item">
         <h3>What is the most accurate police alert app?</h3>
-        <p>It depends on the data, not the branding. Fixed cameras are the most reliable because they never move. Community reports are only as fresh as the last driver through. Aircraft are the most objective, because they broadcast their own position.</p>
+        <p>Accuracy depends on the data, not the branding. Fixed cameras are the most reliable because they never move. Community reports are only as fresh as the last driver through. Aircraft are the most objective, because they broadcast their own position.</p>
     </div>
 
     <div class="faq-item">
         <h3>Is a police radar app legal?</h3>
-        <p>Alert apps that map public camera locations and carry driver reports are legal across the United States, much like navigation apps showing reported hazards. Radar detector hardware has its own restrictions for commercial vehicles and a couple of jurisdictions, but a mapping app is a different thing. Check local rules on mounting and handling a phone while driving.</p>
+        <p>Alert apps that map public camera locations and carry driver reports are legal across the United States, much like navigation apps showing reported hazards. Radar detector hardware has its own restrictions for <a href="https://www.govinfo.gov/content/pkg/CFR-2024-title49-vol5/pdf/CFR-2024-title49-vol5-sec392-71.pdf" rel="noopener" target="_blank">commercial vehicles</a> and a couple of jurisdictions, such as <a href="https://law.lis.virginia.gov/vacode/title46.2/chapter10/section46.2-1079/" rel="noopener" target="_blank">Virginia</a>, but a mapping app is a different thing. Check local rules on mounting and handling a phone while driving.</p>
     </div>
 
     <div class="cta-box">

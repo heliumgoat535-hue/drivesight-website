@@ -392,7 +392,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <h2>What Gets Detected</h2>
 
-    <p>The YOLO model in DriveSight is trained on the standard COCO dataset with additional fine-tuning for dashcam-specific scenarios. It detects objects across four main categories:</p>
+    <p>The YOLO model in DriveSight is trained on the standard <a href="https://cocodataset.org/" rel="noopener" target="_blank">COCO dataset</a>. It detects objects across four main categories:</p>
 
     <div class="detection-grid">
         <div class="detection-card">
@@ -438,9 +438,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <h2>How YOLO Works on Your Phone</h2>
 
-    <p>YOLO — which stands for You Only Look Once — is a neural network architecture designed specifically for real-time object detection. Unlike older detection methods that scanned an image multiple times at different scales, YOLO processes the entire frame in a single pass through the network. That's what makes it fast enough to run on mobile hardware.</p>
+    <p>YOLO — which stands for <a href="https://arxiv.org/abs/1506.02640" rel="noopener" target="_blank">You Only Look Once</a> — is a neural network architecture designed specifically for real-time object detection. Unlike older detection methods that scanned an image multiple times at different scales, YOLO processes the entire frame in a single pass through the network. That's what makes it fast enough to run on mobile hardware.</p>
 
-    <p>DriveSight uses a compact version of YOLO optimized for mobile inference. The model file is bundled inside the app. When you enable AI detection, the app loads the model into memory and begins passing camera frames through it at a fixed interval.</p>
+    <p>DriveSight uses a compact version of YOLO optimized for mobile inference: <a href="https://docs.ultralytics.com/models/yolo26/" rel="noopener" target="_blank">YOLO26n</a>, the nano size of Ultralytics YOLO26, run through Google's <a href="https://ai.google.dev/edge/litert" rel="noopener" target="_blank">LiteRT</a> runtime. The model file is bundled inside the app. When you enable AI detection, the app loads the model into memory and begins passing camera frames through it at a fixed interval.</p>
 
     <div class="tech-box">
         <h3>Technical Specs</h3>

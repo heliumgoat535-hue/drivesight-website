@@ -320,9 +320,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </thead>
         <tbody>
             <tr><td>Fixed speed &amp; red light cameras</td><td>Public records, mapped once</td><td>Highest. They never move</td></tr>
-            <tr><td>ALPR / Flock plate readers</td><td>Community-maintained map layers</td><td>High, with operator and facing direction</td></tr>
+            <tr><td>ALPR / Flock plate readers</td><td>Community-maintained map layers, such as <a href="https://wiki.openstreetmap.org/wiki/Tag:surveillance:type%3DALPR" rel="noopener" target="_blank">OpenStreetMap's ALPR tag</a></td><td>High, with operator and facing direction</td></tr>
             <tr><td>Patrol car reports</td><td>Other drivers, right now</td><td>Only as fresh as the last car through</td></tr>
-            <tr><td>Police aircraft</td><td>Public ADS-B broadcasts</td><td>Objective. The aircraft reports itself</td></tr>
+            <tr><td>Police aircraft</td><td>Public <a href="https://www.faa.gov/air_traffic/technology/adsb" rel="noopener" target="_blank">ADS-B</a> broadcasts</td><td>Objective. The aircraft reports itself</td></tr>
         </tbody>
     </table>
     </div>
@@ -351,7 +351,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <h3>Background execution and battery optimisation</h3>
 
-    <p>Android suspends background apps aggressively, and Samsung, Xiaomi and OnePlus skins are more aggressive still. An alerting app has to run as a foreground service with a persistent notification to survive, and you almost always have to exempt it from battery optimisation by hand in Settings.</p>
+    <p>Android suspends background apps aggressively, and Samsung, Xiaomi and OnePlus skins are more aggressive still. An alerting app has to run as a <a href="https://developer.android.com/develop/background-work/services/fgs" rel="noopener" target="_blank">foreground service</a> with a persistent notification to survive, and you almost always have to exempt it from <a href="https://developer.android.com/training/monitoring-device-state/doze-standby" rel="noopener" target="_blank">battery optimisation</a> by hand in Settings.</p>
 
     <p>If an app alerts fine for five minutes and then goes quiet on the mount, this is the reason nine times out of ten. It is the first thing to check before blaming the app's data.</p>
 
@@ -363,7 +363,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <h3>Android Auto</h3>
 
-    <p>Android Auto limits what any app may display while the car is moving, so a head unit version is necessarily simpler than the phone screen: a map and alerts, not the full interface. That is a platform rule rather than a shortcut by the developer.</p>
+    <p>Android Auto limits what any app may display while the car is moving, through <a href="https://developer.android.com/training/cars/apps/library" rel="noopener" target="_blank">templates built to driver distraction standards</a>, so a head unit version is necessarily simpler than the phone screen: a map and alerts, not the full interface. That is a platform rule rather than a shortcut by the developer.</p>
 
     <img decoding="async" width="675" height="900" src="assets/android-auto-police-nearby.jpg" alt="DriveSight police alert displayed on an Android Auto head unit while driving" class="hero-img img-narrow" loading="lazy">
     <p class="img-caption">The head unit view is deliberately simplified. We covered the full setup in the <a href="/police-alerts-android-auto">Android Auto guide</a>.</p>

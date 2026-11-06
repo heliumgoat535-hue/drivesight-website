@@ -427,14 +427,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="tech-tag free">Free</span>
         <h3>Continuous Loop Recording</h3>
         <p>DriveSight records continuously in segments while you drive. When storage gets full, the oldest unprotected clips are automatically deleted to make room for new ones. You never have to think about managing files. Video storage options include internal storage, SD card (on supported devices), and automatic Google Drive backup — giving you more flexibility than any hardware dashcam in this class.</p>
-        <p><strong>Why this works on a phone:</strong> Modern phones use UFS 3.1 or UFS 4.0 storage that writes data faster than any microSD card in a hardware dashcam. A Class 10 microSD tops out around 10MB/s write speed. Your phone's internal storage writes at 1,000-2,000MB/s. That means zero dropped frames, even at high bitrates. And you are not limited to a 128GB SD card. Most phones have 64-256GB of storage, and you can add more with an SD card on top of that.</p>
+        <p><strong>Why this works on a phone:</strong> Modern phones use UFS 3.1 or UFS 4.0 storage that writes data faster than any microSD card in a hardware dashcam. A Class 10 microSD tops out around 10MB/s write speed. Your phone's internal storage writes at 1,000-2,000MB/s. That means zero dropped frames, even at high bitrates.</p>
+        <p>And you are not limited to a 128GB SD card. Most phones have 64-256GB of storage, and you can add more with an SD card on top of that.</p>
     </div>
 
     <div class="feature-section">
         <span class="tech-tag free">Free</span>
         <h3>1080p and 4K Video Quality</h3>
         <p>Record at 1080p for standard quality or 4K if your phone supports it. The video quality from a phone camera in 2026 is genuinely better than most dedicated dashcam sensors, even expensive ones.</p>
-        <p><span style="font-weight:700">Why this works on a phone:</span> Phone camera sensors have gotten ridiculously good. The main sensor on a 4-year-old Pixel 4a is a 12.2MP Sony IMX363 with 1.4 micron pixels. For comparison, the Sony STARVIS sensor in a $300 Viofo A139 Pro has 2.9 micron pixels on a smaller sensor. The phone wins on dynamic range, color accuracy, and autofocus speed. Add computational HDR that hardware dashcams simply cannot do, and the phone produces footage that looks better in almost every lighting condition. Night time, tunnels, sunrise glare, parking garages. Phones handle all of it because their image signal processors have been optimized by billions of dollars of smartphone R&D.</p>
+        <p><span style="font-weight:700">Why this works on a phone:</span> Phone camera sensors have gotten ridiculously good. The main sensor on a 4-year-old Pixel 4a is a 12.2MP Sony IMX363 with 1.4 micron pixels. For comparison, the Sony STARVIS sensor in a $300 Viofo A139 Pro has 2.9 micron pixels on a smaller sensor. The phone wins on dynamic range, color accuracy, and autofocus speed.</p>
+        <p>Add computational HDR that hardware dashcams simply cannot do, and the phone produces footage that looks better in almost every lighting condition. Night time, tunnels, sunrise glare, parking garages. Phones handle all of it because their image signal processors have been optimized by billions of dollars of smartphone R&D.</p>
     </div>
 
     <!-- ============================================ -->
@@ -449,19 +451,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="feature-section">
         <span class="tech-tag pro">Pro</span>
-        <h3>AI Object Detection (YOLOv8)</h3>
+        <h3>AI Object Detection (YOLO26n)</h3>
         <p>Real-time identification of vehicles, pedestrians, cyclists, and other objects on the road. Bounding boxes are drawn on the live preview and burned into saved video clips so you can see exactly what the AI detected at every moment.</p>
-        <p><span style="font-weight:700">Why this works on a phone:</span> This is the feature that blows hardware dashcams out of the water. Your phone has a dedicated neural processing unit (NPU) or a GPU capable of running machine learning inference. DriveSight runs a YOLOv8 Nano model through TensorFlow Lite, processing frames in real-time entirely on-device. No cloud, no latency, no internet needed. A Snapdragon 700-series chip handles this at 15-20 frames per second. A hardware dashcam would need a custom AI accelerator chip that does not exist in any consumer dashcam under $500. Your phone already has one.</p>
+        <p><span style="font-weight:700">Why this works on a phone:</span> This is the feature that blows hardware dashcams out of the water. Your phone has a dedicated neural processing unit (NPU) or a GPU capable of running machine learning inference. DriveSight runs a YOLO26n model through Google's LiteRT runtime, processing frames in real-time entirely on-device. No cloud, no latency, no internet needed.</p>
+        <p>A Snapdragon 700-series chip runs that detection at about 7 frames per second. A hardware dashcam would need a custom AI accelerator chip that does not exist in any consumer dashcam under $500. Your phone already has one.</p>
     </div>
 
     <img decoding="async" loading="lazy" width="1200" height="540" src="assets/real-ai-detection.jpg" alt="DriveSight AI detection showing bounding boxes around vehicles" class="hero-img">
-    <p class="img-caption">YOLOv8 AI detection running in real-time, identifying vehicles on the road</p>
+    <p class="img-caption">YOLO26n AI detection running in real-time, identifying vehicles on the road</p>
 
     <div class="feature-section">
         <span class="tech-tag pro">Pro</span>
         <h3>336,000+ Camera and Police Alerts</h3>
         <p>Speed cameras, red light cameras, Flock Safety ALPR cameras, and community-reported police speed traps. Audio and visual alerts warn you as you approach enforcement locations. A full map view shows every known camera in your area.</p>
-        <p><span style="font-weight:700">Why this works on a phone:</span> GPS plus a data connection plus a display. That is all it takes, and your phone has all three. The app maintains a database of over 336,000 camera locations and cross-references your GPS position against it in real-time. When you are within range of a camera, you get an alert. A hardware dashcam cannot do this because it does not have cellular data to download the database or the processing power to run real-time geofencing against 336,000 coordinates. Some hardware dashcams partner with apps on your phone for alerts, which means you need your phone anyway. At that point, just use the phone as the dashcam.</p>
+        <p><span style="font-weight:700">Why this works on a phone:</span> GPS plus a data connection plus a display. That is all it takes, and your phone has all three. The app maintains a database of over 336,000 camera locations and cross-references your GPS position against it in real-time. When you are within range of a camera, you get an alert.</p>
+        <p>A hardware dashcam cannot do this because it does not have cellular data to download the database or the processing power to run real-time geofencing against 336,000 coordinates. Some hardware dashcams partner with apps on your phone for alerts, which means you need your phone anyway. At that point, just use the phone as the dashcam.</p>
     </div>
 
     <img decoding="async" loading="lazy" width="800" height="1778" src="assets/real-police-map-38-opt.webp" alt="DriveSight camera alert map showing speed cameras and police locations" class="hero-img">
@@ -479,21 +483,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="tech-tag free">Free</span>
         <h3>Parking Mode with Motion Detection</h3>
         <p>When you park, switch to parking mode. The screen turns off, and the app watches for motion through the camera. When someone walks past your car, bumps it, or tries to break in, a video clip is saved automatically. The phone flashlight can flash as a visible deterrent.</p>
-        <p><span style="font-weight:700">Why this works on a phone:</span> Android foreground services with partial wake locks keep the CPU alive at minimal power while the screen stays off. The camera runs a lightweight motion detection algorithm that compares frame differences without full video encoding, only spinning up the recorder when actual motion is detected. This consumes a fraction of the power that continuous recording uses. A phone with 4,000mAh battery runs parking mode for 4-6 hours. A USB battery bank extends that to 12-24 hours. The total cost of a phone plus battery bank is still less than the hardwire kit most hardware dashcams need for parking mode.</p>
+        <p><span style="font-weight:700">Why this works on a phone:</span> Android foreground services with partial wake locks keep the CPU alive at minimal power while the screen stays off. The camera runs a lightweight motion detection algorithm that compares frame differences without full video encoding, only spinning up the recorder when actual motion is detected. This consumes a fraction of the power that continuous recording uses.</p>
+        <p>A phone with 4,000mAh battery runs parking mode for 4-6 hours. A USB battery bank extends that to 12-24 hours. The total cost of a phone plus battery bank is still less than the hardwire kit most hardware dashcams need for parking mode.</p>
     </div>
 
     <div class="feature-section">
         <span class="tech-tag free">Free</span>
         <h3>Automatic Cloud Backup to Google Drive</h3>
         <p>Crash clips, parking mode events, and manually saved footage are automatically uploaded to your Google Drive. If the phone is destroyed or stolen, your evidence is already in the cloud. Unlike standalone cloud backup apps for mobile that only sync on demand, DriveSight uploads footage automatically the moment a clip is saved.</p>
-        <p><span style="font-weight:700">Why this works on a phone:</span> Your phone has WiFi and cellular connectivity built in. When an important clip is saved, the app queues it for upload to Google Drive using the Drive API. If you are on WiFi (like when you park at home), clips sync in the background. If you have cellular data, crash clips upload immediately after an incident. Every Google account comes with 15GB of free storage. Hardware dashcams that offer cloud backup charge $10-15 per month for their proprietary cloud service and require a separate SIM card or WiFi dongle. Your phone does it for free with infrastructure you already pay for.</p>
+        <p><span style="font-weight:700">Why this works on a phone:</span> Your phone has WiFi and cellular connectivity built in. When an important clip is saved, the app queues it for upload to Google Drive using the Drive API. If you are on WiFi (like when you park at home), clips sync in the background. If you have cellular data, crash clips upload immediately after an incident.</p>
+        <p>Every Google account comes with 15GB of free storage. Hardware dashcams that offer cloud backup charge $10-15 per month for their proprietary cloud service and require a separate SIM card or WiFi dongle. DriveSight Pro does it with storage and connectivity you already pay for.</p>
     </div>
 
     <div class="feature-section">
         <span class="tech-tag pro">Pro</span>
         <h3>Remote Live Viewer</h3>
         <p>Watch your dashcam's live feed from anywhere in the world through a web browser. The connection is peer-to-peer using WebRTC, so there is no relay server and no monthly fee.</p>
-        <p><span style="font-weight:700">Why this works on a phone:</span> WebRTC was designed for real-time video communication between devices. Your phone already supports it natively because it is the same technology that powers video calls. DriveSight uses Firestore for signaling (establishing the connection) and then streams video directly from the dashcam phone to your browser. The video is bandwidth-limited to 500kbps at 480x360 resolution to work on cellular data without burning through your plan. No hardware dashcam offers free peer-to-peer streaming. The ones that have remote viewing charge monthly for a cloud relay service.</p>
+        <p><span style="font-weight:700">Why this works on a phone:</span> WebRTC was designed for real-time video communication between devices. Your phone already supports it natively because it is the same technology that powers video calls. DriveSight uses Firestore for signaling (establishing the connection) and then streams video directly from the dashcam phone to your browser. The video is bandwidth-limited to 500kbps at 480x360 resolution to work on cellular data without burning through your plan.</p>
+        <p>No hardware dashcam offers peer-to-peer streaming. The ones that have remote viewing charge monthly for a cloud relay service.</p>
     </div>
 
     <!-- ============================================ -->
@@ -518,12 +525,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <p>Here is the part that really changed my perspective on dashcams. I started adding up what is actually inside a modern smartphone versus what is inside a $250 hardware dashcam, and the comparison is not even close.</p>
 
-    <div class="callout">
-        <p><strong>What is inside your phone:</strong> A multi-core CPU, a GPU, a neural processing unit, 4-12GB of RAM, 64-256GB of flash storage, a 12-108MP camera sensor with OIS, computational HDR, a 6-axis IMU, multi-constellation GPS, WiFi 6, Bluetooth 5, cellular data, a 4,000-5,000mAh battery, a high-resolution display, a speaker, a flashlight, and an operating system that receives monthly security updates. Total value: $200-1,000 when new. Current value sitting in your drawer: $0.</p>
-    </div>
-
-    <div class="callout">
-        <p><strong>What is inside a $250 hardware dashcam:</strong> A basic ARM processor, 256MB-1GB of RAM, no internal storage (requires SD card sold separately), a 2-5MP sensor, a fixed-focus lens, a basic accelerometer, optional GPS (sometimes sold separately), no connectivity, a supercapacitor or small battery, a 2-inch screen, and firmware that was last updated in 2024. Total value: $250.</p>
+    <div style="overflow-x:auto;margin:28px 0;background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;">
+        <table style="width:100%;border-collapse:collapse;">
+            <thead>
+                <tr><th style="text-align:left;padding:12px 14px;border-bottom:1px solid var(--card-border);color:var(--text-bright);font-size:0.9rem;">Component</th><th style="text-align:left;padding:12px 14px;border-bottom:1px solid var(--card-border);color:var(--text-bright);font-size:0.9rem;">What is inside your phone</th><th style="text-align:left;padding:12px 14px;border-bottom:1px solid var(--card-border);color:var(--text-bright);font-size:0.9rem;">What is inside a $250 hardware dashcam</th></tr>
+            </thead>
+            <tbody>
+                <tr><td style="padding:10px 14px;border-bottom:1px solid var(--card-border);vertical-align:top;font-size:0.95rem;"><strong style="color:var(--text-bright);">Processor</strong></td><td style="padding:10px 14px;border-bottom:1px solid var(--card-border);vertical-align:top;font-size:0.95rem;">A multi-core CPU, a GPU and a neural processing unit</td><td style="padding:10px 14px;border-bottom:1px solid var(--card-border);vertical-align:top;font-size:0.95rem;">A basic ARM processor</td></tr>
+                <tr><td style="padding:10px 14px;border-bottom:1px solid var(--card-border);vertical-align:top;font-size:0.95rem;"><strong style="color:var(--text-bright);">RAM</strong></td><td style="padding:10px 14px;border-bottom:1px solid var(--card-border);vertical-align:top;font-size:0.95rem;">4-12GB</td><td style="padding:10px 14px;border-bottom:1px solid var(--card-border);vertical-align:top;font-size:0.95rem;">256MB-1GB</td></tr>
+                <tr><td style="padding:10px 14px;border-bottom:1px solid var(--card-border);vertical-align:top;font-size:0.95rem;"><strong style="color:var(--text-bright);">Storage</strong></td><td style="padding:10px 14px;border-bottom:1px solid var(--card-border);vertical-align:top;font-size:0.95rem;">64-256GB of flash storage</td><td style="padding:10px 14px;border-bottom:1px solid var(--card-border);vertical-align:top;font-size:0.95rem;">No internal storage (requires SD card sold separately)</td></tr>
+                <tr><td style="padding:10px 14px;border-bottom:1px solid var(--card-border);vertical-align:top;font-size:0.95rem;"><strong style="color:var(--text-bright);">Camera</strong></td><td style="padding:10px 14px;border-bottom:1px solid var(--card-border);vertical-align:top;font-size:0.95rem;">A 12-108MP camera sensor with OIS and computational HDR</td><td style="padding:10px 14px;border-bottom:1px solid var(--card-border);vertical-align:top;font-size:0.95rem;">A 2-5MP sensor with a fixed-focus lens</td></tr>
+                <tr><td style="padding:10px 14px;border-bottom:1px solid var(--card-border);vertical-align:top;font-size:0.95rem;"><strong style="color:var(--text-bright);">Motion sensor</strong></td><td style="padding:10px 14px;border-bottom:1px solid var(--card-border);vertical-align:top;font-size:0.95rem;">A 6-axis IMU</td><td style="padding:10px 14px;border-bottom:1px solid var(--card-border);vertical-align:top;font-size:0.95rem;">A basic accelerometer</td></tr>
+                <tr><td style="padding:10px 14px;border-bottom:1px solid var(--card-border);vertical-align:top;font-size:0.95rem;"><strong style="color:var(--text-bright);">GPS</strong></td><td style="padding:10px 14px;border-bottom:1px solid var(--card-border);vertical-align:top;font-size:0.95rem;">Multi-constellation GPS</td><td style="padding:10px 14px;border-bottom:1px solid var(--card-border);vertical-align:top;font-size:0.95rem;">Optional (sometimes sold separately)</td></tr>
+                <tr><td style="padding:10px 14px;border-bottom:1px solid var(--card-border);vertical-align:top;font-size:0.95rem;"><strong style="color:var(--text-bright);">Connectivity</strong></td><td style="padding:10px 14px;border-bottom:1px solid var(--card-border);vertical-align:top;font-size:0.95rem;">WiFi 6, Bluetooth 5, cellular data</td><td style="padding:10px 14px;border-bottom:1px solid var(--card-border);vertical-align:top;font-size:0.95rem;">None</td></tr>
+                <tr><td style="padding:10px 14px;border-bottom:1px solid var(--card-border);vertical-align:top;font-size:0.95rem;"><strong style="color:var(--text-bright);">Power</strong></td><td style="padding:10px 14px;border-bottom:1px solid var(--card-border);vertical-align:top;font-size:0.95rem;">A 4,000-5,000mAh battery</td><td style="padding:10px 14px;border-bottom:1px solid var(--card-border);vertical-align:top;font-size:0.95rem;">A supercapacitor or small battery</td></tr>
+                <tr><td style="padding:10px 14px;border-bottom:1px solid var(--card-border);vertical-align:top;font-size:0.95rem;"><strong style="color:var(--text-bright);">Display and extras</strong></td><td style="padding:10px 14px;border-bottom:1px solid var(--card-border);vertical-align:top;font-size:0.95rem;">A high-resolution display, a speaker and a flashlight</td><td style="padding:10px 14px;border-bottom:1px solid var(--card-border);vertical-align:top;font-size:0.95rem;">A 2-inch screen</td></tr>
+                <tr><td style="padding:10px 14px;border-bottom:1px solid var(--card-border);vertical-align:top;font-size:0.95rem;"><strong style="color:var(--text-bright);">Software</strong></td><td style="padding:10px 14px;border-bottom:1px solid var(--card-border);vertical-align:top;font-size:0.95rem;">An operating system that receives monthly security updates</td><td style="padding:10px 14px;border-bottom:1px solid var(--card-border);vertical-align:top;font-size:0.95rem;">Firmware that was last updated in 2024</td></tr>
+                <tr><td style="padding:10px 14px;vertical-align:top;font-size:0.95rem;"><strong style="color:var(--text-bright);">Value</strong></td><td style="padding:10px 14px;vertical-align:top;font-size:0.95rem;">$200-1,000 when new; $0 sitting in your drawer</td><td style="padding:10px 14px;vertical-align:top;font-size:0.95rem;">$250</td></tr>
+            </tbody>
+        </table>
     </div>
 
     <p>The phone wins in every single hardware category except heat tolerance. And even that gap is closing as phone manufacturers improve thermal management with vapor chambers and graphene heat spreaders.</p>

@@ -500,7 +500,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <!-- ============================================ -->
     <h2>Does My Phone Support Dual Camera Recording?</h2>
 
-    <p>Dual camera recording works on Android devices that expose both front and rear cameras via the Android Camera2 API. This covers the large majority of phones made after 2018. A small number of older or heavily manufacturer-restricted devices limit third-party apps to a single active camera stream at a time.</p>
+    <p>Dual camera recording works on Android devices that expose both front and rear cameras via the <a href="https://source.android.com/docs/core/camera/concurrent-streaming" rel="noopener" target="_blank">Android Camera2 API</a>. This covers the large majority of phones made after 2018. A small number of older or heavily manufacturer-restricted devices limit third-party apps to a single active camera stream at a time.</p>
 
     <div class="callout">
         <p><strong>Quick test:</strong> Open DriveSight, go to Settings, and look for the Dual Camera toggle. If the option is visible and tappable (with a Pro subscription active), your phone supports it. If the toggle is greyed out, your device's camera driver restricts simultaneous streams.</p>
@@ -527,7 +527,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <div class="faq-item">
         <h3>Can an Android phone record front and rear cameras at the same time?</h3>
-        <p>Yes, on supported devices. DriveSight uses the Android Camera2 API to open both camera streams simultaneously. The front camera records the road while the rear records the interior. Most phones made after 2018 support this.</p>
+        <p>Yes, on supported devices. DriveSight uses the <a href="https://developer.android.com/reference/android/hardware/camera2/CameraManager#getConcurrentCameraIds()" rel="noopener" target="_blank">Android Camera2 API</a> to open both camera streams simultaneously. The front camera records the road while the rear records the interior. Most phones made after 2018 support this.</p>
     </div>
 
     <div class="faq-item">

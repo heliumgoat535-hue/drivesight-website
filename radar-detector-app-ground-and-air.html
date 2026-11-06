@@ -398,7 +398,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <img decoding="async" width="1400" height="652" src="assets/shots/flock-camera-ahead.webp" alt="DriveSight warning of a Flock licence plate reader 396 metres ahead on Rib Mountain Drive" class="hero-img" loading="lazy">
     <p class="img-caption">A plate reader called out by street and distance, while a second USB camera records in the corner</p>
 
-    <p>That data comes from the community-maintained ALPR layer in OpenStreetMap, which is kept current by contributors and the DeFlock project. Because it is mapped rather than scraped from a frozen list, it carries useful detail per camera: who operates it, and which direction it faces. A reader pointed away from your lane matters a lot less than one pointed at it. We wrote more about how these cameras work in <a href="/flock-safety-cameras-explained">Flock Safety ALPR cameras explained</a>.</p>
+    <p>That data comes from the community-maintained <a href="https://wiki.openstreetmap.org/wiki/Tag:surveillance:type%3DALPR" rel="noopener" target="_blank">ALPR layer in OpenStreetMap</a>, which is kept current by contributors and the <a href="https://deflock.org/" rel="noopener" target="_blank">DeFlock project</a>. Because it is mapped rather than scraped from a frozen list, it carries useful detail per camera: who operates it, and which direction it faces. A reader pointed away from your lane matters a lot less than one pointed at it. We wrote more about how these cameras work in <a href="/flock-safety-cameras-explained">Flock Safety ALPR cameras explained</a>.</p>
 
     <h3>How early the warnings arrive</h3>
 
@@ -408,14 +408,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <p>This is where the two approaches stop overlapping entirely.</p>
 
-    <p>Almost every aircraft in the sky continuously broadcasts its identity, position, altitude and heading over ADS-B, an unencrypted signal designed for air traffic safety. It is public by design. Flight tracking websites have rebroadcast it for years, and anyone with a cheap receiver can pull it out of the air themselves.</p>
+    <p>Almost every aircraft in the sky continuously broadcasts its identity, position, altitude and heading over <a href="https://www.faa.gov/air_traffic/technology/adsb" rel="noopener" target="_blank">ADS-B</a>, an unencrypted signal designed for air traffic safety. It is public by design. Flight tracking websites have rebroadcast it for years, and anyone with a cheap receiver can pull it out of the air themselves.</p>
 
-    <p>DriveSight polls a public ADS-B feed for aircraft near your GPS position every 30 seconds. Each aircraft carries a unique ICAO hex code, and the app checks every one of them against a watchlist of roughly 2,700 known law enforcement and government aircraft that ships inside the app. That list comes from the open source plane-alert-db project, which catalogues police helicopters, fixed-wing surveillance aircraft, and government airframes along with their operators.</p>
+    <p>DriveSight polls a public ADS-B feed, <a href="https://adsb.lol/" rel="noopener" target="_blank">adsb.lol</a>, for aircraft near your GPS position every 30 seconds. Each aircraft carries a unique ICAO hex code, and the app checks every one of them against a watchlist of roughly 2,700 known law enforcement and government aircraft that ships inside the app. That list comes from the open source <a href="https://github.com/sdr-enthusiasts/plane-alert-db" rel="noopener" target="_blank">plane-alert-db project</a>, which catalogues police helicopters, fixed-wing surveillance aircraft, and government airframes along with their operators.</p>
 
     <img decoding="async" width="1400" height="652" src="assets/shots/police-aircraft-alert.webp" alt="DriveSight police aircraft overhead alert showing operator, tail number, aircraft type, distance and altitude during a drive" class="hero-img" loading="lazy">
     <p class="img-caption">A police aircraft alert mid-drive: operator, tail number, model, distance and altitude, with the dashcam still rolling</p>
 
-    <p>When a match turns up inside your alert radius, the banner tells you who it belongs to, its tail number, the aircraft model, how far away it is, how high it is flying, and which way it is heading. You can look that tail number up in the FAA registry yourself and confirm it.</p>
+    <p>When a match turns up inside your alert radius, the banner tells you who it belongs to, its tail number, the aircraft model, how far away it is, how high it is flying, and which way it is heading. You can look that tail number up in the <a href="https://registry.faa.gov/aircraftinquiry/Search/NNumberInquiry" rel="noopener" target="_blank">FAA registry</a> yourself and confirm it.</p>
 
     <p>Two details keep the feature usable rather than annoying. The radius is yours to set, from 5 miles if you only want to hear about aircraft genuinely overhead, out to 250 miles if you would rather watch the whole region. And the same aircraft will not alert you twice inside five minutes, so a helicopter orbiting a scene nearby announces itself once instead of every thirty seconds.</p>
 
@@ -432,7 +432,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <p><strong>Aerial speed enforcement</strong> is police aircraft traffic enforcement: an officer in a plane or helicopter measures your speed from the air and radios a patrol car on the ground to pull you over. It is worth being specific about how it works, because it is the clearest case for watching the sky.</p>
 
-    <p>Aircraft speed enforcement generally does not involve radar. An observer in the plane starts a timer as your car crosses one painted marker on the shoulder and stops it at the next. The distance between those markers is known precisely, so the arithmetic gives your average speed. A radio call sends a ground unit ahead to make the stop.</p>
+    <p>Aircraft speed enforcement generally does not involve radar. An observer in the plane starts a timer as your car crosses one painted marker on the shoulder and stops it at the next. The distance between those markers is known precisely, so the arithmetic gives your average speed. A radio call sends a ground unit ahead to make the stop. The Minnesota State Patrol describes the same method on its <a href="https://dps.mn.gov/divisions/msp/state-patrol-dashboard/flight-section-dashboard/common-flight-missions" rel="noopener" target="_blank">flight section page</a>.</p>
 
     <p>Nothing is ever aimed at your vehicle. No radar, no laser, no signal of any kind. The most sophisticated detector on the market will sit there silent while your speed is being measured from 3,000 feet, and the first hint of trouble is a cruiser pulling out a mile later.</p>
 
