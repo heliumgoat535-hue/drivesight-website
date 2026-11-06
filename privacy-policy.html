@@ -26,7 +26,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy for Dashcam AI App and Data Use</title>
-    <meta name="description" content="DriveSight privacy policy from Cyberlab Automation. How we handle your data, video recordings, location history, and backups in the phone dashcam app.">
+    <meta name="description" content="DriveSight privacy policy: what the dash cam app keeps on your phone, what it sends for alerts, analytics and backup, who receives it, and what you can turn off.">
     <link rel="canonical" href="https://phonedashcam.com/privacy-policy">
     <script type="application/ld+json">
     {
@@ -67,96 +67,122 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
     <h1>DriveSight Privacy Policy &amp; Data Practices</h1>
-    <p class="updated">Last updated: March 5, 2026</p>
-    <p>DriveSight ("the App") is developed and operated by Cyberlab Automation ("we", "us", or "our"). This Privacy Policy explains how we collect, use, and protect your information when you use our App.</p>
+    <p class="updated">Last updated: November 6, 2026</p>
+    <p>DriveSight ("the App") is an Android dash cam app made by Cyberlab Automation ("we", "us"). This policy explains what the App keeps on your phone, what it sends off your phone, who receives it, and what you can turn off. It covers the App as it works today. Our separate SpeedSight app has <a href="/speedsight-privacy-policy">its own policy</a>.</p>
 
-    <h2>Information We Collect</h2>
-
-    <h3>Camera Data</h3>
+    <h2>The short version</h2>
     <ul>
-        <li>The App uses your device's camera to provide dashcam recording and AI object detection features.</li>
-        <li>All video recordings are stored locally on your device. We do not upload, transmit, or access your video recordings.</li>
-        <li>Camera frames are processed on-device using AI models for real-time object detection. No images or video are sent to external servers for processing.</li>
+        <li>Video, audio and AI detection stay on your phone. Video leaves the phone only if you turn on Google Drive backup (to your own Drive), open the parking mode live view, or when parking mode uploads a still photo of someone near your car.</li>
+        <li>To give you alerts, the App sends your location to the services that answer: our own servers and the outside services listed below.</li>
+        <li>The App sends usage events and crash reports to Google Firebase and PostHog, and subscription screens come from Superwall.</li>
+        <li>Animals the App detects during a drive are saved, with their exact location, to a public wildlife map. Nothing that identifies you is attached.</li>
+        <li>There are no ads in the App and we do not sell your data.</li>
+        <li>There are no accounts. We never ask for your name, email address or phone number.</li>
     </ul>
 
-    <h3>Location Data</h3>
+    <h2>What stays on your phone</h2>
     <ul>
-        <li>The App collects GPS location data to provide trip tracking, wildlife sighting mapping, speed monitoring, police alert proximity, and camera proximity alerts.</li>
-        <li>Location data associated with wildlife sightings may be uploaded anonymously to our community heatmap database to show wildlife activity zones to other users.</li>
-        <li>We do not sell or share your precise location data with third parties for advertising or marketing purposes.</li>
+        <li><strong>Recordings:</strong> dash cam video, audio, photos and saved clips are stored on your phone or SD card. Old recordings are deleted automatically by your loop recording setting.</li>
+        <li><strong>AI detection:</strong> camera frames are checked for people, vehicles and animals on the phone itself. Frames are not sent anywhere for this.</li>
+        <li><strong>Trips:</strong> your routes, distances and speeds are stored on the phone.</li>
+        <li><strong>Sensors:</strong> the light sensor and accelerometer (night mode, crash and hard-braking detection, mount detection) are read on the phone.</li>
+        <li><strong>Settings</strong>, and the email address of the Google account you pick for Drive backup, stay on the phone.</li>
     </ul>
 
-    <h3>Device Sensors</h3>
+    <h2>Location sent for alerts and maps</h2>
+    <p>The App uses your precise GPS location, including in the background while it is recording a drive or in parking mode. To fetch alerts and map data it sends your location, or an area around it, to these services:</p>
     <ul>
-        <li>The App uses the ambient light sensor to detect night mode conditions.</li>
-        <li>The App uses the accelerometer to detect impacts and phone mount status.</li>
-        <li>Sensor data is processed locally and is not transmitted to external servers.</li>
+        <li><strong>Police reports:</strong> an area around you goes to our server, which rounds it to about 1 km and asks OpenWeb Ninja for community police reports (from Waze). Our server keeps the answer in memory for up to 5 minutes and does not store your location.</li>
+        <li><strong>Speed and license plate cameras:</strong> an area around you goes to our server, which looks up cameras in OpenStreetMap through the Overpass API (overpass-api.de, or overpass.kumi.systems as a backup). Answers are cached in memory for up to 6 hours; your location is not stored.</li>
+        <li><strong>Speed limits:</strong> while you drive, your position goes to our server about every 10 seconds. In the US it is answered from our own map files; elsewhere our server asks the Overpass API. Answers are cached in memory; your location is not stored.</li>
+        <li><strong>Police, government and military aircraft alerts (Pro):</strong> your position goes directly from your phone to adsb.lol, a public flight-tracking service, every 30 seconds during a drive and while the police map is open.</li>
+        <li><strong>Severe weather warnings:</strong> your position (to about 10 m) goes directly to the weather service for where you are: the US National Weather Service, Environment Canada or Germany's DWD. MeteoAlarm receives only your country. The Brazil, Mexico and UK feeds receive no location.</li>
+        <li><strong>Street names and addresses:</strong> your position goes to Android's built-in geocoder, run by Google Play services.</li>
+        <li><strong>Maps:</strong> map images come from OpenStreetMap and OpenFreeMap. Their servers see which area you are looking at.</li>
     </ul>
 
-    <h3>Audio Data</h3>
+    <h2>Community data we keep</h2>
     <ul>
-        <li>The App may record audio as part of dashcam video recording when the microphone is enabled by the user.</li>
-        <li>Audio recordings are stored locally on your device. We do not access or transmit audio data.</li>
+        <li><strong>Wildlife map:</strong> when the App's AI detects an animal during a drive, it saves the exact location, the species, the time, whether it was night, and how it was detected. This record is public: every user of the App can see it on the wildlife map. No account, device ID or name is attached to it. These records are kept indefinitely, there is currently no setting to stop sending them, and because they cannot be linked back to you we cannot find and delete yours on request.</li>
+        <li><strong>Traffic map:</strong> at the end of each drive the App sends up to 200 points along your route with how busy the road was (vehicles per mile). Points are rounded to about 110 m, shuffled, and anything within 400 m of where the drive started or ended is dropped. No ID is attached. Each point is stored with a 90-day expiry date and is visible to all users.</li>
     </ul>
 
-    <h3>Usage and Analytics Data</h3>
+    <h2>Parking mode (Pro)</h2>
     <ul>
-        <li>We use Google Firebase Analytics and Firebase Crashlytics to collect anonymous usage statistics and crash reports to improve App performance and stability.</li>
-        <li>This data may include: device type, operating system version, app version, feature usage patterns, and crash logs.</li>
-        <li>This data does not include personally identifiable information, video content, or precise location data.</li>
+        <li><strong>Live view:</strong> when you open your car in a web browser, video from the phone's camera and sound from its microphone go directly from the phone to that browser, encrypted. They do not pass through our servers and we do not record them. The microphone is on while a viewer is connected. Talk-back audio from the viewer plays through the phone's speaker.</li>
+        <li><strong>Connecting the viewer:</strong> to set up the connection, the phone stores a session record on our Firebase database: a session ID, a PIN, a secret key, the phone's network addresses, the cabin temperature reading and motion alerts. The session record is removed when parking mode ends normally; a small record linking the PIN to the session stays. The phone also contacts Google's STUN servers to find its public network address.</li>
+        <li><strong>Photos of people near your car:</strong> when parking mode sees a person or motion, it uploads a still photo to our Firebase Storage so your viewer can see it. These photos are deleted automatically after 7 days.</li>
+        <li><strong>Alerts to your viewer:</strong> our server sends push notifications with the alert text, a link to the photo and the cabin temperature to the browser that is viewing your car, through Firebase Cloud Messaging.</li>
     </ul>
 
-    <h2>How We Use Your Information</h2>
+    <h2>Google Drive backup (Pro, optional)</h2>
     <ul>
-        <li>To provide real-time AI object detection and dashcam recording features</li>
-        <li>To track trips and wildlife sightings</li>
-        <li>To display community wildlife heatmaps using anonymized, aggregated sighting data</li>
-        <li>To provide camera and police proximity alerts based on your location</li>
-        <li>To improve app performance and fix bugs through anonymous analytics</li>
+        <li>Backup starts only after you sign in with a Google account in Settings. The App asks only for access to files it creates in your Drive; it cannot see your other files. Your email address stays on the phone.</li>
+        <li>Once backup is on, crash clips and parking mode clips upload as soon as they are saved, and crash, photo and parking threat clips are also checked for upload every hour. You can also upload clips yourself from the Clips screen.</li>
+        <li>Clips include their sound. Photos include the GPS location in the file.</li>
+        <li>Your clips go to your own Google Drive. We cannot see them.</li>
     </ul>
 
-    <h2>Data Storage and Security</h2>
+    <h2>Analytics, crash reports and subscriptions</h2>
     <ul>
-        <li>Video recordings, trip data, and app settings are stored locally on your device.</li>
-        <li>Community heatmap data is stored on secure Firebase servers.</li>
-        <li>We implement reasonable security measures to protect any data transmitted to our servers.</li>
-        <li>Old video recordings are automatically deleted based on your loop storage settings to manage device storage.</li>
+        <li><strong>Anonymous sign-in:</strong> Firebase gives each install a random ID so the App can use our database. It is not linked to your name or email.</li>
+        <li><strong>Google Firebase Analytics:</strong> events such as trips started and ended, animals detected, clips locked, screens viewed and your onboarding answers (for example what kind of driving you do), plus device model, Android version, app version, an app instance ID, the advertising ID, and an approximate location that Google works out from your IP address. This is always on.</li>
+        <li><strong>Google Firebase Crashlytics:</strong> crash reports and diagnostic logs, with device model, Android version and app version.</li>
+        <li><strong>PostHog</strong> (US servers): events such as clips played, saved, shared or uploaded, paywalls shown, parking mode turned on or off, viewer connections, and purchases, plus device model, Android version, language, time zone, mobile carrier and screen size. These are linked to the random Firebase ID above. PostHog receives your IP address. Screen recording is not used.</li>
+        <li><strong>Superwall:</strong> shows the subscription screens. It receives a random ID, device details, which screens were shown and your purchase records.</li>
+        <li><strong>Google Play:</strong> handles payments. We never see your card details. Play Integrity checks that requests come from the real App.</li>
+        <li><strong>Firebase Cloud Messaging:</strong> stores a push token so we can send announcements.</li>
     </ul>
 
-    <h2>Data Sharing</h2>
-    <p>We do not sell your personal information. We may share data only in the following circumstances:</p>
+    <h2>What we do not collect</h2>
     <ul>
-        <li><strong>Anonymous community data:</strong> Aggregated, anonymized wildlife sighting locations are shared with other App users through the community heatmap feature.</li>
-        <li><strong>Service providers:</strong> We use Google Firebase for analytics and crash reporting.</li>
-        <li><strong>Legal requirements:</strong> We may disclose information if required by law or to protect our rights.</li>
+        <li>Your name, email address, phone number, contacts or messages.</li>
+        <li>Anything you type: the App has no text fields.</li>
+        <li>The crash screen's emergency call button only opens your phone's dialer. Sharing a crash report or trip only sends it to the app you choose.</li>
     </ul>
 
-    <h2>Your Choices</h2>
+    <h2>Advertising and selling data</h2>
+    <p>The App shows no ads. Firebase Analytics collects the advertising ID as part of its analytics; we use it only to understand how the App is used, not to show you ads. We do not sell your data.</p>
+
+    <h2>Security</h2>
+    <p>All data the App sends uses an encrypted connection (HTTPS or TLS). The parking mode live view is encrypted end to end between the phone and the viewing browser.</p>
+
+    <h2>How long data is kept, and deleting it</h2>
     <ul>
-        <li>You can disable the microphone in App settings to prevent audio recording.</li>
-        <li>You can toggle detection categories (animals, people, vehicles) on or off.</li>
-        <li>You can delete recorded video clips at any time from within the App.</li>
-        <li>You can uninstall the App at any time, which removes all locally stored data.</li>
+        <li><strong>On your phone:</strong> delete clips and trips in the App at any time. Uninstalling the App removes everything it stored on the phone.</li>
+        <li><strong>On our servers:</strong> parking photos are deleted after 7 days. Traffic points carry a 90-day expiry date. Wildlife sightings are kept indefinitely.</li>
+        <li><strong>Analytics and crash data</strong> are kept by Google, PostHog and Superwall under their own retention settings.</li>
+        <li>Because the App has no accounts, the data on our servers is not tied to your name or email, so in most cases we cannot find it to delete it. Email us and we will delete anything we can identify as yours.</li>
     </ul>
 
-    <h2>Children's Privacy</h2>
-    <p>The App is not directed at children under 13. We do not knowingly collect personal information from children under 13. If you believe we have inadvertently collected such information, please contact us so we can delete it.</p>
+    <h2>Your choices</h2>
+    <ul>
+        <li>Turn off the microphone in Settings to record video without sound.</li>
+        <li>Turn police, camera, aircraft, traffic and weather alerts on or off in Settings. Some lookups still run while a map is on screen: the live map overlay loads nearby police reports, and aircraft are fetched during Pro drives even with military alerts off.</li>
+        <li>Turn animal, people and vehicle detection on or off in Settings.</li>
+        <li>Leave Google Drive backup off, or sign out of it, to keep every clip on the phone.</li>
+        <li>Parking mode and its live view run only when you start them.</li>
+        <li>Uninstall the App at any time.</li>
+    </ul>
 
     <h2>Permissions</h2>
-    <p>The App requests the following permissions:</p>
     <ul>
-        <li><strong>Camera:</strong> Required for dashcam recording and AI object detection</li>
-        <li><strong>Microphone:</strong> Optional, for audio recording with video</li>
-        <li><strong>Location:</strong> Required for trip tracking, wildlife mapping, speed monitoring, police alerts, and camera alerts</li>
-        <li><strong>Storage:</strong> Required to save video recordings to your device</li>
-        <li><strong>Foreground Service:</strong> Required to continue recording while the App is in the background</li>
+        <li><strong>Camera:</strong> dash cam recording, photos and AI detection.</li>
+        <li><strong>Microphone:</strong> sound in recordings and the parking mode live view. Optional.</li>
+        <li><strong>Location (precise, including background):</strong> speed, trips, alerts, speed limits and maps, including while the App records in the background.</li>
+        <li><strong>Notifications:</strong> alerts and the recording notification.</li>
+        <li><strong>Foreground service:</strong> keeps recording when another app is on screen.</li>
+        <li><strong>Network:</strong> alerts, maps, backup and the live view.</li>
+        <li><strong>Advertising ID:</strong> requested by Firebase Analytics, as described above.</li>
     </ul>
 
-    <h2>Changes to This Policy</h2>
-    <p>We may update this Privacy Policy from time to time. We will notify you of any changes by updating the "Last updated" date at the top of this policy. Continued use of the App after changes constitutes acceptance of the updated policy.</p>
+    <h2>Children</h2>
+    <p>The App is not directed at children under 13, and we do not knowingly collect information from them. If you think a child has used the App, contact us and we will delete what we can identify.</p>
 
-    <h2>Contact Us</h2>
-    <p>If you have questions or concerns about this Privacy Policy, please contact us at:</p>
-    <p>Email: <a href="mailto:support@phonedashcam.com">support@phonedashcam.com</a></p>
+    <h2>Changes to this policy</h2>
+    <p>When the App changes what it sends, we update this page and the date at the top.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about this policy: <a href="mailto:support@phonedashcam.com">support@phonedashcam.com</a></p>
 </body>
 </html>
